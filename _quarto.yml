@@ -1,0 +1,52 @@
+project:
+  type: website
+  output-dir: docs
+  execute-dir: project
+  render:
+    - index.qmd
+    - methodology.qmd
+    - analyses/*.qmd
+    - ai/ai_interactions.md
+
+website:
+  title: "How Fast Does Normal Happen?"
+  description: "A reproducible Monte Carlo investigation of the Central Limit Theorem."
+  navbar:
+    background: "#17212b"
+    foreground: "#f6f3ee"
+    left:
+      - text: "Overview"
+        href: index.qmd
+      - text: "Methodology"
+        href: methodology.qmd
+      - text: "Required Distributions"
+        menu:
+          - analyses/01_standard_normal.qmd
+          - analyses/02_six_sided_die.qmd
+          - analyses/03_exponential.qmd
+          - analyses/04_binomial_small.qmd
+          - analyses/05_cauchy.qmd
+      - text: "Extra Credit"
+        menu:
+          - analyses/06_extra_dependent_failure.qmd
+          - analyses/07_extra_nonidentical_bernoulli.qmd
+          - analyses/08_extra_age_at_death.qmd
+      - text: "AI & Reproducibility"
+        href: ai/ai_interactions.md
+  page-footer:
+    left: "Math 167R Project 1"
+    right: "Built with R + Quarto"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-tools: true
+    smooth-scroll: true
+    number-sections: true
+
+execute:
+  warning: false
+  message: false

@@ -1,0 +1,48 @@
+---
+title: "05 · Cauchy"
+subtitle: "A heavy-tail case where the ordinary finite-variance CLT does not apply"
+---
+
+```{r}
+root <- if (file.exists("R/config.R")) "." else ".."
+source(file.path(root, "R/config.R")); source(file.path(root, "R/distributions.R"))
+source(file.path(root, "R/diagnostics.R")); source(file.path(root, "R/simulate_means.R"))
+source(file.path(root, "R/plotting.R")); source(file.path(root, "R/report_helpers.R"))
+spec <- population_spec("cauchy"); rows <- population_rows(spec$id)
+```
+
+## Research Question
+
+What does increasing `n` do when the population is Cauchy and has no finite population mean or variance?
+
+## Population / Process and Theory
+
+`X_i ~ Cauchy(location = 0, scale = 1)`. The population mean and variance do not exist. This project therefore does not report a population mean, population SD, or `sigma / sqrt(n)` for this case.
+
+## CLT Assumptions and Prediction
+
+Independence and identical distribution hold, but finite variance fails. I expect extreme observations to remain influential and ordinary mean-based normal convergence to behave differently from the finite-variance cases.
+
+## Simulation Design and Evidence
+
+Use the ordinary grid plus larger values when computationally useful. Examine histograms and Q-Q plots cautiously, and use the running-mean visualization as a sensitivity diagnostic.
+
+```{r}
+plot_cauchy_running_mean(5000L)
+```
+
+```{r}
+if (is.null(rows) || nrow(rows) == 0L) {
+  cat("Run scripts/run_project.R after entering student_seed. No theoretical normal overlay or SE formula is available for Cauchy.\n")
+} else {
+  print(rows)
+}
+```
+
+## Final Selected N and Interpretation
+
+```{r, results='asis'}
+report_selection(spec$id)
+```
+
+The `N/A` decision is limited to this ordinary sample-mean criterion and the tested range through `n = 5,000`; it is not a claim that every possible robust estimator fails. The project correctly leaves population mean, population SD, and `sigma / sqrt(n)` as `N/A`.

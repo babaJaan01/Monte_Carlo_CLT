@@ -1,0 +1,32 @@
+---
+title: "Methodology"
+subtitle: "A transparent, evidence-based definition of approximately normal"
+---
+
+## The simulation unit
+
+For a candidate sample size `n`, one repetition generates `n` observations and computes one sample mean. Repeating this `B = 10,000` times produces the simulated sampling distribution of the sample mean.
+
+The project uses a coarse-to-fine search. The initial grid is deliberately broad. After the coarse run is inspected, a human-selected transition center can be entered in `R/config.R`; the runner then adds nearby values for a refined search. No selected `n` is inferred solely from a p-value or hard-coded in the code.
+
+## Evidence used together
+
+Each candidate sample size is assessed with a histogram, a theoretical normal overlay when appropriate, a normal Q-Q plot, skewness, excess kurtosis, empirical mean, empirical SE, theoretical mean and SE where valid, and `qq_rmse`.
+
+The Standard Normal population is simulated repeatedly as a calibration benchmark. Its diagnostic ranges show how much skewness, kurtosis, and Q-Q RMSE can fluctuate at `B = 10,000` even when the sampling distribution is exactly normal. This benchmark contextualizes, rather than mechanically decides, the other cases.
+
+## Assumptions and exceptions
+
+The ordinary iid finite-variance CLT does not apply unchanged to every case. Cauchy has no population mean or variance. The dependent failure process requires covariance terms in the variance of a mean. The basketball process is independent but non-identically distributed and uses the variance formula `sum(p_i * (1 - p_i)) / n^2`, not an iid shortcut.
+
+The age-at-death population is synthetic and uses the instructor-provided discrete mixture exactly; it is not historical mortality data.
+
+## Decision rule
+
+The final selected `n`, when one exists, is the smallest tested value at which the evidence is jointly persuasive: the histogram is reasonably bell-shaped, the Q-Q plot lacks substantial systematic curvature, diagnostics are reasonably close to the Normal benchmark, theory agrees with simulation where applicable, and the conclusion remains stable at nearby larger values. The final report must state uncertainty and limitations.
+
+## Sensitivity to the random seed
+
+The primary run uses the confirmed student seed `7616`. The pipeline repeats the same simulation design with seed `7617` and stores those rows in `results/sensitivity_diagnostics.csv`. Exact skewness, kurtosis, and Q-Q RMSE values move because they are Monte Carlo estimates, but the broad conclusions are not seed-shopped: the exact Normal case remains exact in theory, Cauchy remains highly unstable through `n = 5,000`, and the slower finite-variance cases remain slower than the die and age mixture.
+
+The final selections are recorded in `results/final_summary.csv` by `scripts/finalize_summary.R`. That script checks that every finite selected value is an actual tested row before copying its generated diagnostics into the summary.

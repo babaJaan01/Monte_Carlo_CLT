@@ -1,0 +1,27 @@
+# Quarto output
+_book/
+.quarto/
+
+# R and IDE state
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj
+
+# Generated simulation artifacts that can be recreated
+results/sample_means/*.rds
+results/normal_benchmark_replicates.csv
+results/sensitivity_diagnostics.csv
+results/run_metadata.txt
+
+# renv local library and cache
+renv/library/
+renv/staging/
+renv/cache/
+
+# OS files
+.DS_Store
+
+/.quarto/
+**/*.quarto_ipynb

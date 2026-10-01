@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>08 · Extra Credit: Synthetic Age-at-Death – How Fast Does Normal Happen?</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c14b64952ec7e107d730e3f6b972a8ff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">How Fast Does Normal Happen?</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../methodology.html"> 
+<span class="menu-text">Methodology</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-required-distributions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Required Distributions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-required-distributions">    
+        <li>
+    <a class="dropdown-item" href="../analyses/01_standard_normal.html">
+ <span class="dropdown-text">01 · Standard Normal</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/02_six_sided_die.html">
+ <span class="dropdown-text">02 · Six-Sided Die</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/03_exponential.html">
+ <span class="dropdown-text">03 · Exponential</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/04_binomial_small.html">
+ <span class="dropdown-text">04 · Binomial Small</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/05_cauchy.html">
+ <span class="dropdown-text">05 · Cauchy</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extra-credit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extra Credit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-credit">    
+        <li>
+    <a class="dropdown-item" href="../analyses/06_extra_dependent_failure.html">
+ <span class="dropdown-text">06 · Extra Credit: Dependent Failure Process</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/07_extra_nonidentical_bernoulli.html">
+ <span class="dropdown-text">07 · Extra Credit: Non-Identical Bernoulli Shots</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/08_extra_age_at_death.html">
+ <span class="dropdown-text">08 · Extra Credit: Synthetic Age-at-Death</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../ai/ai_interactions.html"> 
+<span class="menu-text">AI &amp; Reproducibility</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#research-question" id="toc-research-question" class="nav-link active" data-scroll-target="#research-question"><span class="header-section-number">1</span> Research Question</a></li>
+  <li><a href="#population-process-and-theory" id="toc-population-process-and-theory" class="nav-link" data-scroll-target="#population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</a></li>
+  <li><a href="#clt-assumptions-and-prediction" id="toc-clt-assumptions-and-prediction" class="nav-link" data-scroll-target="#clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</a></li>
+  <li><a href="#original-population-and-simulation-evidence" id="toc-original-population-and-simulation-evidence" class="nav-link" data-scroll-target="#original-population-and-simulation-evidence"><span class="header-section-number">4</span> Original Population and Simulation Evidence</a></li>
+  <li><a href="#final-selected-n-and-interpretation" id="toc-final-selected-n-and-interpretation" class="nav-link" data-scroll-target="#final-selected-n-and-interpretation"><span class="header-section-number">5</span> Final Selected N and Interpretation</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">08 · Extra Credit: Synthetic Age-at-Death</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">An irregular discrete mixture with early and late peaks</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"age_at_death"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="research-question" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="research-question"><span class="header-section-number">1</span> Research Question</h2>
+<p>How does an irregular, bimodal-looking synthetic population behave after averaging?</p>
+</section>
+<section id="population-process-and-theory" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</h2>
+<p>The instructor construction uses ages 0 through 100 with weights <code>0.045 * exp(-x/5) + 0.030 * exp(-0.5 * ((x - 65) / 10)^2)</code>, normalized to probabilities. The supplied <code>rdeath()</code> logic samples from those probabilities. The resulting distribution is synthetic, not historical mortality data; its mean and SD are computed from the normalized table.</p>
+</section>
+<section id="clt-assumptions-and-prediction" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</h2>
+<p>The draws are iid with finite variance. The unusual shape may make small-n sampling distributions depart from normality even though ordinary CLT conditions hold. I expect sample means to smooth the irregular population as <code>n</code> increases.</p>
+</section>
+<section id="original-population-and-simulation-evidence" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="original-population-and-simulation-evidence"><span class="header-section-number">4</span> Original Population and Simulation Evidence</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>distribution <span class="ot">&lt;-</span> <span class="fu">age_at_death_distribution</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(distribution<span class="sc">$</span>age, distribution<span class="sc">$</span>percent, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#C44E52"</span>, <span class="at">xlab =</span> <span class="st">"Age at death"</span>, <span class="at">ylab =</span> <span class="st">"Probability (%)"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Synthetic age-at-death population"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08_extra_age_at_death_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Run scripts/run_project.R after entering student_seed.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    population_id   n     B empirical_mean theoretical_mean    mean_error
+344  age_at_death   1 10000       49.89440         49.98098 -0.0865754772
+345  age_at_death   2 10000       50.00985         49.98098  0.0288745228
+346  age_at_death   3 10000       49.80390         49.98098 -0.1770754772
+347  age_at_death   5 10000       49.94916         49.98098 -0.0318154772
+348  age_at_death  10 10000       50.03889         49.98098  0.0579145228
+349  age_at_death  15 10000       49.92867         49.98098 -0.0523088105
+350  age_at_death  20 10000       50.04075         49.98098  0.0597745228
+351  age_at_death  30 10000       49.95190         49.98098 -0.0290788105
+352  age_at_death  50 10000       49.96542         49.98098 -0.0155534772
+353  age_at_death  75 10000       50.01622         49.98098  0.0352485228
+354  age_at_death  90 10000       49.96948         49.98098 -0.0114965883
+355  age_at_death  95 10000       49.97057         49.98098 -0.0104070562
+356  age_at_death  98 10000       50.01216         49.98098  0.0311847269
+357  age_at_death  99 10000       49.96151         49.98098 -0.0194684065
+358  age_at_death 100 10000       49.96610         49.98098 -0.0148744772
+359  age_at_death 101 10000       49.96261         49.98098 -0.0183665663
+360  age_at_death 102 10000       49.96971         49.98098 -0.0112607713
+361  age_at_death 105 10000       50.00913         49.98098  0.0281559514
+362  age_at_death 110 10000       49.97275         49.98098 -0.0082209318
+363  age_at_death 150 10000       49.97368         49.98098 -0.0072928105
+364  age_at_death 200 10000       50.01042         49.98098  0.0294425228
+365  age_at_death 290 10000       49.98790         49.98098  0.0069248676
+366  age_at_death 295 10000       49.97131         49.98098 -0.0096666637
+367  age_at_death 298 10000       49.97972         49.98098 -0.0012546718
+368  age_at_death 299 10000       49.96137         49.98098 -0.0196039053
+369  age_at_death 300 10000       49.96995         49.98098 -0.0110248105
+370  age_at_death 301 10000       49.99599         49.98098  0.0150138916
+371  age_at_death 302 10000       50.01109         49.98098  0.0301106155
+372  age_at_death 305 10000       49.99743         49.98098  0.0164514080
+373  age_at_death 310 10000       49.99656         49.98098  0.0155806518
+374  age_at_death 490 10000       50.00453         49.98098  0.0235500330
+375  age_at_death 495 10000       49.96450         49.98098 -0.0164754772
+376  age_at_death 498 10000       49.97534         49.98098 -0.0056308989
+377  age_at_death 499 10000       49.97951         49.98098 -0.0014654572
+378  age_at_death 500 10000       49.98086         49.98098 -0.0001126772
+379  age_at_death 501 10000       49.98624         49.98098  0.0052600517
+380  age_at_death 502 10000       49.97713         49.98098 -0.0038410151
+381  age_at_death 505 10000       49.98061         49.98098 -0.0003661703
+382  age_at_death 510 10000       49.97599         49.98098 -0.0049817517
+383  age_at_death 740 10000       49.96745         49.98098 -0.0135212880
+384  age_at_death 745 10000       49.99359         49.98098  0.0126135161
+385  age_at_death 748 10000       49.98244         49.98098  0.0014647634
+386  age_at_death 749 10000       49.97714         49.98098 -0.0038335546
+387  age_at_death 750 10000       49.96254         49.98098 -0.0184322772
+388  age_at_death 751 10000       49.96498         49.98098 -0.0159935864
+389  age_at_death 752 10000       49.98581         49.98098  0.0048342302
+390  age_at_death 755 10000       49.98451         49.98098  0.0035380327
+391  age_at_death 760 10000       49.99093         49.98098  0.0099543912
+    empirical_se theoretical_se relative_se_error     skewness excess_kurtosis
+344   27.5999244      27.634516      0.0012517442 -0.857146352    -0.788827934
+345   19.5368868      19.540553      0.0001876413 -0.617455963    -0.389355082
+346   15.8902103      15.954795      0.0040479850 -0.483036603    -0.248500946
+347   12.2267692      12.358531      0.0106616182 -0.378593123    -0.124104458
+348    8.7676816       8.738801      0.0033048455 -0.274451472    -0.023623059
+349    7.1293317       7.135201      0.0008226237 -0.211547599    -0.051352589
+350    6.1927105       6.179266      0.0021758157 -0.202276907     0.009052939
+351    5.0383179       5.045349      0.0013936243 -0.172056388     0.042074657
+352    3.9022331       3.908111      0.0015039524 -0.134520078    -0.018558960
+353    3.1698734       3.190959      0.0066079353 -0.111150181    -0.020899727
+354    2.9429546       2.912934      0.0103060619 -0.087249152     0.005668492
+355    2.8463529       2.835241      0.0039190479 -0.102339278     0.056698695
+356    2.7869537       2.791508      0.0016313562 -0.074804516    -0.043628894
+357    2.8071289       2.777373      0.0107135639 -0.139123471    -0.032645314
+358    2.7397697       2.763452      0.0085696857 -0.085385079     0.043244018
+359    2.8191657       2.749737      0.0252491741 -0.053726062     0.014094586
+360    2.7007547       2.736225      0.0129631453 -0.083098406    -0.029717267
+361    2.6952098       2.696853      0.0006091490 -0.069167703     0.016155727
+362    2.6443740       2.634848      0.0036155047 -0.077254161     0.004695335
+363    2.2380918       2.256349      0.0080913793 -0.050482564    -0.061188664
+364    1.9567632       1.954055      0.0013857779 -0.091873060     0.056236342
+365    1.5945532       1.622755      0.0173787133 -0.055231011     0.002289663
+366    1.6127221       1.608944      0.0023483736 -0.049438830     0.049350240
+367    1.6282991       1.600825      0.0171627725 -0.019688251    -0.070931403
+368    1.5978194       1.598145      0.0002039215 -0.046713065    -0.032890343
+369    1.5963464       1.595480      0.0005433731 -0.024479466    -0.037785402
+370    1.5880268       1.592827      0.0030136100 -0.064591907     0.029870300
+371    1.5698068       1.590188      0.0128166385 -0.085353751    -0.067745383
+372    1.5728127       1.582348      0.0060258702 -0.035596010    -0.013908990
+373    1.5782065       1.569535      0.0055248637 -0.057304262    -0.045231732
+374    1.2460556       1.248400      0.0018780642 -0.009379711    -0.006835103
+375    1.2287270       1.242079      0.0107498281 -0.033246171    -0.051304593
+376    1.2351429       1.238332      0.0025755229  0.008092292    -0.058973148
+377    1.2497607       1.237091      0.0102416633 -0.048968493    -0.007859498
+378    1.2434558       1.235853      0.0061517350 -0.030784108     0.027937680
+379    1.2291668       1.234619      0.0044161900 -0.030624278    -0.097407566
+380    1.2417537       1.233389      0.0067820712 -0.045871393     0.081513603
+381    1.2183480       1.229720      0.0092474515 -0.028389032    -0.042683503
+382    1.2347945       1.223677      0.0090853984 -0.057764968    -0.028006426
+383    1.0148447       1.015865      0.0010043956 -0.055105698    -0.017070924
+384    1.0019884       1.012450      0.0103332448 -0.022049650    -0.018387383
+385    1.0258797       1.010418      0.0153023541 -0.017874950    -0.004885393
+386    1.0068056       1.009743      0.0029093163 -0.048052942    -0.063840251
+387    1.0182686       1.009070      0.0091161128 -0.011661066    -0.052255262
+388    1.0180803       1.008398      0.0096018504 -0.001995596     0.019760779
+389    1.0082781       1.007727      0.0005467455 -0.056812592     0.035308173
+390    0.9889879       1.005723      0.0166398662 -0.024099070    -0.019168355
+391    1.0017082       1.002409      0.0006993590 -0.047414604    -0.067811044
+       qq_rmse   seed_label
+344 0.43776290 student_seed
+345 0.27060304 student_seed
+346 0.18285423 student_seed
+347 0.11368003 student_seed
+348 0.06982082 student_seed
+349 0.05425492 student_seed
+350 0.04955353 student_seed
+351 0.04216086 student_seed
+352 0.03720855 student_seed
+353 0.02844088 student_seed
+354 0.02605131 student_seed
+355 0.02621869 student_seed
+356 0.02064842 student_seed
+357 0.03470660 student_seed
+358 0.02270176 student_seed
+359 0.01549021 student_seed
+360 0.02275372 student_seed
+361 0.01841831 student_seed
+362 0.02224650 student_seed
+363 0.01820157 student_seed
+364 0.02445069 student_seed
+365 0.01830917 student_seed
+366 0.01583384 student_seed
+367 0.01765297 student_seed
+368 0.01731238 student_seed
+369 0.01735065 student_seed
+370 0.01791820 student_seed
+371 0.02479876 student_seed
+372 0.01286449 student_seed
+373 0.01713512 student_seed
+374 0.01147751 student_seed
+375 0.01537475 student_seed
+376 0.01690968 student_seed
+377 0.02105104 student_seed
+378 0.01522648 student_seed
+379 0.01590155 student_seed
+380 0.01782446 student_seed
+381 0.01157300 student_seed
+382 0.01739169 student_seed
+383 0.01991542 student_seed
+384 0.01210341 student_seed
+385 0.01206640 student_seed
+386 0.01890258 student_seed
+387 0.01243885 student_seed
+388 0.01207745 student_seed
+389 0.01737134 student_seed
+390 0.01065959 student_seed
+391 0.01790041 student_seed</code></pre>
+</div>
+</div>
+</section>
+<section id="final-selected-n-and-interpretation" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="final-selected-n-and-interpretation"><span class="header-section-number">5</span> Final Selected N and Interpretation</h2>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<p><strong>Selected N:</strong> <code>n = 300</code></p>
+<ul>
+<li>skewness: -0.0245</li>
+<li>excess kurtosis: -0.0378</li>
+<li>Q-Q RMSE: 0.0174</li>
+<li>empirical SE: 1.5963</li>
+<li>theoretical/reference SE: 1.5955 <strong>Evidence decision:</strong> The synthetic irregular mixture becomes stable by about n = 300, with near-zero shape diagnostics and empirical/theoretical SE agreement.</li>
+</ul>
+<p>The selected value reflects the synthetic two-component discrete mixture supplied by the instructor. It is not historical mortality data; the irregular source shape is exactly what makes the fast stabilization of the sample mean worth checking.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "08 · Extra Credit: Synthetic Age-at-Death"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "An irregular discrete mixture with early and late peaks"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"age_at_death"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>How does an irregular, bimodal-looking synthetic population behave after averaging?</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Population / Process and Theory</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>The instructor construction uses ages 0 through 100 with weights <span class="in">`0.045 * exp(-x/5) + 0.030 * exp(-0.5 * ((x - 65) / 10)^2)`</span>, normalized to probabilities. The supplied <span class="in">`rdeath()`</span> logic samples from those probabilities. The resulting distribution is synthetic, not historical mortality data; its mean and SD are computed from the normalized table.</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## CLT Assumptions and Prediction</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>The draws are iid with finite variance. The unusual shape may make small-n sampling distributions depart from normality even though ordinary CLT conditions hold. I expect sample means to smooth the irregular population as <span class="in">`n`</span> increases.</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Original Population and Simulation Evidence</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>distribution <span class="ot">&lt;-</span> <span class="fu">age_at_death_distribution</span>()</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(distribution<span class="sc">$</span>age, distribution<span class="sc">$</span>percent, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#C44E52"</span>, <span class="at">xlab =</span> <span class="st">"Age at death"</span>, <span class="at">ylab =</span> <span class="st">"Probability (%)"</span>,</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Synthetic age-at-death population"</span>)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Run scripts/run_project.R after entering student_seed.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final Selected N and Interpretation</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, results='asis'}</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>The selected value reflects the synthetic two-component discrete mixture supplied by the instructor. It is not historical mortality data; the irregular source shape is exactly what makes the fast stabilization of the sample mean worth checking.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Math 167R Project 1</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with R + Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

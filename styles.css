@@ -1,0 +1,15 @@
+:root {
+  --ink: #17212b;
+  --muted: #66727c;
+  --paper: #f6f3ee;
+  --accent: #c44e52;
+  --blue: #2f6f8f;
+}
+
+body { background: var(--paper); color: var(--ink); }
+.navbar { letter-spacing: .02em; }
+.quarto-title-block .title { max-width: 18ch; font-weight: 700; }
+.callout { border-radius: 0; }
+table { background: rgba(255, 255, 255, .55); }
+code { color: var(--blue); }
+a { color: #8f353a; }

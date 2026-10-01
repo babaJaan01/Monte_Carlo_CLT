@@ -1,0 +1,48 @@
+---
+title: "How Fast Does Normal Happen?"
+subtitle: "Stress-testing the Central Limit Theorem with Monte Carlo simulation"
+author: "Math 167R Project 1"
+---
+
+```{r}
+root <- if (file.exists("R/config.R")) "." else ".."
+source(file.path(root, "R/config.R"))
+source(file.path(root, "R/report_helpers.R"))
+diagnostics <- report_status()
+```
+
+## Research question
+
+What is the smallest sample size (n) at which I would be comfortable calling the sampling distribution of the sample mean approximately normal? This project treats that as an evidence-based judgment, not a universal theorem with one answer.
+
+## Is (n=30) a universal rule?
+
+No. The generated evidence shows that `n = 30` is context-dependent: it is enough for the exactly Normal benchmark and already persuasive for the synthetic age mixture, but it leaves visible skewness or Q-Q deviations for the Exponential, small-probability Binomial, and non-identical Bernoulli cases. Cauchy and the dependent failure process do not receive a defensible finite selection under the tested criteria.
+
+## Executive results table
+
+```{r, results='asis'}
+summary_path <- file.path(root, "results", "final_summary.csv")
+if (file.exists(summary_path) && file.info(summary_path)$size > 0) {
+  summary_table <- read.csv(summary_path, stringsAsFactors = FALSE)
+  if (requireNamespace("knitr", quietly = TRUE)) {
+    print(knitr::kable(summary_table, digits = 4))
+  } else {
+    print(summary_table)
+  }
+} else {
+  cat("The final summary will be populated after simulation and human evidence review.\n")
+}
+```
+
+The finite values in this table are linked to rows in `results/all_diagnostics.csv`; the Cauchy and dependent-process `N/A` entries are deliberate evidence decisions, not missing theory values.
+
+## What the results say
+
+The fastest cases were Standard Normal (exactly normal for every `n`) and the synthetic age-at-death mixture. The die was also close to normal by `n = 100`. The slower finite-variance cases were the Exponential and Binomial(size = 5, p = 0.10), where strong right skew and rare-event discreteness required `n = 1,000` in this study. The non-identical Bernoulli process used the correct p_i-specific variance and reached its most persuasive tested evidence at `n = 1,000`.
+
+The most important exception was Cauchy: even at `n = 5,000`, Q-Q RMSE stayed around 1.3 with extreme skewness and kurtosis, and the running mean remained sensitive to outliers. The dependent failure process improved as `n` grew but still showed positive skewness and Q-Q error above the Normal calibration through `n = 1,000`; its covariance structure means the iid SE formula is not appropriate.
+
+## Reproducibility
+
+The complete workflow is in [`README.md`](README.md). The confirmed student seed is `7616` in [`R/config.R`](R/config.R). The runner also repeats the boundary evidence with seed `7617`; exact diagnostics move modestly, but the scientific pattern is stable. The instructor source documents are preserved under [`references/`](references/).

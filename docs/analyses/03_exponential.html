@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>03 · Exponential – How Fast Does Normal Happen?</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c14b64952ec7e107d730e3f6b972a8ff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">How Fast Does Normal Happen?</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../methodology.html"> 
+<span class="menu-text">Methodology</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-required-distributions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Required Distributions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-required-distributions">    
+        <li>
+    <a class="dropdown-item" href="../analyses/01_standard_normal.html">
+ <span class="dropdown-text">01 · Standard Normal</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/02_six_sided_die.html">
+ <span class="dropdown-text">02 · Six-Sided Die</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/03_exponential.html">
+ <span class="dropdown-text">03 · Exponential</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/04_binomial_small.html">
+ <span class="dropdown-text">04 · Binomial Small</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/05_cauchy.html">
+ <span class="dropdown-text">05 · Cauchy</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extra-credit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extra Credit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-credit">    
+        <li>
+    <a class="dropdown-item" href="../analyses/06_extra_dependent_failure.html">
+ <span class="dropdown-text">06 · Extra Credit: Dependent Failure Process</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/07_extra_nonidentical_bernoulli.html">
+ <span class="dropdown-text">07 · Extra Credit: Non-Identical Bernoulli Shots</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/08_extra_age_at_death.html">
+ <span class="dropdown-text">08 · Extra Credit: Synthetic Age-at-Death</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../ai/ai_interactions.html"> 
+<span class="menu-text">AI &amp; Reproducibility</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#research-question" id="toc-research-question" class="nav-link active" data-scroll-target="#research-question"><span class="header-section-number">1</span> Research Question</a></li>
+  <li><a href="#population-process-and-theory" id="toc-population-process-and-theory" class="nav-link" data-scroll-target="#population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</a></li>
+  <li><a href="#clt-assumptions-and-prediction" id="toc-clt-assumptions-and-prediction" class="nav-link" data-scroll-target="#clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</a></li>
+  <li><a href="#simulation-design-search-and-evidence" id="toc-simulation-design-search-and-evidence" class="nav-link" data-scroll-target="#simulation-design-search-and-evidence"><span class="header-section-number">4</span> Simulation Design, Search, and Evidence</a></li>
+  <li><a href="#final-selected-n-and-interpretation" id="toc-final-selected-n-and-interpretation" class="nav-link" data-scroll-target="#final-selected-n-and-interpretation"><span class="header-section-number">5</span> Final Selected N and Interpretation</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">03 · Exponential</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">A strongly right-skewed finite-variance population</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"exponential"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="research-question" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="research-question"><span class="header-section-number">1</span> Research Question</h2>
+<p>How much averaging is needed to overcome the strong right skew of an Exponential(rate = 1) population?</p>
+</section>
+<section id="population-process-and-theory" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</h2>
+<p><code>X_i ~ Exponential(rate = 1)</code>, with mean <code>1</code>, standard deviation <code>1</code>, and theoretical SE <code>1 / sqrt(n)</code>.</p>
+</section>
+<section id="clt-assumptions-and-prediction" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</h2>
+<p>The observations are iid and have finite variance, so the ordinary CLT applies. I expect the right tail and positive skewness to be visible for small <code>n</code>, with empirical SE approaching <code>1 / sqrt(n)</code> as <code>n</code> grows.</p>
+</section>
+<section id="simulation-design-search-and-evidence" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="simulation-design-search-and-evidence"><span class="header-section-number">4</span> Simulation Design, Search, and Evidence</h2>
+<p>Use <code>B = 10,000</code>. Inspect the broad grid first, then enter a transition center in <code>R/config.R</code> to add nearby values.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot.new</span>(); <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="st">"Run scripts/run_project.R after entering student_seed."</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  display_n <span class="ot">&lt;-</span> <span class="fu">max</span>(rows<span class="sc">$</span>n); means_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(root, <span class="st">"results"</span>, <span class="st">"sample_means"</span>, <span class="fu">paste0</span>(spec<span class="sc">$</span>id, <span class="st">"_n_"</span>, display_n, <span class="st">".rds"</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(means_path)) {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    means <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(means_path); old_par <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_histogram</span>(means, display_n, spec<span class="sc">$</span>label, <span class="dv">1</span>, <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(display_n))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_qq</span>(means, display_n, spec<span class="sc">$</span>label); <span class="fu">par</span>(old_par)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_exponential_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    population_id    n     B empirical_mean theoretical_mean    mean_error
+97    exponential    1 10000      1.0021061                1  2.106115e-03
+98    exponential    2 10000      1.0018458                1  1.845753e-03
+99    exponential    3 10000      1.0015312                1  1.531166e-03
+100   exponential    5 10000      0.9946696                1 -5.330366e-03
+101   exponential   10 10000      1.0012679                1  1.267902e-03
+102   exponential   15 10000      1.0007307                1  7.306562e-04
+103   exponential   20 10000      1.0026292                1  2.629237e-03
+104   exponential   30 10000      0.9995428                1 -4.571784e-04
+105   exponential   50 10000      0.9999970                1 -2.975265e-06
+106   exponential   75 10000      0.9995488                1 -4.511686e-04
+107   exponential   90 10000      0.9998822                1 -1.177958e-04
+108   exponential   95 10000      1.0006012                1  6.011597e-04
+109   exponential   98 10000      1.0021870                1  2.187030e-03
+110   exponential   99 10000      1.0007481                1  7.481231e-04
+111   exponential  100 10000      1.0007382                1  7.382473e-04
+112   exponential  101 10000      0.9995921                1 -4.078994e-04
+113   exponential  102 10000      1.0011179                1  1.117882e-03
+114   exponential  105 10000      0.9994776                1 -5.223899e-04
+115   exponential  110 10000      0.9995432                1 -4.567792e-04
+116   exponential  150 10000      1.0007260                1  7.260170e-04
+117   exponential  200 10000      0.9997179                1 -2.821352e-04
+118   exponential  290 10000      0.9985561                1 -1.443884e-03
+119   exponential  295 10000      1.0001961                1  1.961136e-04
+120   exponential  298 10000      1.0004258                1  4.258203e-04
+121   exponential  299 10000      0.9995977                1 -4.022904e-04
+122   exponential  300 10000      1.0010317                1  1.031658e-03
+123   exponential  301 10000      1.0000947                1  9.468693e-05
+124   exponential  302 10000      1.0012488                1  1.248752e-03
+125   exponential  305 10000      0.9996437                1 -3.563167e-04
+126   exponential  310 10000      0.9995374                1 -4.625516e-04
+127   exponential  490 10000      1.0005974                1  5.974216e-04
+128   exponential  495 10000      0.9994874                1 -5.125502e-04
+129   exponential  498 10000      1.0000961                1  9.605861e-05
+130   exponential  499 10000      0.9997079                1 -2.921195e-04
+131   exponential  500 10000      1.0008384                1  8.383537e-04
+132   exponential  501 10000      0.9992697                1 -7.303184e-04
+133   exponential  502 10000      1.0007493                1  7.492675e-04
+134   exponential  505 10000      1.0006670                1  6.669707e-04
+135   exponential  510 10000      1.0001503                1  1.502868e-04
+136   exponential  740 10000      0.9999204                1 -7.957030e-05
+137   exponential  745 10000      0.9999503                1 -4.974469e-05
+138   exponential  748 10000      0.9998648                1 -1.352104e-04
+139   exponential  749 10000      1.0000080                1  8.008619e-06
+140   exponential  750 10000      1.0001504                1  1.503931e-04
+141   exponential  751 10000      1.0002746                1  2.745525e-04
+142   exponential  752 10000      1.0000859                1  8.590452e-05
+143   exponential  755 10000      1.0000422                1  4.218363e-05
+144   exponential  760 10000      1.0005062                1  5.062135e-04
+145   exponential 1000 10000      0.9996267                1 -3.733230e-04
+    empirical_se theoretical_se relative_se_error   skewness excess_kurtosis
+97    1.01611504     1.00000000      1.611504e-02 2.09431411     6.550557468
+98    0.71403748     0.70710678      9.801486e-03 1.41153742     2.870816328
+99    0.57780482     0.57735027      7.873092e-04 1.14242432     1.856539695
+100   0.44477506     0.44721360      5.452727e-03 0.93257430     1.488521849
+101   0.31691918     0.31622777      2.186432e-03 0.56324403     0.354409370
+102   0.26186148     0.25819889      1.418515e-02 0.58350022     0.584564628
+103   0.22430952     0.22360680      3.142656e-03 0.49349058     0.395367316
+104   0.18022752     0.18257419      1.285323e-02 0.35190071     0.138344645
+105   0.14112793     0.14142136      2.074846e-03 0.23331420    -0.062314322
+106   0.11536473     0.11547005      9.120882e-04 0.22478104     0.077987891
+107   0.10521178     0.10540926      1.873432e-03 0.22153028     0.063280289
+108   0.10182805     0.10259784      7.502900e-03 0.22528181     0.164683872
+109   0.10062010     0.10101525      3.911842e-03 0.23875359     0.075775165
+110   0.10057817     0.10050378      7.401438e-04 0.16767603    -0.030909213
+111   0.10040307     0.10000000      4.030669e-03 0.19902319     0.071169274
+112   0.09895946     0.09950372      5.469699e-03 0.19770188     0.075694010
+113   0.09771063     0.09901475      1.317104e-02 0.20029718     0.049717311
+114   0.09679138     0.09759001      8.183464e-03 0.19764835     0.053517423
+115   0.09531384     0.09534626      3.399974e-04 0.18900499     0.093037715
+116   0.08235568     0.08164966      8.647016e-03 0.18666758     0.063122766
+117   0.07004451     0.07071068      9.421070e-03 0.18591774     0.095523360
+118   0.05899222     0.05872202      4.601392e-03 0.11230772    -0.053152447
+119   0.05821045     0.05822225      2.027716e-04 0.13171630     0.029049036
+120   0.05760790     0.05792844      5.533417e-03 0.12913582    -0.034656894
+121   0.05770605     0.05783149      2.169148e-03 0.12468514     0.012321903
+122   0.05761704     0.05773503      2.043523e-03 0.11252016    -0.046801562
+123   0.05829451     0.05763904      1.137193e-02 0.12471182    -0.051731329
+124   0.05738355     0.05754353      2.780248e-03 0.08829080    -0.041351594
+125   0.05752535     0.05725983      4.637077e-03 0.16082106     0.042276054
+126   0.05770814     0.05679618      1.605663e-02 0.12648232    -0.017379747
+127   0.04561038     0.04517540      9.628855e-03 0.13940355     0.069400441
+128   0.04403824     0.04494666      2.021107e-02 0.10637376     0.055250393
+129   0.04521547     0.04481107      9.024565e-03 0.08523235     0.052388425
+130   0.04493914     0.04476615      3.864455e-03 0.12618778     0.121943899
+131   0.04441044     0.04472136      6.952408e-03 0.09355001    -0.028182101
+132   0.04482862     0.04467671      3.400250e-03 0.08889367     0.086460218
+133   0.04482210     0.04463218      4.255105e-03 0.07343859     0.042098919
+134   0.04467516     0.04449942      3.949310e-03 0.09028256    -0.089945207
+135   0.04435810     0.04428074      1.746846e-03 0.06597676     0.020182714
+136   0.03669606     0.03676073      1.759161e-03 0.08310529     0.056156199
+137   0.03653570     0.03663717      2.769517e-03 0.07748414    -0.002166594
+138   0.03623373     0.03656362      9.022471e-03 0.04953734     0.080988685
+139   0.03597859     0.03653920      1.534274e-02 0.07200143     0.032763706
+140   0.03643845     0.03651484      2.092078e-03 0.08480554     0.089986389
+141   0.03649304     0.03649052      6.923504e-05 0.08355609     0.050946149
+142   0.03660240     0.03646625      3.733625e-03 0.05822964     0.065640817
+143   0.03657951     0.03639373      5.104903e-03 0.11880994     0.077551272
+144   0.03699276     0.03627381      1.981997e-02 0.07074664    -0.033299371
+145   0.03158216     0.03162278      1.284483e-03 0.03751028    -0.015099611
+       qq_rmse   seed_label
+97  0.45300739 student_seed
+98  0.32680826 student_seed
+99  0.26620238 student_seed
+100 0.21364099 student_seed
+101 0.13624825 student_seed
+102 0.13538987 student_seed
+103 0.11567497 student_seed
+104 0.08441469 student_seed
+105 0.05932965 student_seed
+106 0.05432094 student_seed
+107 0.05384076 student_seed
+108 0.05456844 student_seed
+109 0.05747854 student_seed
+110 0.04232393 student_seed
+111 0.04818949 student_seed
+112 0.04774969 student_seed
+113 0.04906011 student_seed
+114 0.04830599 student_seed
+115 0.04558659 student_seed
+116 0.04536837 student_seed
+117 0.04530943 student_seed
+118 0.02965981 student_seed
+119 0.03315874 student_seed
+120 0.03275794 student_seed
+121 0.03167670 student_seed
+122 0.03002506 student_seed
+123 0.03373356 student_seed
+124 0.02662570 student_seed
+125 0.03906491 student_seed
+126 0.03269959 student_seed
+127 0.03550064 student_seed
+128 0.02914617 student_seed
+129 0.02319235 student_seed
+130 0.03250818 student_seed
+131 0.02571699 student_seed
+132 0.02424416 student_seed
+133 0.02201644 student_seed
+134 0.02701259 student_seed
+135 0.01854351 student_seed
+136 0.02215311 student_seed
+137 0.02202400 student_seed
+138 0.01829653 student_seed
+139 0.02244573 student_seed
+140 0.02388533 student_seed
+141 0.02380427 student_seed
+142 0.01856139 student_seed
+143 0.03007027 student_seed
+144 0.02021432 student_seed
+145 0.01423655 student_seed</code></pre>
+</div>
+</div>
+</section>
+<section id="final-selected-n-and-interpretation" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="final-selected-n-and-interpretation"><span class="header-section-number">5</span> Final Selected N and Interpretation</h2>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<p><strong>Selected N:</strong> <code>n = 1,000</code></p>
+<ul>
+<li>skewness: 0.0375</li>
+<li>excess kurtosis: -0.0151</li>
+<li>Q-Q RMSE: 0.0142</li>
+<li>empirical SE: 0.0316</li>
+<li>theoretical/reference SE: 0.0316 <strong>Evidence decision:</strong> Strong right skew persists at n = 300; n = 1,000 is the first tested value with near-benchmark Q-Q error, near-zero residual shape diagnostics, and correct SE.</li>
+</ul>
+<p>The selected value is deliberately conservative: <code>n = 30</code> still has noticeable positive skewness, while the <code>n = 1,000</code> row has near-zero residual shape diagnostics, Q-Q error in the calibrated range, and empirical SE close to <code>1 / sqrt(n)</code>.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "03 · Exponential"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "A strongly right-skewed finite-variance population"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"exponential"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>How much averaging is needed to overcome the strong right skew of an Exponential(rate = 1) population?</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Population / Process and Theory</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="in">`X_i ~ Exponential(rate = 1)`</span>, with mean <span class="in">`1`</span>, standard deviation <span class="in">`1`</span>, and theoretical SE <span class="in">`1 / sqrt(n)`</span>.</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## CLT Assumptions and Prediction</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>The observations are iid and have finite variance, so the ordinary CLT applies. I expect the right tail and positive skewness to be visible for small <span class="in">`n`</span>, with empirical SE approaching <span class="in">`1 / sqrt(n)`</span> as <span class="in">`n`</span> grows.</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation Design, Search, and Evidence</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`B = 10,000`</span>. Inspect the broad grid first, then enter a transition center in <span class="in">`R/config.R`</span> to add nearby values.</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot.new</span>(); <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="st">"Run scripts/run_project.R after entering student_seed."</span>)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  display_n <span class="ot">&lt;-</span> <span class="fu">max</span>(rows<span class="sc">$</span>n); means_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(root, <span class="st">"results"</span>, <span class="st">"sample_means"</span>, <span class="fu">paste0</span>(spec<span class="sc">$</span>id, <span class="st">"_n_"</span>, display_n, <span class="st">".rds"</span>))</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(means_path)) {</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    means <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(means_path); old_par <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_histogram</span>(means, display_n, spec<span class="sc">$</span>label, <span class="dv">1</span>, <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(display_n))</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_qq</span>(means, display_n, spec<span class="sc">$</span>label); <span class="fu">par</span>(old_par)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final Selected N and Interpretation</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, results='asis'}</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>The selected value is deliberately conservative: <span class="in">`n = 30`</span> still has noticeable positive skewness, while the <span class="in">`n = 1,000`</span> row has near-zero residual shape diagnostics, Q-Q error in the calibrated range, and empirical SE close to <span class="in">`1 / sqrt(n)`</span>.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Math 167R Project 1</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with R + Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

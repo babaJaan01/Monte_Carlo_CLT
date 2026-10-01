@@ -1,0 +1,50 @@
+---
+title: "03 · Exponential"
+subtitle: "A strongly right-skewed finite-variance population"
+---
+
+```{r}
+root <- if (file.exists("R/config.R")) "." else ".."
+source(file.path(root, "R/config.R")); source(file.path(root, "R/distributions.R"))
+source(file.path(root, "R/diagnostics.R")); source(file.path(root, "R/simulate_means.R"))
+source(file.path(root, "R/plotting.R")); source(file.path(root, "R/report_helpers.R"))
+spec <- population_spec("exponential"); rows <- population_rows(spec$id)
+```
+
+## Research Question
+
+How much averaging is needed to overcome the strong right skew of an Exponential(rate = 1) population?
+
+## Population / Process and Theory
+
+`X_i ~ Exponential(rate = 1)`, with mean `1`, standard deviation `1`, and theoretical SE `1 / sqrt(n)`.
+
+## CLT Assumptions and Prediction
+
+The observations are iid and have finite variance, so the ordinary CLT applies. I expect the right tail and positive skewness to be visible for small `n`, with empirical SE approaching `1 / sqrt(n)` as `n` grows.
+
+## Simulation Design, Search, and Evidence
+
+Use `B = 10,000`. Inspect the broad grid first, then enter a transition center in `R/config.R` to add nearby values.
+
+```{r}
+if (is.null(rows) || nrow(rows) == 0L) {
+  plot.new(); text(0.5, 0.5, "Run scripts/run_project.R after entering student_seed.")
+} else {
+  display_n <- max(rows$n); means_path <- file.path(root, "results", "sample_means", paste0(spec$id, "_n_", display_n, ".rds"))
+  if (file.exists(means_path)) {
+    means <- readRDS(means_path); old_par <- par(mfrow = c(1, 2))
+    plot_sampling_histogram(means, display_n, spec$label, 1, 1 / sqrt(display_n))
+    plot_sampling_qq(means, display_n, spec$label); par(old_par)
+  }
+  print(rows)
+}
+```
+
+## Final Selected N and Interpretation
+
+```{r, results='asis'}
+report_selection(spec$id)
+```
+
+The selected value is deliberately conservative: `n = 30` still has noticeable positive skewness, while the `n = 1,000` row has near-zero residual shape diagnostics, Q-Q error in the calibrated range, and empirical SE close to `1 / sqrt(n)`.

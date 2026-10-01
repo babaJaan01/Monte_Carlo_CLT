@@ -1,0 +1,53 @@
+---
+title: "06 · Extra Credit: Dependent Failure Process"
+subtitle: "When covariance changes the variance of a sample mean"
+---
+
+```{r}
+root <- if (file.exists("R/config.R")) "." else ".."
+source(file.path(root, "R/config.R")); source(file.path(root, "R/distributions.R"))
+source(file.path(root, "R/diagnostics.R")); source(file.path(root, "R/simulate_means.R"))
+source(file.path(root, "R/plotting.R")); source(file.path(root, "R/report_helpers.R"))
+spec <- population_spec("dependent_failure"); rows <- population_rows(spec$id)
+```
+
+## Research Question
+
+How does the sampling distribution of a mean change when each operating time depends on the previous operating time?
+
+## Population / Process and Theory
+
+The instructor model sets the next failure rate to `baseline_rate * exp(beta * (previous_time - reference_time))`, then draws the next operating time conditionally from an Exponential distribution. The supplied values are baseline rate `1`, `beta = 1.25`, and reference time `1`. A long operating period tends to be followed by a shorter one, creating compensating dependence.
+
+## CLT Assumptions and Prediction
+
+Observations are not independent and are not one fixed iid exponential distribution. The variance of a mean includes covariance terms, so the iid `sigma / sqrt(n)` formula is not used as if it were valid.
+
+## Process Diagnostics
+
+```{r}
+set.seed(student_seed) # uses the configured student seed for the diagnostic path
+failure_path <- simulate_dependent_failure(1000L)
+plot_dependent_process(failure_path)
+cat("Illustration lag-1 correlation:", cor(failure_path[-length(failure_path)], failure_path[-1L]), "\n")
+```
+
+## Simulation Design, Numerical Evidence, and Boundary Search
+
+The mean simulations preserve the dependence inside every generated sample. No independent redraw is substituted. Generated population rows and Q-Q diagnostics are displayed below when available.
+
+```{r}
+if (is.null(rows) || nrow(rows) == 0L) {
+  cat("Run scripts/run_project.R after entering student_seed.\n")
+} else {
+  print(rows)
+}
+```
+
+## Final Selected N and Interpretation
+
+```{r, results='asis'}
+report_selection(spec$id)
+```
+
+Through `n = 1,000`, the process improves but still has positive skewness and Q-Q error above the Normal calibration. The `N/A` is therefore a tested-range decision, not a claim that no dependent-process CLT could ever be proved. The lag plot and negative lag-1 association also show why an iid standard-error shortcut is unsafe.

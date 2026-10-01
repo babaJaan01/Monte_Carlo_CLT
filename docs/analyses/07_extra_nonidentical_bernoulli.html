@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>07 · Extra Credit: Non-Identical Bernoulli Shots – How Fast Does Normal Happen?</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c14b64952ec7e107d730e3f6b972a8ff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">How Fast Does Normal Happen?</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../methodology.html"> 
+<span class="menu-text">Methodology</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-required-distributions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Required Distributions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-required-distributions">    
+        <li>
+    <a class="dropdown-item" href="../analyses/01_standard_normal.html">
+ <span class="dropdown-text">01 · Standard Normal</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/02_six_sided_die.html">
+ <span class="dropdown-text">02 · Six-Sided Die</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/03_exponential.html">
+ <span class="dropdown-text">03 · Exponential</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/04_binomial_small.html">
+ <span class="dropdown-text">04 · Binomial Small</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/05_cauchy.html">
+ <span class="dropdown-text">05 · Cauchy</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extra-credit" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Extra Credit</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-credit">    
+        <li>
+    <a class="dropdown-item" href="../analyses/06_extra_dependent_failure.html">
+ <span class="dropdown-text">06 · Extra Credit: Dependent Failure Process</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/07_extra_nonidentical_bernoulli.html">
+ <span class="dropdown-text">07 · Extra Credit: Non-Identical Bernoulli Shots</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../analyses/08_extra_age_at_death.html">
+ <span class="dropdown-text">08 · Extra Credit: Synthetic Age-at-Death</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../ai/ai_interactions.html"> 
+<span class="menu-text">AI &amp; Reproducibility</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#research-question" id="toc-research-question" class="nav-link active" data-scroll-target="#research-question"><span class="header-section-number">1</span> Research Question</a></li>
+  <li><a href="#population-process-and-theory" id="toc-population-process-and-theory" class="nav-link" data-scroll-target="#population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</a></li>
+  <li><a href="#clt-assumptions-and-prediction" id="toc-clt-assumptions-and-prediction" class="nav-link" data-scroll-target="#clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</a></li>
+  <li><a href="#probability-curve" id="toc-probability-curve" class="nav-link" data-scroll-target="#probability-curve"><span class="header-section-number">4</span> Probability Curve</a></li>
+  <li><a href="#simulation-design-and-evidence" id="toc-simulation-design-and-evidence" class="nav-link" data-scroll-target="#simulation-design-and-evidence"><span class="header-section-number">5</span> Simulation Design and Evidence</a></li>
+  <li><a href="#final-selected-n-and-interpretation" id="toc-final-selected-n-and-interpretation" class="nav-link" data-scroll-target="#final-selected-n-and-interpretation"><span class="header-section-number">6</span> Final Selected N and Interpretation</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">07 · Extra Credit: Non-Identical Bernoulli Shots</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">Independent shots with probabilities that change from 0.90 to 0.50</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"nonidentical_bernoulli"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="research-question" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="research-question"><span class="header-section-number">1</span> Research Question</h2>
+<p>Does a normal approximation emerge similarly when observations remain independent but are not identically distributed?</p>
+</section>
+<section id="population-process-and-theory" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</h2>
+<p>For each candidate <code>n</code>, probabilities <code>p_i</code> are evenly spaced from 0.90 to 0.50, and <code>X_i ~ Bernoulli(p_i)</code> independently. The theoretical mean of the average is <code>(1/n) * sum(p_i)</code>. The variance is <code>sum(p_i * (1 - p_i)) / n^2</code>, not an iid Binomial calculation.</p>
+</section>
+<section id="clt-assumptions-and-prediction" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</h2>
+<p>Independence and finite variance hold, while identical distribution does not. Since the probabilities vary smoothly and stay away from 0 and 1, a normal approximation may be reasonable, but the relevant mean and variance change with candidate <code>n</code>.</p>
+</section>
+<section id="probability-curve" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="probability-curve"><span class="header-section-number">4</span> Probability Curve</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>probabilities <span class="ot">&lt;-</span> <span class="fu">nonidentical_probabilities</span>(<span class="dv">20</span>L)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq_along</span>(probabilities), probabilities, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#C44E52"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">"Shot number"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"P(make)"</span>, <span class="at">main =</span> <span class="st">"Basketball success probability by shot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_extra_nonidentical_bernoulli_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="simulation-design-and-evidence" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="simulation-design-and-evidence"><span class="header-section-number">5</span> Simulation Design and Evidence</h2>
+<p>Each simulated sample calls <code>rbinom(n, size = 1, prob = p)</code> with its own probability vector. The displayed diagnostics use the correct <code>p_i</code>-specific theoretical SE.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot.new</span>(); <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="st">"Run scripts/run_project.R after entering student_seed."</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  display_n <span class="ot">&lt;-</span> <span class="fu">max</span>(rows<span class="sc">$</span>n); means_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(root, <span class="st">"results"</span>, <span class="st">"sample_means"</span>, <span class="fu">paste0</span>(spec<span class="sc">$</span>id, <span class="st">"_n_"</span>, display_n, <span class="st">".rds"</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(means_path)) {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    means <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(means_path); old_par <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)); theory <span class="ot">&lt;-</span> <span class="fu">nonidentical_bernoulli_theory</span>(display_n)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_histogram</span>(means, display_n, spec<span class="sc">$</span>label, theory<span class="sc">$</span>mean, theory<span class="sc">$</span>sd)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_qq</span>(means, display_n, spec<span class="sc">$</span>label); <span class="fu">par</span>(old_par)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_extra_nonidentical_bernoulli_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             population_id    n     B empirical_mean theoretical_mean
+295 nonidentical_bernoulli    1 10000      0.8951000              0.9
+296 nonidentical_bernoulli    2 10000      0.7042000              0.7
+297 nonidentical_bernoulli    3 10000      0.6971333              0.7
+298 nonidentical_bernoulli    5 10000      0.6961200              0.7
+299 nonidentical_bernoulli   10 10000      0.7019300              0.7
+300 nonidentical_bernoulli   15 10000      0.7007867              0.7
+301 nonidentical_bernoulli   20 10000      0.7002350              0.7
+302 nonidentical_bernoulli   30 10000      0.6993533              0.7
+303 nonidentical_bernoulli   50 10000      0.7000120              0.7
+304 nonidentical_bernoulli   75 10000      0.7006360              0.7
+305 nonidentical_bernoulli   90 10000      0.6994800              0.7
+306 nonidentical_bernoulli   95 10000      0.7005800              0.7
+307 nonidentical_bernoulli   98 10000      0.6994327              0.7
+308 nonidentical_bernoulli   99 10000      0.6998758              0.7
+309 nonidentical_bernoulli  100 10000      0.6997440              0.7
+310 nonidentical_bernoulli  101 10000      0.6996594              0.7
+311 nonidentical_bernoulli  102 10000      0.6995696              0.7
+312 nonidentical_bernoulli  105 10000      0.6992514              0.7
+313 nonidentical_bernoulli  110 10000      0.6999000              0.7
+314 nonidentical_bernoulli  150 10000      0.6998893              0.7
+315 nonidentical_bernoulli  200 10000      0.6998420              0.7
+316 nonidentical_bernoulli  290 10000      0.7004586              0.7
+317 nonidentical_bernoulli  295 10000      0.6998969              0.7
+318 nonidentical_bernoulli  298 10000      0.6999799              0.7
+319 nonidentical_bernoulli  299 10000      0.7001194              0.7
+320 nonidentical_bernoulli  300 10000      0.6999987              0.7
+321 nonidentical_bernoulli  301 10000      0.7002668              0.7
+322 nonidentical_bernoulli  302 10000      0.6997666              0.7
+323 nonidentical_bernoulli  305 10000      0.7000125              0.7
+324 nonidentical_bernoulli  310 10000      0.6999890              0.7
+325 nonidentical_bernoulli  490 10000      0.7001169              0.7
+326 nonidentical_bernoulli  495 10000      0.7000180              0.7
+327 nonidentical_bernoulli  498 10000      0.6998942              0.7
+328 nonidentical_bernoulli  499 10000      0.6998673              0.7
+329 nonidentical_bernoulli  500 10000      0.7001792              0.7
+330 nonidentical_bernoulli  501 10000      0.7000088              0.7
+331 nonidentical_bernoulli  502 10000      0.7002663              0.7
+332 nonidentical_bernoulli  505 10000      0.7002620              0.7
+333 nonidentical_bernoulli  510 10000      0.7000004              0.7
+334 nonidentical_bernoulli  740 10000      0.7000489              0.7
+335 nonidentical_bernoulli  745 10000      0.7002478              0.7
+336 nonidentical_bernoulli  748 10000      0.7000303              0.7
+337 nonidentical_bernoulli  749 10000      0.7002579              0.7
+338 nonidentical_bernoulli  750 10000      0.6999304              0.7
+339 nonidentical_bernoulli  751 10000      0.7001462              0.7
+340 nonidentical_bernoulli  752 10000      0.7002146              0.7
+341 nonidentical_bernoulli  755 10000      0.7000144              0.7
+342 nonidentical_bernoulli  760 10000      0.7001313              0.7
+343 nonidentical_bernoulli 1000 10000      0.7002261              0.7
+       mean_error empirical_se theoretical_se relative_se_error     skewness
+295 -4.900000e-03   0.30643985     0.30000000      0.0214661605 -2.579162196
+296  4.200000e-03   0.29019094     0.29154759      0.0046532908 -0.370326244
+297 -2.866667e-03   0.24497167     0.24720662      0.0090408228 -0.350406195
+298 -3.880000e-03   0.19782027     0.19493589      0.0147965687 -0.301860139
+299  1.930000e-03   0.13966111     0.13917748      0.0034749297 -0.260871015
+300  7.866667e-04   0.11351653     0.11394791      0.0037857757 -0.179576432
+301  2.350000e-04   0.09790635     0.09880869      0.0091322285 -0.126244782
+302 -6.466667e-04   0.08025517     0.08077688      0.0064586247 -0.166124330
+303  1.200000e-05   0.06220793     0.06262946      0.0067304667 -0.084607143
+304  6.360000e-04   0.05127010     0.05116070      0.0021382577 -0.057018121
+305 -5.200000e-04   0.04673088     0.04671034      0.0004396951 -0.102805836
+306  5.800000e-04   0.04520977     0.04546635      0.0056433367 -0.067913219
+307 -5.673469e-04   0.04472456     0.04476603      0.0009263699 -0.085186257
+308 -1.242424e-04   0.04446173     0.04453968      0.0017500989 -0.055746883
+309 -2.560000e-04   0.04401464     0.04431674      0.0068168286 -0.065629609
+310 -3.405941e-04   0.04414328     0.04409710      0.0010471327 -0.050136450
+311 -4.303922e-04   0.04419701     0.04388070      0.0072084516 -0.059411002
+312 -7.485714e-04   0.04357839     0.04325013      0.0075898192 -0.101838272
+313 -1.000000e-04   0.04252123     0.04225701      0.0062527701 -0.075609965
+314 -1.106667e-04   0.03575845     0.03619279      0.0120007100 -0.019707048
+315 -1.580000e-04   0.03132472     0.03134746      0.0007254132 -0.061534220
+316  4.586207e-04   0.02603876     0.02603541      0.0001283868 -0.053001868
+317 -1.030508e-04   0.02567264     0.02581393      0.0054736697 -0.049039936
+318 -2.013423e-05   0.02594694     0.02568373      0.0102482236 -0.031885117
+319  1.193980e-04   0.02561228     0.02564076      0.0011108131 -0.037704220
+320 -1.333333e-06   0.02563992     0.02559801      0.0016373039 -0.027325275
+321  2.667774e-04   0.02596212     0.02555548      0.0159121914 -0.069723246
+322 -2.334437e-04   0.02566922     0.02551315      0.0061174111 -0.020140634
+323  1.245902e-05   0.02522215     0.02538742      0.0065098476 -0.010516854
+324 -1.096774e-05   0.02489866     0.02518194      0.0112494378 -0.038830202
+325  1.169388e-04   0.01994494     0.02003121      0.0043064391 -0.027598630
+326  1.797980e-05   0.02011306     0.01992981      0.0091947453 -0.077405539
+327 -1.058233e-04   0.01977809     0.01986971      0.0046106985 -0.020870505
+328 -1.326653e-04   0.01978867     0.01984979      0.0030791395 -0.069350203
+329  1.792000e-04   0.01972713     0.01982994      0.0051845691 -0.022101120
+330  8.782435e-06   0.01972153     0.01981014      0.0044732929 -0.034810820
+331  2.663347e-04   0.01973382     0.01979041      0.0028595553 -0.060314860
+332  2.619802e-04   0.02000479     0.01973155      0.0138479036 -0.049483702
+333  3.921569e-07   0.01966146     0.01963462      0.0013671955 -0.039723965
+334  4.891892e-05   0.01638268     0.01630083      0.0050213770  0.028254667
+335  2.477852e-04   0.01638072     0.01624605      0.0082899342 -0.054945298
+336  3.034759e-05   0.01616616     0.01621344      0.0029162643 -0.014370149
+337  2.579439e-04   0.01593175     0.01620261      0.0167175133  0.001981413
+338 -6.960000e-05   0.01624535     0.01619181      0.0033063959  0.014115836
+339  1.462051e-04   0.01633159     0.01618103      0.0093049291 -0.007087859
+340  2.146277e-04   0.01624361     0.01617027      0.0045354328 -0.050527633
+341  1.443709e-05   0.01613630     0.01613812      0.0001128602 -0.061898399
+342  1.313158e-04   0.01613506     0.01608495      0.0031151711 -0.057937919
+343  2.261000e-04   0.01405957     0.01402284      0.0026195673 -0.048402172
+    excess_kurtosis    qq_rmse   seed_label
+295     4.653008193 0.90214991 student_seed
+296    -0.734662554 0.54011929 student_seed
+297    -0.478479257 0.43035460 student_seed
+298    -0.349481830 0.32016632 student_seed
+299    -0.110435978 0.22133710 student_seed
+300    -0.168148594 0.17826771 student_seed
+301    -0.061494694 0.15162731 student_seed
+302     0.039344820 0.12689721 student_seed
+303    -0.003555593 0.09599252 student_seed
+304    -0.056925882 0.07725150 student_seed
+305    -0.019072009 0.07376705 student_seed
+306    -0.044082084 0.07010415 student_seed
+307     0.006196572 0.07016302 student_seed
+308    -0.025740835 0.06760242 student_seed
+309    -0.018554575 0.06814392 student_seed
+310    -0.039082213 0.06690612 student_seed
+311    -0.010091975 0.06700021 student_seed
+312     0.083646160 0.06884305 student_seed
+313    -0.072899113 0.06648727 student_seed
+314    -0.069305719 0.05561216 student_seed
+315     0.013599308 0.04991816 student_seed
+316     0.026150717 0.04145197 student_seed
+317    -0.036578814 0.04175996 student_seed
+318     0.102916533 0.04050943 student_seed
+319     0.022400845 0.04051582 student_seed
+320     0.053153416 0.04025103 student_seed
+321    -0.028722166 0.04274792 student_seed
+322    -0.098389404 0.03991566 student_seed
+323     0.042319444 0.03937355 student_seed
+324     0.035575950 0.03989991 student_seed
+325     0.035907937 0.03266631 student_seed
+326    -0.098694366 0.03753352 student_seed
+327    -0.097018190 0.03311988 student_seed
+328     0.104380416 0.03571216 student_seed
+329     0.048092186 0.03306540 student_seed
+330    -0.056858634 0.03286632 student_seed
+331    -0.051411300 0.03579416 student_seed
+332     0.024435965 0.03297999 student_seed
+333     0.054080993 0.03296431 student_seed
+334    -0.076303615 0.02739034 student_seed
+335    -0.008771681 0.02848180 student_seed
+336     0.064891723 0.02777794 student_seed
+337     0.016940595 0.02710257 student_seed
+338    -0.096526841 0.03072297 student_seed
+339    -0.103997454 0.02863572 student_seed
+340     0.035895959 0.03085520 student_seed
+341    -0.039344044 0.03232036 student_seed
+342    -0.047827103 0.02915280 student_seed
+343     0.063991682 0.02672370 student_seed</code></pre>
+</div>
+</div>
+</section>
+<section id="final-selected-n-and-interpretation" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="final-selected-n-and-interpretation"><span class="header-section-number">6</span> Final Selected N and Interpretation</h2>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<p><strong>Selected N:</strong> <code>n = 1,000</code></p>
+<ul>
+<li>skewness: -0.0484</li>
+<li>excess kurtosis: 0.064</li>
+<li>Q-Q RMSE: 0.0267</li>
+<li>empirical SE: 0.0141</li>
+<li>theoretical/reference SE: 0.014 <strong>Evidence decision:</strong> The correct p_i-specific variance is used; n = 1,000 is the first tested value with the strongest numerical and visual evidence, though convergence is slower than the iid benchmark.</li>
+</ul>
+<p>The selected value uses <code>Var(Xbar) = sum(p_i * (1 - p_i)) / n^2</code>; replacing the changing probabilities by one iid Bernoulli variance would answer a different problem. The <code>n = 1,000</code> row is numerically stable against the alternate seed, although convergence is slower than for the bounded iid die.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "07 · Extra Credit: Non-Identical Bernoulli Shots"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Independent shots with probabilities that change from 0.90 to 0.50"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"nonidentical_bernoulli"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>Does a normal approximation emerge similarly when observations remain independent but are not identically distributed?</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Population / Process and Theory</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>For each candidate <span class="in">`n`</span>, probabilities <span class="in">`p_i`</span> are evenly spaced from 0.90 to 0.50, and <span class="in">`X_i ~ Bernoulli(p_i)`</span> independently. The theoretical mean of the average is <span class="in">`(1/n) * sum(p_i)`</span>. The variance is <span class="in">`sum(p_i * (1 - p_i)) / n^2`</span>, not an iid Binomial calculation.</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## CLT Assumptions and Prediction</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>Independence and finite variance hold, while identical distribution does not. Since the probabilities vary smoothly and stay away from 0 and 1, a normal approximation may be reasonable, but the relevant mean and variance change with candidate <span class="in">`n`</span>.</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Probability Curve</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>probabilities <span class="ot">&lt;-</span> <span class="fu">nonidentical_probabilities</span>(<span class="dv">20</span>L)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq_along</span>(probabilities), probabilities, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#C44E52"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">"Shot number"</span>,</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"P(make)"</span>, <span class="at">main =</span> <span class="st">"Basketball success probability by shot"</span>)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation Design and Evidence</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>Each simulated sample calls <span class="in">`rbinom(n, size = 1, prob = p)`</span> with its own probability vector. The displayed diagnostics use the correct <span class="in">`p_i`</span>-specific theoretical SE.</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot.new</span>(); <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="st">"Run scripts/run_project.R after entering student_seed."</span>)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>  display_n <span class="ot">&lt;-</span> <span class="fu">max</span>(rows<span class="sc">$</span>n); means_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(root, <span class="st">"results"</span>, <span class="st">"sample_means"</span>, <span class="fu">paste0</span>(spec<span class="sc">$</span>id, <span class="st">"_n_"</span>, display_n, <span class="st">".rds"</span>))</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(means_path)) {</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    means <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(means_path); old_par <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)); theory <span class="ot">&lt;-</span> <span class="fu">nonidentical_bernoulli_theory</span>(display_n)</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_histogram</span>(means, display_n, spec<span class="sc">$</span>label, theory<span class="sc">$</span>mean, theory<span class="sc">$</span>sd)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_qq</span>(means, display_n, spec<span class="sc">$</span>label); <span class="fu">par</span>(old_par)</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final Selected N and Interpretation</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, results='asis'}</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>The selected value uses <span class="in">`Var(Xbar) = sum(p_i * (1 - p_i)) / n^2`</span>; replacing the changing probabilities by one iid Bernoulli variance would answer a different problem. The <span class="in">`n = 1,000`</span> row is numerically stable against the alternate seed, although convergence is slower than for the bounded iid die.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Math 167R Project 1</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with R + Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
