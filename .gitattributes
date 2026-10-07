@@ -1,0 +1,4 @@
+# PDFs are rendered artifacts, not line-oriented source files.
+*.pdf binary
+# Preserve the renv-generated bootstrap script without whitespace rewrites.
+renv/activate.R whitespace=-blank-at-eol
