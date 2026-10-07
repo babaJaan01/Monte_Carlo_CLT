@@ -225,6 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#practical-standard-approval-and-visual-revision" id="toc-practical-standard-approval-and-visual-revision" class="nav-link" data-scroll-target="#practical-standard-approval-and-visual-revision"><span class="header-section-number">1.3.1</span> Practical-standard approval and visual revision</a></li>
   </ul></li>
+  <li><a href="#complete-pdf-revision-october-7-2026" id="toc-complete-pdf-revision-october-7-2026" class="nav-link" data-scroll-target="#complete-pdf-revision-october-7-2026"><span class="header-section-number">1.4</span> Complete-PDF revision: October 7, 2026</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -246,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Corrections implemented by AI:</strong> Separate seed directories, population-specific refinement, compact evidence reports, vector-to-table validation, aligned histogram bins for discrete means, and a complete renv setup.</p>
 <p><strong>Automated checks:</strong> The corrected simulation ran with B = 10,000; both seeds’ saved vectors were checked against their means, SDs, and Q-Q RMSE in the diagnostic CSVs.</p>
 <p><strong>My current understanding:</strong> I initially described n as sample size and B as replication. We clarified that B counts fresh simulated samples. We also clarified that the Cauchy population mean and variance are undefined, while finite sample averages remain calculable.</p>
-<p><strong>Pending:</strong> My paired review of the plots and final sample-size decisions. I have not yet personally confirmed the revised conclusions or completed a line-by-line walkthrough.</p>
+<p><strong>Status at that point:</strong> Paired review was pending. The later entries record what actually occurred; no complete line-by-line mastery is claimed.</p>
 <section id="first-paired-review-normal-and-die" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="first-paired-review-normal-and-die"><span class="header-section-number">1.1.1</span> First paired review: Normal and die</h3>
 <p>I said the die at n = 20 was convincing and the remaining Q-Q steps were acceptable. My explanation of exact Normality was initially uncertain (“because the mapping between them is exact?? idk”). AI clarified that independent Normal observations have an exactly Normal average for every positive n.&nbsp;The die choice remains provisional until smaller nearby values are inspected; accepting n = 20 alone does not establish it as the smallest defensible value.</p>
@@ -291,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Clarification:</strong> Visual evidence is appropriate, but “looks better” is not a rejection argument for a smaller candidate. Adjacent values can be practically indistinguishable; the report must acknowledge a transition region instead of inventing a sharp cutoff.</li>
 <li><strong>Correction prompted by this exchange:</strong> Added smaller, population-specific boundary experiments for both seeds, preserving B = 10,000. Generated tighter histogram/Q-Q comparisons. The proposed summary distinguishes borderline ranges from approved final selections.</li>
 <li><strong>Independent checks:</strong> <code>Rscript scripts/validate_results.R</code> passed after the new experiments; both seeds’ saved vectors reproduce their CSV means, SDs and Q-Q RMSE. The dependent model has bounded conditional second moments, but this does not justify an iid SE or establish a dependent CLT.</li>
-<li><strong>Review still needed:</strong> The student’s tolerance for residual tail bends and discrete steps, and final acceptance arguments. No approval or complete understanding is inferred from silence.</li>
+<li><strong>Status at that point:</strong> Tolerance for residual tail bends and discrete steps still needed review. The following entry records the later practical-standard approval; it does not imply independent confirmation of every integer.</li>
 </ul>
 <section id="practical-standard-approval-and-visual-revision" class="level3" data-number="1.3.1">
 <h3 data-number="1.3.1" class="anchored" data-anchor-id="practical-standard-approval-and-visual-revision"><span class="header-section-number">1.3.1</span> Practical-standard approval and visual revision</h3>
@@ -302,11 +303,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Presentation change:</strong> Four-page Quarto/Typst PDF with larger typography, a concise acceptance/smaller-n table, consistent color, boundary plots and seed comparisons.</li>
 <li><strong>Understanding claim:</strong> The log does not assert complete line-by-line mastery. Important generator and simulation lines are explained in the separate investigations for my review.</li>
 </ul>
+</section>
+</section>
+<section id="complete-pdf-revision-october-7-2026" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="complete-pdf-revision-october-7-2026"><span class="header-section-number">1.4</span> Complete-PDF revision: October 7, 2026</h2>
+<p><strong>Actual prompt:</strong> I asked where the PDF directly answered the three major questions and whether AI iteration evidence was only in the repository. I then requested: “EVERYTHING should be in the pdf pertaining to the instructions.”</p>
+<p><strong>Weakness identified:</strong> The attractive four-page summary was not a self-contained grading submission. Several cases’ plots, full diagnostics, code explanation and the detailed AI record required browsing other files.</p>
+<p><strong>Correction:</strong> AI re-read all seven attached instructor sources and expanded the same Quarto PDF to include explicit answers, eight case investigations, actual diagnostic rows for every tested n, both seeds’ boundary metrics, special-process checks, code walkthroughs and actual prompt/correction examples. The updated scope remains five required and three extra-credit cases. Older unrelated lesson activities were not added as requirements.</p>
+<p><strong>Honesty limit:</strong> Theory-based expectations are retrospective; no personal prediction made before the original run or unrecorded reaction is fabricated. AI selected the working boundary integers under my approved practical standard.</p>
+<p><strong>Validation:</strong> The same saved-vector guard links PDF plots to diagnostic rows. Cauchy plots now label a conditional central histogram window while Q-Q plots and numerical diagnostics retain all means; finite-value checks reject failed vectors rather than silently dropping them. Final rendering and page inspection are recorded in <code>VALIDATION.md</code>.</p>
 
 
 <!-- -->
 
-</section>
 </section>
 </section>
 
@@ -780,7 +789,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>**My current understanding:** I initially described n as sample size and B as replication. We clarified that B counts fresh simulated samples. We also clarified that the Cauchy population mean and variance are undefined, while finite sample averages remain calculable.</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>**Pending:** My paired review of the plots and final sample-size decisions. I have not yet personally confirmed the revised conclusions or completed a line-by-line walkthrough.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>**Status at that point:** Paired review was pending. The later entries record what actually occurred; no complete line-by-line mastery is claimed.</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### First paired review: Normal and die</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
@@ -823,7 +832,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Clarification:** Visual evidence is appropriate, but “looks better” is not a rejection argument for a smaller candidate. Adjacent values can be practically indistinguishable; the report must acknowledge a transition region instead of inventing a sharp cutoff.</span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Correction prompted by this exchange:** Added smaller, population-specific boundary experiments for both seeds, preserving B = 10,000. Generated tighter histogram/Q-Q comparisons. The proposed summary distinguishes borderline ranges from approved final selections.</span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Independent checks:** <span class="in">`Rscript scripts/validate_results.R`</span> passed after the new experiments; both seeds' saved vectors reproduce their CSV means, SDs and Q-Q RMSE. The dependent model has bounded conditional second moments, but this does not justify an iid SE or establish a dependent CLT.</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Review still needed:** The student's tolerance for residual tail bends and discrete steps, and final acceptance arguments. No approval or complete understanding is inferred from silence.</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Status at that point:** Tolerance for residual tail bends and discrete steps still needed review. The following entry records the later practical-standard approval; it does not imply independent confirmation of every integer.</span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### Practical-standard approval and visual revision</span></span>
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
@@ -831,7 +840,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**What I approved:** A practical approximation rather than exact Normality or precise extreme-tail accuracy. I delegated completion and asked for clearer visual presentation.</span>
 <span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**What AI did:** Selected evidence-backed working boundaries under that standard, retained explicit borderline-neighbor uncertainty, and generated the summary from actual rows. I did not independently specify or confirm every boundary integer.</span>
 <span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Presentation change:** Four-page Quarto/Typst PDF with larger typography, a concise acceptance/smaller-n table, consistent color, boundary plots and seed comparisons.</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Understanding claim:** The log does not assert complete line-by-line mastery. Important generator and simulation lines are explained in the separate investigations for my review.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Understanding claim:** The log does not assert complete line-by-line mastery. Important generator and simulation lines are explained in the separate investigations for my review.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Complete-PDF revision: October 7, 2026</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>**Actual prompt:** I asked where the PDF directly answered the three major questions and whether AI iteration evidence was only in the repository. I then requested: “EVERYTHING should be in the pdf pertaining to the instructions.”</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>**Weakness identified:** The attractive four-page summary was not a self-contained grading submission. Several cases' plots, full diagnostics, code explanation and the detailed AI record required browsing other files.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>**Correction:** AI re-read all seven attached instructor sources and expanded the same Quarto PDF to include explicit answers, eight case investigations, actual diagnostic rows for every tested n, both seeds' boundary metrics, special-process checks, code walkthroughs and actual prompt/correction examples. The updated scope remains five required and three extra-credit cases. Older unrelated lesson activities were not added as requirements.</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>**Honesty limit:** Theory-based expectations are retrospective; no personal prediction made before the original run or unrecorded reaction is fabricated. AI selected the working boundary integers under my approved practical standard.</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>**Validation:** The same saved-vector guard links PDF plots to diagnostic rows. Cauchy plots now label a conditional central histogram window while Q-Q plots and numerical diagnostics retain all means; finite-value checks reject failed vectors rather than silently dropping them. Final rendering and page inspection are recorded in <span class="in">`VALIDATION.md`</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

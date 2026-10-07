@@ -16,7 +16,7 @@
 
 **My current understanding:** I initially described n as sample size and B as replication. We clarified that B counts fresh simulated samples. We also clarified that the Cauchy population mean and variance are undefined, while finite sample averages remain calculable.
 
-**Pending:** My paired review of the plots and final sample-size decisions. I have not yet personally confirmed the revised conclusions or completed a line-by-line walkthrough.
+**Status at that point:** Paired review was pending. The later entries record what actually occurred; no complete line-by-line mastery is claimed.
 
 ### First paired review: Normal and die
 
@@ -59,7 +59,7 @@ Use this file to document actual AI-assisted iterations. Do not add invented pro
 - **Clarification:** Visual evidence is appropriate, but “looks better” is not a rejection argument for a smaller candidate. Adjacent values can be practically indistinguishable; the report must acknowledge a transition region instead of inventing a sharp cutoff.
 - **Correction prompted by this exchange:** Added smaller, population-specific boundary experiments for both seeds, preserving B = 10,000. Generated tighter histogram/Q-Q comparisons. The proposed summary distinguishes borderline ranges from approved final selections.
 - **Independent checks:** `Rscript scripts/validate_results.R` passed after the new experiments; both seeds' saved vectors reproduce their CSV means, SDs and Q-Q RMSE. The dependent model has bounded conditional second moments, but this does not justify an iid SE or establish a dependent CLT.
-- **Review still needed:** The student's tolerance for residual tail bends and discrete steps, and final acceptance arguments. No approval or complete understanding is inferred from silence.
+- **Status at that point:** Tolerance for residual tail bends and discrete steps still needed review. The following entry records the later practical-standard approval; it does not imply independent confirmation of every integer.
 
 ### Practical-standard approval and visual revision
 
@@ -68,3 +68,15 @@ Use this file to document actual AI-assisted iterations. Do not add invented pro
 - **What AI did:** Selected evidence-backed working boundaries under that standard, retained explicit borderline-neighbor uncertainty, and generated the summary from actual rows. I did not independently specify or confirm every boundary integer.
 - **Presentation change:** Four-page Quarto/Typst PDF with larger typography, a concise acceptance/smaller-n table, consistent color, boundary plots and seed comparisons.
 - **Understanding claim:** The log does not assert complete line-by-line mastery. Important generator and simulation lines are explained in the separate investigations for my review.
+
+## Complete-PDF revision: October 7, 2026
+
+**Actual prompt:** I asked where the PDF directly answered the three major questions and whether AI iteration evidence was only in the repository. I then requested: “EVERYTHING should be in the pdf pertaining to the instructions.”
+
+**Weakness identified:** The attractive four-page summary was not a self-contained grading submission. Several cases' plots, full diagnostics, code explanation and the detailed AI record required browsing other files.
+
+**Correction:** AI re-read all seven attached instructor sources and expanded the same Quarto PDF to include explicit answers, eight case investigations, actual diagnostic rows for every tested n, both seeds' boundary metrics, special-process checks, code walkthroughs and actual prompt/correction examples. The updated scope remains five required and three extra-credit cases. Older unrelated lesson activities were not added as requirements.
+
+**Honesty limit:** Theory-based expectations are retrospective; no personal prediction made before the original run or unrecorded reaction is fabricated. AI selected the working boundary integers under my approved practical standard.
+
+**Validation:** The same saved-vector guard links PDF plots to diagnostic rows. Cauchy plots now label a conditional central histogram window while Q-Q plots and numerical diagnostics retain all means; finite-value checks reject failed vectors rather than silently dropping them. Final rendering and page inspection are recorded in `VALIDATION.md`.

@@ -85,7 +85,7 @@ load_sample_means <- function(id, n, seed_label = "student_seed") {
     "all_diagnostics.csv" else "sensitivity_diagnostics.csv")
   rows <- read.csv(table_path)
   row <- rows[rows$population_id == id & rows$n == n, ]
-  stopifnot(nrow(row) == 1L, length(means) == row$B,
+  stopifnot(nrow(row) == 1L, length(means) == row$B, all(is.finite(means)),
             abs(mean(means) - row$empirical_mean) < 1e-9,
             abs(sd(means) - row$empirical_se) < 1e-9,
             abs(qq_rmse(means) - row$qq_rmse) < 1e-9)
@@ -108,8 +108,16 @@ plot_review_evidence <- function(id, n_values) {
       left <- floor(min(x) / width) * width - 0.5 / n
       breaks <- seq(left, max(x) + width, by = width)
     }
-    hist(x, breaks = breaks, probability = TRUE, col = "#72B7B2",
-         border = "white", main = paste("n =", n), xlab = "Sample mean")
+    if (id == "cauchy") {
+      central <- x[abs(x) <= 10]
+      hist(central, breaks = seq(-10, 10, length.out = 41), probability = TRUE,
+           col = "#72B7B2", border = "white",
+           main = paste0("n = ", n, "; kept ", length(central), "/", length(x)),
+           xlab = "Mean, central window only", ylab = "Conditional density")
+    } else {
+      hist(x, breaks = breaks, probability = TRUE, col = "#72B7B2",
+           border = "white", main = paste("n =", n), xlab = "Sample mean")
+    }
     mu <- theoretical_mean_for(spec, n)
     se <- theoretical_se_for(spec, n)
     if (is.finite(mu) && is.finite(se)) {

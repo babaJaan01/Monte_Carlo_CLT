@@ -19,8 +19,20 @@ The regenerated primary diagnostics, sensitivity diagnostics, Normal calibration
 
 ## Reports and judgment limits
 
-All eight Quarto investigations and the overview/methodology/AI pages render. The four-page Typst PDF is inspected page by page for legibility, table width, clipping and consistency with the saved results.
+All eight Quarto investigations and the overview/methodology/AI pages render. The original four-page summary was expanded on October 7 into a 35-page self-contained submission: four overview pages followed by the complete evidence and appendices.
 
 Sample-size selections are explicit practical judgments in `results/decisions.csv`, not automatically discovered mathematical thresholds. Acceptance and smaller-n reservations are documented; borderline neighbors remain uncertain. The student approved the practical standard and delegated completion, but did not independently confirm every boundary integer or claim complete code mastery.
 
 Reproduction commands are in the README. The PDF uses Quarto's bundled Typst, with Helvetica Neue preferred for the macOS layout; font substitution on other platforms can change appearance.
+
+## Complete-PDF validation: October 7, 2026
+
+- Re-read all seven attached instructor documents. The updated guidance defines five required and three extra-credit cases; unrelated older lesson exercises are not added to the project scope.
+- Re-ran `scripts/smoke_test.R` and `scripts/validate_results.R`; both passed. Saved vectors are now also explicitly required to contain only finite means.
+- Rendered the expanded Quarto/Typst PDF and all eleven website pages successfully. Statistical result CSVs and selected boundaries were not changed by this report revision.
+- Inspected every PDF page as a rendered image, then rechecked the pages affected by final typography changes. Fixed sparse overflow pages and shortened awkwardly wrapping headings. Tables, graphs and code remain inside the page area.
+- A temporary PDF-output QA script (not statistical analysis) verified that all 215 primary diagnostic rows occur in the PDF with the same displayed precision as the source CSV, all three questions are explicit, and no sparse overflow pages remain.
+- The downloadable PDF in `docs/output/pdf/` is byte-identical to `output/pdf/clt_summary.pdf`. All seven preserved instructor files still match the supplied Downloads copies.
+- The PDF includes actual AI prompt/correction examples, both seeds' boundary diagnostics, model construction checks, important R code and reproduction commands. It explicitly labels retrospective expectations; no undocumented pre-run prediction or personal surprise is manufactured.
+
+The fresh-directory full simulation check above was completed on October 6; it is not represented as a newly repeated full run on October 7. This revision reuses the validated generated results and rechecks their correspondence to the expanded report.

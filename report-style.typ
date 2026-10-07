@@ -6,7 +6,7 @@
   header: text(size: 8pt, fill: rgb("#667085"))[MATH 167R / MONTE CARLO],
   footer: context grid(columns: (1fr, auto),
     text(size: 8pt, fill: rgb("#667085"))[Shayaan Tanveer],
-    text(size: 8pt, fill: rgb("#667085"))[#counter(page).display() / 4]),
+    text(size: 8pt, fill: rgb("#667085"))[#counter(page).display() / #counter(page).final().first()]),
 )
 #show heading: set text(fill: rgb("#17212B"), weight: "bold")
 #show heading.where(level: 1): set text(size: 25pt)
