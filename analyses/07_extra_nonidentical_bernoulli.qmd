@@ -1,59 +1,89 @@
 ---
-title: "07 · Extra Credit: Non-Identical Bernoulli Shots"
-subtitle: "Independent shots with probabilities that change from 0.90 to 0.50"
+title: "Non-Identical Basketball Shots"
+author: "Shayaan Tanveer"
 ---
 
 ```{r}
-root <- if (file.exists("R/config.R")) "." else ".."
-source(file.path(root, "R/config.R")); source(file.path(root, "R/distributions.R"))
-source(file.path(root, "R/diagnostics.R")); source(file.path(root, "R/simulate_means.R"))
-source(file.path(root, "R/plotting.R")); source(file.path(root, "R/report_helpers.R"))
-spec <- population_spec("nonidentical_bernoulli"); rows <- population_rows(spec$id)
+#| include: false
+source("R/config.R")
+source("R/distributions.R")
+source("R/diagnostics.R")
+source("R/simulate_means.R")
+source("R/plotting.R")
+source("R/report_helpers.R")
+id <- "nonidentical_bernoulli"
 ```
 
-## Research Question
+## Population and theory
 
-Does a normal approximation emerge similarly when observations remain independent but are not identically distributed?
+Independent Bernoulli shots with probabilities evenly spanning 0.90 to 0.50. Mean is 0.70 for n >= 2, and 0.90 at n = 1. Var(Xbar) = sum p_i(1-p_i)/n^2.
 
-## Population / Process and Theory
+## Expectation based on theory
 
-For each candidate `n`, probabilities `p_i` are evenly spaced from 0.90 to 0.50, and `X_i ~ Bernoulli(p_i)` independently. The theoretical mean of the average is `(1/n) * sum(p_i)`. The variance is `sum(p_i * (1 - p_i)) / n^2`, not an iid Binomial calculation.
+Bounded independent observations can support a generalized CLT despite changing probabilities. This expectation was documented during revision; I am not claiming it was a personal prediction made before the original run.
 
-## CLT Assumptions and Prediction
+## Evidence for my decision
 
-Independence and finite variance hold, while identical distribution does not. Since the probabilities vary smoothly and stay away from 0 and 1, a normal approximation may be reasonable, but the relevant mean and variance change with candidate `n`.
+### Important code, in plain language
 
-## Probability Curve
+seq(0.90, 0.50, length.out=n) creates the probabilities. rbinom(n, size=1, prob=probabilities) draws independent shots with those different probabilities. The SE helper sums their individual variances and divides by n squared before taking a square root.
+
+The shared simulator repeats mean(generator(n)) B times and stores one number per sample. Diagnostics are calculated from that vector, not from the original observations. Both seeds save to different directories, and loading a plotted vector checks its mean, SD and Q-Q RMSE against the matching CSV row.
+
+I generate B = 10,000 separate samples at each n using seed 7616. Seed 7617 checks sensitivity. The full tested grid is in the CSV; this table focuses on candidates for our practical-normality review.
 
 ```{r}
-probabilities <- nonidentical_probabilities(20L)
-plot(seq_along(probabilities), probabilities, type = "b", pch = 19,
-     col = "#C44E52", ylim = c(0, 1), xlab = "Shot number",
-     ylab = "P(make)", main = "Basketball success probability by shot")
+#| results: asis
+review_table(id)
 ```
-
-## Simulation Design and Evidence
-
-Each simulated sample calls `rbinom(n, size = 1, prob = p)` with its own probability vector. The displayed diagnostics use the correct `p_i`-specific theoretical SE.
 
 ```{r}
-if (is.null(rows) || nrow(rows) == 0L) {
-  plot.new(); text(0.5, 0.5, "Run scripts/run_project.R after entering student_seed.")
-} else {
-  display_n <- max(rows$n); means_path <- file.path(root, "results", "sample_means", paste0(spec$id, "_n_", display_n, ".rds"))
-  if (file.exists(means_path)) {
-    means <- readRDS(means_path); old_par <- par(mfrow = c(1, 2)); theory <- nonidentical_bernoulli_theory(display_n)
-    plot_sampling_histogram(means, display_n, spec$label, theory$mean, theory$sd)
-    plot_sampling_qq(means, display_n, spec$label); par(old_par)
-  }
-  print(rows)
-}
+#| fig-width: 11
+#| fig-height: 6
+#| fig-cap: "Primary seed 7616. Orange curves use valid theoretical moments. Q-Q steps reflect discreteness; systematic curvature indicates shape differences."
+decision <- selected_row(id)
+ns <- na.omit(c(decision$below_n, decision$selected_n, decision$above_n))
+plot_review_evidence(id, ns)
 ```
 
-## Final Selected N and Interpretation
+## Special evidence
 
-```{r, results='asis'}
-report_selection(spec$id)
+```{r}
+plot(nonidentical_probabilities(100L), type = "l", xlab = "Shot", ylab = "Probability")
 ```
 
-The selected value uses `Var(Xbar) = sum(p_i * (1 - p_i)) / n^2`; replacing the changing probabilities by one iid Bernoulli variance would answer a different problem. The `n = 1,000` row is numerically stable against the alternate seed, although convergence is slower than for the bounded iid die.
+Each n gets a new evenly spaced probability vector; it is not a prefix of one fixed 100-shot sequence. For n >= 2 the mean probability is 0.70, but pretending every shot has p = 0.70 gives the wrong variance.
+
+```{r}
+n <- selected_row(id)$selected_n
+p <- nonidentical_probabilities(n)
+knitr::kable(data.frame(n = n,
+  expected_mean = mean(p),
+  correct_SE = sqrt(sum(p*(1-p))/n^2),
+  iid_shortcut_SE = sqrt(mean(p)*(1-mean(p))/n)), digits = 4)
+```
+
+The difference is mathematical: average[p_i(1-p_i)] equals p-bar(1-p-bar) minus average[(p_i-p-bar)^2]. Therefore the iid shortcut overstates the variance here.
+
+## My selected n and justification
+
+```{r}
+#| results: asis
+report_selection(id)
+```
+
+I use the practical standard approved during review: small remaining bends and steps are acceptable, not exact tail accuracy. Correct mean and SE alone cannot establish a Normal shape. Borderline neighbors mean that the exact minimum is uncertain.
+
+## Seed sensitivity
+
+```{r}
+a <- population_rows(id)
+b <- read.csv("results/sensitivity_diagnostics.csv")
+b <- b[b$population_id == id, ]
+compare <- merge(a[, c("n", "qq_rmse", "skewness")],
+                 b[, c("n", "qq_rmse", "skewness")], by = "n",
+                 suffixes = c("_7616", "_7617"))
+knitr::kable(compare[compare$n %in% sort(unique(c(ns, review_n_values[[id]]))), ], digits = 3)
+```
+
+The selected value is still a practical candidate under both seeds, although exact diagnostics change. Nearby candidates can be borderline: the scientific interpretation is more stable than an exact boundary integer. I do not choose the seed with the nicest plot.

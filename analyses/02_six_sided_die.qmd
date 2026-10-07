@@ -1,52 +1,77 @@
 ---
-title: "02 · Six-Sided Die"
-subtitle: "A bounded, discrete, symmetric population"
+title: "Six-Sided Die"
+author: "Shayaan Tanveer"
 ---
 
 ```{r}
-root <- if (file.exists("R/config.R")) "." else ".."
-source(file.path(root, "R/config.R")); source(file.path(root, "R/distributions.R"))
-source(file.path(root, "R/diagnostics.R")); source(file.path(root, "R/simulate_means.R"))
-source(file.path(root, "R/plotting.R")); source(file.path(root, "R/report_helpers.R"))
-spec <- population_spec("six_sided_die"); rows <- population_rows(spec$id)
+#| include: false
+source("R/config.R")
+source("R/distributions.R")
+source("R/diagnostics.R")
+source("R/simulate_means.R")
+source("R/plotting.R")
+source("R/report_helpers.R")
+id <- "six_sided_die"
 ```
 
-## Research Question
+## Population and theory
 
-How quickly does averaging a discrete uniform die produce a sampling distribution that is comfortable to call approximately normal?
+Independent uniform draws from 1 through 6; mean 3.5, variance 35/12, SE sqrt((35/12)/n).
 
-## Population / Process and Theory
-
-`X_i` is uniform on `{1, 2, 3, 4, 5, 6}`. The theoretical mean is `3.5`, variance is `35/12`, and the theoretical SE is `sqrt(35/12) / sqrt(n)`.
-
-## CLT Assumptions and Prediction
-
-The draws are iid with finite variance, so the ordinary CLT applies. Symmetry should reduce skewness, while discreteness may remain visible at small `n`.
-
-## Simulation Design, Search, and Evidence
-
-The runner uses `B = 10,000`, a broad grid, and optional refinements around a reviewed transition. The display uses the largest generated `n` only as a reproducible diagnostic view; it is not a selected N.
+## Expectation based on theory
 
 ```{r}
-if (is.null(rows) || nrow(rows) == 0L) {
-  plot.new(); text(0.5, 0.5, "Run scripts/run_project.R after entering student_seed.")
-} else {
-  display_n <- max(rows$n); means_path <- file.path(root, "results", "sample_means", paste0(spec$id, "_n_", display_n, ".rds"))
-  if (file.exists(means_path)) {
-    means <- readRDS(means_path); old_par <- par(mfrow = c(1, 2))
-    plot_sampling_histogram(means, display_n, spec$label, spec$theoretical_mean, theoretical_se_for(spec, display_n))
-    plot_sampling_qq(means, display_n, spec$label); par(old_par)
-  }
-  print(rows)
-}
+#| fig-width: 7
+#| fig-height: 3
+#| fig-cap: "Original population shape; this is not the distribution of the sample mean."
+plot_population(id)
 ```
 
-## Final Selected N and Interpretation
+Symmetry and bounded values suggest relatively fast convergence. This expectation was documented during revision; I am not claiming it was a personal prediction made before the original run.
 
-```{r, results='asis'}
-report_selection(spec$id)
+## Evidence for my decision
+
+### Important code, in plain language
+
+The generator uses sample(1:6, n, replace=TRUE). Replacement makes observations independent uniform die rolls, with mean 3.5 and variance 35/12.
+
+The shared simulator repeats mean(generator(n)) B times and stores one number per sample. Diagnostics are calculated from that vector, not from the original observations. Both seeds save to different directories, and loading a plotted vector checks its mean, SD and Q-Q RMSE against the matching CSV row.
+
+I generate B = 10,000 separate samples at each n using seed 7616. Seed 7617 checks sensitivity. The full tested grid is in the CSV; this table focuses on candidates for our practical-normality review.
+
+```{r}
+#| results: asis
+review_table(id)
 ```
 
-The die is bounded, symmetric, and finite-variance, so it converges much faster than strongly skewed or heavy-tailed populations. The selected value is the first reviewed value whose graphical and numerical evidence was persuasive together with nearby stability.
+```{r}
+#| fig-width: 11
+#| fig-height: 6
+#| fig-cap: "Primary seed 7616. Orange curves use valid theoretical moments. Q-Q steps reflect discreteness; systematic curvature indicates shape differences."
+decision <- selected_row(id)
+ns <- na.omit(c(decision$below_n, decision$selected_n, decision$above_n))
+plot_review_evidence(id, ns)
+```
 
-Use symmetry, discreteness, benchmark-calibrated diagnostics, theoretical SE agreement, and stability at neighboring values together. Do not infer the answer from one p-value.
+## My selected n and justification
+
+```{r}
+#| results: asis
+report_selection(id)
+```
+
+I use the practical standard approved during review: small remaining bends and steps are acceptable, not exact tail accuracy. Correct mean and SE alone cannot establish a Normal shape. Borderline neighbors mean that the exact minimum is uncertain.
+
+## Seed sensitivity
+
+```{r}
+a <- population_rows(id)
+b <- read.csv("results/sensitivity_diagnostics.csv")
+b <- b[b$population_id == id, ]
+compare <- merge(a[, c("n", "qq_rmse", "skewness")],
+                 b[, c("n", "qq_rmse", "skewness")], by = "n",
+                 suffixes = c("_7616", "_7617"))
+knitr::kable(compare[compare$n %in% sort(unique(c(ns, review_n_values[[id]]))), ], digits = 3)
+```
+
+The selected value is still a practical candidate under both seeds, although exact diagnostics change. Nearby candidates can be borderline: the scientific interpretation is more stable than an exact boundary integer. I do not choose the seed with the nicest plot.

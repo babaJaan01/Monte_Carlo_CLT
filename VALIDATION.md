@@ -1,31 +1,26 @@
 # Validation record
 
-Status: ready for independent reproduction. The complete workflow was rerun successfully in the build environment; an independent clean-room run has not yet been performed.
+Validated October 6, 2026, with R 4.6.1 and Quarto 1.10.18 on macOS.
 
-Validated on 2026-09-30 with R 4.6.1 and Quarto 1.10.18.
+## Fresh-directory reproduction
 
-## Reproduction inputs
+A temporary checkout was created without the local R library, saved sample-mean vectors, figures or rendered reports. `renv::restore()` restored the locked dependencies, using the package cache. The full simulation was rerun with seeds 7616/7617 and B = 10,000.
 
-- Student seed: `7616`
-- Sensitivity seed: `7617`
-- Monte Carlo repetitions per candidate `n`: `B = 10,000`
-- Normal calibration repetitions: `30`
-- Primary entry point: `Rscript scripts/run_project.R`
-- Decision-layer entry point: `Rscript scripts/finalize_summary.R`
-- Report entry point: `quarto render`
+The regenerated primary diagnostics, sensitivity diagnostics, Normal calibration summary and final summary matched the working repository byte-for-byte on this R version. There are 215 tested population/n rows per seed. This checks reproducibility on the same machine, not independent scientific review or bitwise portability to every R/platform version.
 
-## Checks completed
+## Statistical and programming checks
 
-- `Rscript scripts/smoke_test.R` passed.
-- All ten R source/script files parsed successfully.
-- The primary diagnostics contain the coarse grid, reviewed refinement values, and larger special-case checks.
-- The final summary has eight population rows and every finite selected value is verified against an actual row in `results/all_diagnostics.csv`.
-- Cauchy theoretical mean, SD, and SE fields remain `NA`.
-- Dependent failure theoretical iid SE remains `NA`; the simulation preserves sequential dependence and the report includes sequence, lag, and ACF diagnostics.
-- Non-identical Bernoulli uses varying `p_i` and the variance `sum(p_i * (1 - p_i)) / n^2`.
-- The age-at-death distribution reproduces the instructor construction and has generated mean/SD near 49.98/27.63.
-- The alternate-seed run is stored in `results/sensitivity_diagnostics.csv` and is used to check conclusion stability.
-- `quarto render` completed all 11 website pages without material warnings or errors.
-- The normality heatmap visually marks finite reviewed selections; the Cauchy running-mean figure is included as a special diagnostic.
+- Smoke tests check varying Bernoulli probabilities and their exact SE, synthetic-age moments, Cauchy's undefined theoretical moments, and an exact seeded replay of the dependent recurrence.
+- Both seeds' saved vectors reproduce their CSV mean, SD and Q-Q RMSE; the seed directories contain different vectors.
+- Finalization checks the selected, below-boundary and above-boundary evidence for both seeds and fails on missing or duplicate rows. Cauchy is the only no-finite-n conclusion.
+- No iid theoretical SE is assigned to the dependent process. Finite individual second moments do not imply that a dependent CLT has been proved.
+- Calibration uses 30 independent Monte Carlo experiments at each coarse n. Its diagnostic ranges are contextual, not exact thresholds.
+- Original instructor files match the supplied files and remain unchanged.
 
-No Git commit or push was made during this build. The repository is connected to the public GitHub remote, but publication remains a separate user-authorized step.
+## Reports and judgment limits
+
+All eight Quarto investigations and the overview/methodology/AI pages render. The four-page Typst PDF is inspected page by page for legibility, table width, clipping and consistency with the saved results.
+
+Sample-size selections are explicit practical judgments in `results/decisions.csv`, not automatically discovered mathematical thresholds. Acceptance and smaller-n reservations are documented; borderline neighbors remain uncertain. The student approved the practical standard and delegated completion, but did not independently confirm every boundary integer or claim complete code mastery.
+
+Reproduction commands are in the README. The PDF uses Quarto's bundled Typst, with Helvetica Neue preferred for the macOS layout; font substitution on other platforms can change appearance.

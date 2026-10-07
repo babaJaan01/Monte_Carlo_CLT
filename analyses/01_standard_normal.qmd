@@ -1,51 +1,86 @@
 ---
-title: "01 · Standard Normal"
-subtitle: "The calibration case: exact normality for every n"
+title: "Standard Normal"
+author: "Shayaan Tanveer"
 ---
 
 ```{r}
-root <- if (file.exists("R/config.R")) "." else ".."
-source(file.path(root, "R/config.R")); source(file.path(root, "R/distributions.R"))
-source(file.path(root, "R/diagnostics.R")); source(file.path(root, "R/simulate_means.R"))
-source(file.path(root, "R/plotting.R")); source(file.path(root, "R/report_helpers.R"))
-spec <- population_spec("standard_normal"); rows <- population_rows(spec$id)
+#| include: false
+source("R/config.R")
+source("R/distributions.R")
+source("R/diagnostics.R")
+source("R/simulate_means.R")
+source("R/plotting.R")
+source("R/report_helpers.R")
+id <- "standard_normal"
 ```
 
-## Research Question
+## Population and theory
 
-How well do simulation diagnostics behave when the population is already Normal?
+iid N(0,1); the sample mean is exactly N(0,1/n) for every n.
 
-## Population / Process and Theory
-
-`X_i ~ N(0, 1)`. Because Normal distributions are closed under averaging, the sample mean is exactly `N(0, 1/n)` for every positive integer `n`, including `n = 1`.
-
-## CLT Assumptions and Prediction
-
-The observations are independent, identically distributed, and have finite variance. I expect all diagnostics to fluctuate around their theoretical targets at every tested `n`; those fluctuations quantify Monte Carlo noise.
-
-## Simulation Design, Search, and Evidence
-
-The standard runner uses `B = 10,000`, the shared coarse grid, and any reviewed refinement values entered in `R/config.R`.
+## Expectation based on theory
 
 ```{r}
-if (is.null(rows) || nrow(rows) == 0L) {
-  plot.new(); text(0.5, 0.5, "Run scripts/run_project.R after entering student_seed.")
-} else {
-  display_n <- max(rows$n)
-  means_path <- file.path(root, "results", "sample_means", paste0(spec$id, "_n_", display_n, ".rds"))
-  if (file.exists(means_path)) {
-    means <- readRDS(means_path); old_par <- par(mfrow = c(1, 2))
-    plot_sampling_histogram(means, display_n, spec$label, 0, 1 / sqrt(display_n))
-    plot_sampling_qq(means, display_n, spec$label); par(old_par)
-  }
-  print(rows)
-}
+#| fig-width: 7
+#| fig-height: 3
+#| fig-cap: "Original population shape; this is not the distribution of the sample mean."
+plot_population(id)
 ```
 
-## Final Selected N and Interpretation
+Exact Normal behavior is expected even at n = 1. This expectation was documented during revision; I am not claiming it was a personal prediction made before the original run.
 
-```{r, results='asis'}
-report_selection(spec$id)
+## Evidence for my decision
+
+### Important code, in plain language
+
+The generator calls rnorm(n). Independence and Normality imply that each mean is exactly Normal with mean 0 and SE 1/sqrt(n).
+
+The shared simulator repeats mean(generator(n)) B times and stores one number per sample. Diagnostics are calculated from that vector, not from the original observations. Both seeds save to different directories, and loading a plotted vector checks its mean, SD and Q-Q RMSE against the matching CSV row.
+
+I generate B = 10,000 separate samples at each n using seed 7616. Seed 7617 checks sensitivity. The full tested grid is in the CSV; this table focuses on candidates for our practical-normality review.
+
+```{r}
+#| results: asis
+review_table(id)
 ```
 
-The choice `n = 1` is theoretical, not a claim that simulation detected a transition: a Normal population has an exactly Normal sample mean for every positive `n`.
+```{r}
+#| fig-width: 11
+#| fig-height: 6
+#| fig-cap: "Primary seed 7616. Orange curves use valid theoretical moments. Q-Q steps reflect discreteness; systematic curvature indicates shape differences."
+decision <- selected_row(id)
+ns <- na.omit(c(decision$below_n, decision$selected_n, decision$above_n))
+plot_review_evidence(id, ns)
+```
+
+## My selected n and justification
+
+```{r}
+#| results: asis
+report_selection(id)
+```
+
+Here the smallest possible n = 1 is exact by theory, not borderline. Small nonzero simulated diagnostics are sampling noise, not evidence against the theorem.
+
+### Normal calibration
+
+```{r}
+calibration <- read.csv("results/normal_benchmark_summary.csv")
+knitr::kable(calibration[calibration$n %in% c(1,10,30), ], digits = 3)
+```
+
+These empirical 2.5th-97.5th percentile ranges summarize 30 calibration experiments per n for skewness, excess kurtosis and Q-Q RMSE. They contextualize noise; with only 30 experiments they are approximate ranges, not exact tolerance limits.
+
+## Seed sensitivity
+
+```{r}
+a <- population_rows(id)
+b <- read.csv("results/sensitivity_diagnostics.csv")
+b <- b[b$population_id == id, ]
+compare <- merge(a[, c("n", "qq_rmse", "skewness")],
+                 b[, c("n", "qq_rmse", "skewness")], by = "n",
+                 suffixes = c("_7616", "_7617"))
+knitr::kable(compare[compare$n %in% sort(unique(c(ns, review_n_values[[id]]))), ], digits = 3)
+```
+
+Both seeds validate the implementation, while exact diagnostics change. The selected n = 1 remains exact by theory; no seed choice is needed to justify it.

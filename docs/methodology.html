@@ -146,23 +146,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-required-distributions">    
         <li>
     <a class="dropdown-item" href="./analyses/01_standard_normal.html">
- <span class="dropdown-text">01 · Standard Normal</span></a>
+ <span class="dropdown-text">Standard Normal</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/02_six_sided_die.html">
- <span class="dropdown-text">02 · Six-Sided Die</span></a>
+ <span class="dropdown-text">Six-Sided Die</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/03_exponential.html">
- <span class="dropdown-text">03 · Exponential</span></a>
+ <span class="dropdown-text">Exponential</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/04_binomial_small.html">
- <span class="dropdown-text">04 · Binomial Small</span></a>
+ <span class="dropdown-text">Binomial Small</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/05_cauchy.html">
- <span class="dropdown-text">05 · Cauchy</span></a>
+ <span class="dropdown-text">Cauchy</span></a>
   </li>  
     </ul>
   </li>
@@ -173,15 +173,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-credit">    
         <li>
     <a class="dropdown-item" href="./analyses/06_extra_dependent_failure.html">
- <span class="dropdown-text">06 · Extra Credit: Dependent Failure Process</span></a>
+ <span class="dropdown-text">Dependent Machine Failure</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/07_extra_nonidentical_bernoulli.html">
- <span class="dropdown-text">07 · Extra Credit: Non-Identical Bernoulli Shots</span></a>
+ <span class="dropdown-text">Non-Identical Basketball Shots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/08_extra_age_at_death.html">
- <span class="dropdown-text">08 · Extra Credit: Synthetic Age-at-Death</span></a>
+ <span class="dropdown-text">Synthetic Age-at-Death</span></a>
   </li>  
     </ul>
   </li>
@@ -239,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-simulation-unit" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="the-simulation-unit"><span class="header-section-number">1</span> The simulation unit</h2>
 <p>For a candidate sample size <code>n</code>, one repetition generates <code>n</code> observations and computes one sample mean. Repeating this <code>B = 10,000</code> times produces the simulated sampling distribution of the sample mean.</p>
-<p>The project uses a coarse-to-fine search. The initial grid is deliberately broad. After the coarse run is inspected, a human-selected transition center can be entered in <code>R/config.R</code>; the runner then adds nearby values for a refined search. No selected <code>n</code> is inferred solely from a p-value or hard-coded in the code.</p>
+<p>The project uses a coarse-to-fine search. The initial grid is deliberately broad; earlier exploratory centers are retained for reproducibility. Targeted population-specific grids in <code>R/config.R</code> investigate smaller candidates and nearby larger values. The explicit judgment inputs are in <code>results/decisions.csv</code>; these are evidence decisions, not simulation outputs or automatic p-value cutoffs.</p>
 </section>
 <section id="evidence-used-together" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="evidence-used-together"><span class="header-section-number">2</span> Evidence used together</h2>
@@ -253,7 +253,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="decision-rule" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="decision-rule"><span class="header-section-number">4</span> Decision rule</h2>
-<p>The final selected <code>n</code>, when one exists, is the smallest tested value at which the evidence is jointly persuasive: the histogram is reasonably bell-shaped, the Q-Q plot lacks substantial systematic curvature, diagnostics are reasonably close to the Normal benchmark, theory agrees with simulation where applicable, and the conclusion remains stable at nearby larger values. The final report must state uncertainty and limitations.</p>
+<p>The goal is the smallest tested <code>n</code> I can defend, not the largest or nicest-looking plot. I assess the histogram, systematic Q-Q curvature, skewness, kurtosis, mean and SE agreement where valid, and nearby larger values together. Small discrete steps or residual tail bends may be acceptable for a practical approximation, but not for precise extreme-tail calculations. The Normal benchmark shows simulation noise; matching that noise is not a requirement.</p>
+<p>There is no sharp biological or mathematical transition in these finite-variance cases. Adjacent candidates can be essentially indistinguishable. Where I cannot convincingly reject a smaller candidate, I report a borderline range rather than manufacture a failure reason. A selected value is a judgment under a stated tolerance, not proof that every smaller integer fails.</p>
 </section>
 <section id="sensitivity-to-the-random-seed" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="sensitivity-to-the-random-seed"><span class="header-section-number">5</span> Sensitivity to the random seed</h2>
@@ -726,7 +727,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>For a candidate sample size <span class="in">`n`</span>, one repetition generates <span class="in">`n`</span> observations and computes one sample mean. Repeating this <span class="in">`B = 10,000`</span> times produces the simulated sampling distribution of the sample mean.</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>The project uses a coarse-to-fine search. The initial grid is deliberately broad. After the coarse run is inspected, a human-selected transition center can be entered in <span class="in">`R/config.R`</span>; the runner then adds nearby values for a refined search. No selected <span class="in">`n`</span> is inferred solely from a p-value or hard-coded in the code.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>The project uses a coarse-to-fine search. The initial grid is deliberately broad; earlier exploratory centers are retained for reproducibility. Targeted population-specific grids in <span class="in">`R/config.R`</span> investigate smaller candidates and nearby larger values. The explicit judgment inputs are in <span class="in">`results/decisions.csv`</span>; these are evidence decisions, not simulation outputs or automatic p-value cutoffs.</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evidence used together</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
@@ -742,13 +743,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decision rule</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>The final selected <span class="in">`n`</span>, when one exists, is the smallest tested value at which the evidence is jointly persuasive: the histogram is reasonably bell-shaped, the Q-Q plot lacks substantial systematic curvature, diagnostics are reasonably close to the Normal benchmark, theory agrees with simulation where applicable, and the conclusion remains stable at nearby larger values. The final report must state uncertainty and limitations.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>The goal is the smallest tested <span class="in">`n`</span> I can defend, not the largest or nicest-looking plot. I assess the histogram, systematic Q-Q curvature, skewness, kurtosis, mean and SE agreement where valid, and nearby larger values together. Small discrete steps or residual tail bends may be acceptable for a practical approximation, but not for precise extreme-tail calculations. The Normal benchmark shows simulation noise; matching that noise is not a requirement.</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sensitivity to the random seed</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>There is no sharp biological or mathematical transition in these finite-variance cases. Adjacent candidates can be essentially indistinguishable. Where I cannot convincingly reject a smaller candidate, I report a borderline range rather than manufacture a failure reason. A selected value is a judgment under a stated tolerance, not proof that every smaller integer fails.</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>The primary run uses the confirmed student seed <span class="in">`7616`</span>. The pipeline repeats the same simulation design with seed <span class="in">`7617`</span> and stores those rows in <span class="in">`results/sensitivity_diagnostics.csv`</span>. Exact skewness, kurtosis, and Q-Q RMSE values move because they are Monte Carlo estimates, but the broad conclusions are not seed-shopped: the exact Normal case remains exact in theory, Cauchy remains highly unstable through <span class="in">`n = 5,000`</span>, and the slower finite-variance cases remain slower than the die and age mixture.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sensitivity to the random seed</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>The final selections are recorded in <span class="in">`results/final_summary.csv`</span> by <span class="in">`scripts/finalize_summary.R`</span>. That script checks that every finite selected value is an actual tested row before copying its generated diagnostics into the summary.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>The primary run uses the confirmed student seed <span class="in">`7616`</span>. The pipeline repeats the same simulation design with seed <span class="in">`7617`</span> and stores those rows in <span class="in">`results/sensitivity_diagnostics.csv`</span>. Exact skewness, kurtosis, and Q-Q RMSE values move because they are Monte Carlo estimates, but the broad conclusions are not seed-shopped: the exact Normal case remains exact in theory, Cauchy remains highly unstable through <span class="in">`n = 5,000`</span>, and the slower finite-variance cases remain slower than the die and age mixture.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>The final selections are recorded in <span class="in">`results/final_summary.csv`</span> by <span class="in">`scripts/finalize_summary.R`</span>. That script checks that every finite selected value is an actual tested row before copying its generated diagnostics into the summary.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

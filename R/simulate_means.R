@@ -53,14 +53,15 @@ run_all_populations <- function(
     n_values = coarse_n_grid,
     B = monte_carlo_reps,
     save_means = TRUE,
-    additional_n_values_by_population = list()
+    additional_n_values_by_population = list(),
+    means_directory = "results/sample_means"
 ) {
   specs <- all_population_specs()
   results <- lapply(specs, function(spec) {
     population_extra <- additional_n_values_by_population[[spec$id]]
-    population_n <- sort(unique(c(n_values, population_extra)))
+    population_n <- sort(unique(c(n_values, refine_n_grid(refinement_centers[[spec$id]]), population_extra)))
     run_population_grid(spec, n_values = population_n, B = B,
-                        save_means = save_means)
+                        save_means = save_means, means_directory = means_directory)
   })
   diagnostics <- do.call(rbind, lapply(results, `[[`, "diagnostics"))
   rownames(diagnostics) <- NULL

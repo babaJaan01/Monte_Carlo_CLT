@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Shayaan Tanveer">
 
-<title>05 · Cauchy – How Fast Does Normal Happen?</title>
+<title>Cauchy – How Fast Does Normal Happen?</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -146,23 +147,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-required-distributions">    
         <li>
     <a class="dropdown-item" href="../analyses/01_standard_normal.html">
- <span class="dropdown-text">01 · Standard Normal</span></a>
+ <span class="dropdown-text">Standard Normal</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/02_six_sided_die.html">
- <span class="dropdown-text">02 · Six-Sided Die</span></a>
+ <span class="dropdown-text">Six-Sided Die</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/03_exponential.html">
- <span class="dropdown-text">03 · Exponential</span></a>
+ <span class="dropdown-text">Exponential</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/04_binomial_small.html">
- <span class="dropdown-text">04 · Binomial Small</span></a>
+ <span class="dropdown-text">Binomial Small</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/05_cauchy.html">
- <span class="dropdown-text">05 · Cauchy</span></a>
+ <span class="dropdown-text">Cauchy</span></a>
   </li>  
     </ul>
   </li>
@@ -173,15 +174,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-credit">    
         <li>
     <a class="dropdown-item" href="../analyses/06_extra_dependent_failure.html">
- <span class="dropdown-text">06 · Extra Credit: Dependent Failure Process</span></a>
+ <span class="dropdown-text">Dependent Machine Failure</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/07_extra_nonidentical_bernoulli.html">
- <span class="dropdown-text">07 · Extra Credit: Non-Identical Bernoulli Shots</span></a>
+ <span class="dropdown-text">Non-Identical Basketball Shots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/08_extra_age_at_death.html">
- <span class="dropdown-text">08 · Extra Credit: Synthetic Age-at-Death</span></a>
+ <span class="dropdown-text">Synthetic Age-at-Death</span></a>
   </li>  
     </ul>
   </li>
@@ -205,11 +206,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#research-question" id="toc-research-question" class="nav-link active" data-scroll-target="#research-question"><span class="header-section-number">1</span> Research Question</a></li>
-  <li><a href="#population-process-and-theory" id="toc-population-process-and-theory" class="nav-link" data-scroll-target="#population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</a></li>
-  <li><a href="#clt-assumptions-and-prediction" id="toc-clt-assumptions-and-prediction" class="nav-link" data-scroll-target="#clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</a></li>
-  <li><a href="#simulation-design-and-evidence" id="toc-simulation-design-and-evidence" class="nav-link" data-scroll-target="#simulation-design-and-evidence"><span class="header-section-number">4</span> Simulation Design and Evidence</a></li>
-  <li><a href="#final-selected-n-and-interpretation" id="toc-final-selected-n-and-interpretation" class="nav-link" data-scroll-target="#final-selected-n-and-interpretation"><span class="header-section-number">5</span> Final Selected N and Interpretation</a></li>
+  <li><a href="#population-and-theory" id="toc-population-and-theory" class="nav-link active" data-scroll-target="#population-and-theory"><span class="header-section-number">1</span> Population and theory</a></li>
+  <li><a href="#expectation-based-on-theory" id="toc-expectation-based-on-theory" class="nav-link" data-scroll-target="#expectation-based-on-theory"><span class="header-section-number">2</span> Expectation based on theory</a></li>
+  <li><a href="#evidence-for-my-decision" id="toc-evidence-for-my-decision" class="nav-link" data-scroll-target="#evidence-for-my-decision"><span class="header-section-number">3</span> Evidence for my decision</a>
+  <ul class="collapse">
+  <li><a href="#important-code-in-plain-language" id="toc-important-code-in-plain-language" class="nav-link" data-scroll-target="#important-code-in-plain-language"><span class="header-section-number">3.1</span> Important code, in plain language</a></li>
+  </ul></li>
+  <li><a href="#special-evidence" id="toc-special-evidence" class="nav-link" data-scroll-target="#special-evidence"><span class="header-section-number">4</span> Special evidence</a></li>
+  <li><a href="#my-selected-n-and-justification" id="toc-my-selected-n-and-justification" class="nav-link" data-scroll-target="#my-selected-n-and-justification"><span class="header-section-number">5</span> My selected n and justification</a></li>
+  <li><a href="#seed-sensitivity" id="toc-seed-sensitivity" class="nav-link" data-scroll-target="#seed-sensitivity"><span class="header-section-number">6</span> Seed sensitivity</a></li>
   </ul>
 </nav>
     </div>
@@ -218,14 +223,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">05 · Cauchy</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
-<p class="subtitle lead">A heavy-tail case where the ordinary finite-variance CLT does not apply</p>
+<div class="quarto-title-block"><div><h1 class="title">Cauchy</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Shayaan Tanveer </p>
+          </div>
+  </div>
     
   
     
@@ -236,222 +246,209 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="population-and-theory" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="population-and-theory"><span class="header-section-number">1</span> Population and theory</h2>
+<p>iid standard Cauchy; population mean and variance do not exist. The average remains standard Cauchy for every n.</p>
+<p>One theoretical check uses the characteristic function: phi(t) = exp(-abs(t)). Independence gives phi(t/n)^n = exp(-abs(t)), the same characteristic function for the average. Thus no finite n produces convergence to Normal.</p>
+</section>
+<section id="expectation-based-on-theory" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="expectation-based-on-theory"><span class="header-section-number">2</span> Expectation based on theory</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"cauchy"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<section id="research-question" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="research-question"><span class="header-section-number">1</span> Research Question</h2>
-<p>What does increasing <code>n</code> do when the population is Cauchy and has no finite population mean or variance?</p>
-</section>
-<section id="population-process-and-theory" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</h2>
-<p><code>X_i ~ Cauchy(location = 0, scale = 1)</code>. The population mean and variance do not exist. This project therefore does not report a population mean, population SD, or <code>sigma / sqrt(n)</code> for this case.</p>
-</section>
-<section id="clt-assumptions-and-prediction" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</h2>
-<p>Independence and identical distribution hold, but finite variance fails. I expect extreme observations to remain influential and ordinary mean-based normal convergence to behave differently from the finite-variance cases.</p>
-</section>
-<section id="simulation-design-and-evidence" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="simulation-design-and-evidence"><span class="header-section-number">4</span> Simulation Design and Evidence</h2>
-<p>Use the ordinary grid plus larger values when computationally useful. Examine histograms and Q-Q plots cautiously, and use the running-mean visualization as a sensitivity diagnostic.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cauchy_running_mean</span>(<span class="dv">5000</span>L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_population</span>(id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="05_cauchy_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Original population shape; this is not the distribution of the sample mean.</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>Larger n will not produce Normal sample means. This expectation was documented during revision; I am not claiming it was a personal prediction made before the original run.</p>
+</section>
+<section id="evidence-for-my-decision" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="evidence-for-my-decision"><span class="header-section-number">3</span> Evidence for my decision</h2>
+<section id="important-code-in-plain-language" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="important-code-in-plain-language"><span class="header-section-number">3.1</span> Important code, in plain language</h3>
+<p>rcauchy(n) generates independent standard Cauchy observations. I calculate finite sample averages but never assign them nonexistent population mean or variance targets.</p>
+<p>The shared simulator repeats mean(generator(n)) B times and stores one number per sample. Diagnostics are calculated from that vector, not from the original observations. Both seeds save to different directories, and loading a plotted vector checks its mean, SD and Q-Q RMSE against the matching CSV row.</p>
+<p>I generate B = 10,000 separate samples at each n using seed 7616. Seed 7617 checks sensitivity. The full tested grid is in the CSV; this table focuses on candidates for our practical-normality review.</p>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">review_table</span>(id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">empirical_mean</th>
+<th style="text-align: right;">theoretical_mean</th>
+<th style="text-align: right;">empirical_se</th>
+<th style="text-align: right;">theoretical_se</th>
+<th style="text-align: right;">relative_se_error</th>
+<th style="text-align: right;">skewness</th>
+<th style="text-align: right;">excess_kurtosis</th>
+<th style="text-align: right;">qq_rmse</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">105</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-1.920</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">189.509</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">-94.295</td>
+<td style="text-align: right;">9242.826</td>
+<td style="text-align: right;">1.346</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">115</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">7.844</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">1191.395</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">82.471</td>
+<td style="text-align: right;">8173.811</td>
+<td style="text-align: right;">1.367</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">130</td>
+<td style="text-align: right;">5000</td>
+<td style="text-align: right;">0.060</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">32.534</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">-3.468</td>
+<td style="text-align: right;">649.912</td>
+<td style="text-align: right;">1.146</td>
+</tr>
+</tbody>
+</table>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Run scripts/run_project.R after entering student_seed. No theoretical normal overlay or SE formula is available for Cauchy.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>decision <span class="ot">&lt;-</span> <span class="fu">selected_row</span>(id)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">c</span>(decision<span class="sc">$</span>below_n, decision<span class="sc">$</span>selected_n, decision<span class="sc">$</span>above_n))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_review_evidence</span>(id, ns)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>    population_id    n     B empirical_mean theoretical_mean mean_error
-195        cauchy    1 10000      0.8214074               NA         NA
-196        cauchy    2 10000     41.8030900               NA         NA
-197        cauchy    3 10000     -1.3096276               NA         NA
-198        cauchy    5 10000      0.2693934               NA         NA
-199        cauchy   10 10000     -0.1097491               NA         NA
-200        cauchy   15 10000      0.7514031               NA         NA
-201        cauchy   20 10000      0.3566563               NA         NA
-202        cauchy   30 10000     -1.4507110               NA         NA
-203        cauchy   50 10000      0.7450461               NA         NA
-204        cauchy   75 10000      1.4020836               NA         NA
-205        cauchy   90 10000     -1.4200318               NA         NA
-206        cauchy   95 10000      0.0755759               NA         NA
-207        cauchy   98 10000      0.4130791               NA         NA
-208        cauchy   99 10000     -9.8275702               NA         NA
-209        cauchy  100 10000     -0.4161698               NA         NA
-210        cauchy  101 10000     51.7405046               NA         NA
-211        cauchy  102 10000      2.1956675               NA         NA
-212        cauchy  105 10000     -1.0782199               NA         NA
-213        cauchy  110 10000     -0.1802671               NA         NA
-214        cauchy  150 10000      2.4310816               NA         NA
-215        cauchy  200 10000      0.9478657               NA         NA
-216        cauchy  290 10000     -0.5811608               NA         NA
-217        cauchy  295 10000      1.6462314               NA         NA
-218        cauchy  298 10000     -0.6923950               NA         NA
-219        cauchy  299 10000      1.3224603               NA         NA
-220        cauchy  300 10000     -0.8760043               NA         NA
-221        cauchy  301 10000     -0.5934999               NA         NA
-222        cauchy  302 10000     -0.0427542               NA         NA
-223        cauchy  305 10000     -0.3908657               NA         NA
-224        cauchy  310 10000      9.4787549               NA         NA
-225        cauchy  490 10000     -0.8142817               NA         NA
-226        cauchy  495 10000      0.8594055               NA         NA
-227        cauchy  498 10000     -0.0890478               NA         NA
-228        cauchy  499 10000      1.2613728               NA         NA
-229        cauchy  500 10000      0.4683052               NA         NA
-230        cauchy  501 10000     -1.7449195               NA         NA
-231        cauchy  502 10000     67.9064108               NA         NA
-232        cauchy  505 10000     -1.4837979               NA         NA
-233        cauchy  510 10000     -0.0520263               NA         NA
-234        cauchy  740 10000      1.0096198               NA         NA
-235        cauchy  745 10000      1.3606192               NA         NA
-236        cauchy  748 10000      0.9517642               NA         NA
-237        cauchy  749 10000     -1.3909105               NA         NA
-238        cauchy  750 10000     -0.4283364               NA         NA
-239        cauchy  751 10000      0.1617086               NA         NA
-240        cauchy  752 10000     -3.8040157               NA         NA
-241        cauchy  755 10000      0.7975074               NA         NA
-242        cauchy  760 10000     -0.3205688               NA         NA
-243        cauchy 1000 10000     -6.3307470               NA         NA
-244        cauchy 2000 10000      0.5453292               NA         NA
-245        cauchy 5000 10000      1.0832385               NA         NA
-    empirical_se theoretical_se relative_se_error   skewness excess_kurtosis
-195    103.51639             NA                NA  71.354040       6591.8561
-196   4168.72820             NA                NA  99.954234       9993.9086
-197    194.51034             NA                NA -69.788199       6913.8762
-198     69.15863             NA                NA   7.645866       1538.5501
-199     53.86615             NA                NA  42.678822       3998.3617
-200    116.70008             NA                NA  29.326123       3608.0007
-201    160.17331             NA                NA  40.976887       4224.1331
-202    138.06434             NA                NA -45.066502       3464.2813
-203     64.17990             NA                NA  39.160590       2194.6611
-204    128.63420             NA                NA  69.718949       6265.1589
-205    115.53873             NA                NA -91.665839       8889.6670
-206     42.55871             NA                NA   4.369569       1528.5591
-207     41.72113             NA                NA   4.225899       1319.6436
-208    752.57688             NA                NA -95.041870       9280.0149
-209     90.20369             NA                NA -30.510780       3257.4573
-210   5206.47784             NA                NA  99.981346       9997.5170
-211    226.41351             NA                NA  76.512671       6768.9610
-212    157.00572             NA                NA -79.850249       7573.8960
-213     54.86989             NA                NA  -2.699067        809.8033
-214    249.04645             NA                NA  69.071721       6584.3380
-215     82.40052             NA                NA  33.011585       2677.2809
-216     92.59663             NA                NA -32.916112       2577.4692
-217     92.47727             NA                NA  61.183520       4162.7845
-218     56.32998             NA                NA -23.222476       1233.8343
-219     94.22082             NA                NA  65.078270       5703.1356
-220     90.45646             NA                NA -33.943481       2063.4580
-221    129.34856             NA                NA -24.057671       4123.3302
-222     39.23362             NA                NA  18.040352       1436.6502
-223     42.32695             NA                NA -22.326040       1978.1407
-224    727.09984             NA                NA  88.070968       8156.7094
-225     58.00678             NA                NA -26.900290       1476.5205
-226     91.96141             NA                NA  19.984244       2838.6170
-227     77.59617             NA                NA -41.875095       3324.3848
-228    130.05392             NA                NA  62.905824       4487.5170
-229     64.80621             NA                NA  63.825896       5659.7005
-230    212.65362             NA                NA -65.027372       6788.9841
-231   6808.81680             NA                NA  99.983206       9997.7637
-232    163.56736             NA                NA -89.001111       8580.7895
-233     76.96549             NA                NA  19.029782       1758.8293
-234    164.09166             NA                NA  83.128598       8027.1119
-235     96.61790             NA                NA  51.776050       3769.1582
-236     35.80326             NA                NA  29.538155       1382.8238
-237    157.97316             NA                NA -64.553203       6003.9958
-238     41.15960             NA                NA -19.027949       1072.9710
-239     52.46674             NA                NA   1.344125       1301.0186
-240    359.41464             NA                NA -87.598581       8315.8502
-241    270.82400             NA                NA  11.469894       4576.4683
-242     83.59105             NA                NA -79.010952       7414.5260
-243    527.59494             NA                NA -89.755756       8509.3820
-244     65.64658             NA                NA  67.181552       6098.9619
-245    136.09112             NA                NA  46.791794       4440.7239
-     qq_rmse   seed_label
-195 1.301852 student_seed
-196 1.383561 student_seed
-197 1.340080 student_seed
-198 1.248543 student_seed
-199 1.240017 student_seed
-200 1.297489 student_seed
-201 1.316432 student_seed
-202 1.300103 student_seed
-203 1.240318 student_seed
-204 1.307865 student_seed
-205 1.324258 student_seed
-206 1.192640 student_seed
-207 1.201700 student_seed
-208 1.369644 student_seed
-209 1.271031 student_seed
-210 1.384457 student_seed
-211 1.342078 student_seed
-212 1.324039 student_seed
-213 1.203689 student_seed
-214 1.338810 student_seed
-215 1.253975 student_seed
-216 1.279032 student_seed
-217 1.295626 student_seed
-218 1.215323 student_seed
-219 1.291492 student_seed
-220 1.259968 student_seed
-221 1.306183 student_seed
-222 1.193114 student_seed
-223 1.212176 student_seed
-224 1.365077 student_seed
-225 1.235022 student_seed
-226 1.278413 student_seed
-227 1.265021 student_seed
-228 1.316878 student_seed
-229 1.267414 student_seed
-230 1.341206 student_seed
-231 1.384654 student_seed
-232 1.333884 student_seed
-233 1.246219 student_seed
-234 1.328519 student_seed
-235 1.286081 student_seed
-236 1.182962 student_seed
-237 1.315967 student_seed
-238 1.177276 student_seed
-239 1.213335 student_seed
-240 1.349258 student_seed
-241 1.340137 student_seed
-242 1.293112 student_seed
-243 1.358713 student_seed
-244 1.264514 student_seed
-245 1.301498 student_seed</code></pre>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_cauchy_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1056"></p>
+<figcaption>Primary seed 7616. Orange curves use valid theoretical moments. Q-Q steps reflect discreteness; systematic curvature indicates shape differences.</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </section>
-<section id="final-selected-n-and-interpretation" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="final-selected-n-and-interpretation"><span class="header-section-number">5</span> Final Selected N and Interpretation</h2>
+</section>
+<section id="special-evidence" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="special-evidence"><span class="header-section-number">4</span> Special evidence</h2>
+<div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(student_seed)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cauchy_running_mean</span>(<span class="dv">5000</span>L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<p><strong>Selected N:</strong> No finite defensible value identified within the tested range.</p>
-<p><strong>Evidence decision:</strong> No finite defensible n was identified through n = 5,000; Cauchy has no population mean or variance and the running mean remains extreme-sensitive.</p>
-<p>The <code>N/A</code> decision is limited to this ordinary sample-mean criterion and the tested range through <code>n = 5,000</code>; it is not a claim that every possible robust estimator fails. The project correctly leaves population mean, population SD, and <code>sigma / sqrt(n)</code> as <code>N/A</code>.</p>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_cauchy_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="my-selected-n-and-justification" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="my-selected-n-and-justification"><span class="header-section-number">5</span> My selected n and justification</h2>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<p><strong>Decision status:</strong> No finite n by theory</p>
+<p><strong>Selected N:</strong> No finite n: standard Cauchy averages remain Cauchy by theory.</p>
+<p><strong>I chose this n because:</strong> No finite selection: iid standard Cauchy averages remain standard Cauchy.</p>
+<p><strong>Why I did not choose smaller tested values:</strong> Increasing n cannot repair the missing finite mean and variance; the ordinary CLT does not apply.</p>
+<p><strong>Issue / limitation:</strong> Not merely slow: no Normal convergence. Tested through n=5000.</p>
+<p>This is a theoretical failure, not an uncertain boundary judgment. Empirical skewness, kurtosis and SD in the table are finite-vector descriptions with no population-moment targets. Standardizing by an outlier-dominated empirical SD can compress the central Q-Q points; it does not rescue Normality.</p>
+</section>
+<section id="seed-sensitivity" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="seed-sensitivity"><span class="header-section-number">6</span> Seed sensitivity</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(id)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"results/sensitivity_diagnostics.csv"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> b[b<span class="sc">$</span>population_id <span class="sc">==</span> id, ]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>compare <span class="ot">&lt;-</span> <span class="fu">merge</span>(a[, <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"qq_rmse"</span>, <span class="st">"skewness"</span>)],</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                 b[, <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"qq_rmse"</span>, <span class="st">"skewness"</span>)], <span class="at">by =</span> <span class="st">"n"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">"_7616"</span>, <span class="st">"_7617"</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(compare[compare<span class="sc">$</span>n <span class="sc">%in%</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">c</span>(ns, review_n_values[[id]]))), ], <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">qq_rmse_7616</th>
+<th style="text-align: right;">skewness_7616</th>
+<th style="text-align: right;">qq_rmse_7617</th>
+<th style="text-align: right;">skewness_7617</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.346</td>
+<td style="text-align: right;">-94.295</td>
+<td style="text-align: right;">1.361</td>
+<td style="text-align: right;">80.887</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">11</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">1.367</td>
+<td style="text-align: right;">82.471</td>
+<td style="text-align: right;">1.273</td>
+<td style="text-align: right;">-34.431</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">26</td>
+<td style="text-align: right;">5000</td>
+<td style="text-align: right;">1.146</td>
+<td style="text-align: right;">-3.468</td>
+<td style="text-align: right;">1.276</td>
+<td style="text-align: right;">-11.339</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The empirical diagnostics vary substantially between seeds, but the theoretical conclusion does not: no finite n.&nbsp;I do not choose a favorable seed to make a heavy-tailed vector look better.</p>
 
 
 <!-- -->
@@ -910,54 +907,92 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "05 · Cauchy"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "A heavy-tail case where the ordinary finite-variance CLT does not apply"</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"cauchy"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>What does increasing <span class="in">`n`</span> do when the population is Cauchy and has no finite population mean or variance?</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Population / Process and Theory</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="in">`X_i ~ Cauchy(location = 0, scale = 1)`</span>. The population mean and variance do not exist. This project therefore does not report a population mean, population SD, or <span class="in">`sigma / sqrt(n)`</span> for this case.</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## CLT Assumptions and Prediction</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>Independence and identical distribution hold, but finite variance fails. I expect extreme observations to remain influential and ordinary mean-based normal convergence to behave differently from the finite-variance cases.</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation Design and Evidence</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>Use the ordinary grid plus larger values when computationally useful. Examine histograms and Q-Q plots cautiously, and use the running-mean visualization as a sensitivity diagnostic.</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cauchy_running_mean</span>(<span class="dv">5000</span>L)</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Run scripts/run_project.R after entering student_seed. No theoretical normal overlay or SE formula is available for Cauchy.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final Selected N and Interpretation</span></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, results='asis'}</span></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>The <span class="in">`N/A`</span> decision is limited to this ordinary sample-mean criterion and the tested range through <span class="in">`n = 5,000`</span>; it is not a claim that every possible robust estimator fails. The project correctly leaves population mean, population SD, and <span class="in">`sigma / sqrt(n)`</span> as <span class="in">`N/A`</span>.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Cauchy"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Shayaan Tanveer"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/config.R"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/distributions.R"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/diagnostics.R"</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/simulate_means.R"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/plotting.R"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/report_helpers.R"</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="st">"cauchy"</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Population and theory</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>iid standard Cauchy; population mean and variance do not exist. The average remains standard Cauchy for every n.</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>One theoretical check uses the characteristic function: phi(t) = exp(-abs(t)). Independence gives phi(t/n)^n = exp(-abs(t)), the same characteristic function for the average. Thus no finite n produces convergence to Normal.</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Expectation based on theory</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 7</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Original population shape; this is not the distribution of the sample mean."</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_population</span>(id)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>Larger n will not produce Normal sample means. This expectation was documented during revision; I am not claiming it was a personal prediction made before the original run.</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evidence for my decision</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="fu">### Important code, in plain language</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>rcauchy(n) generates independent standard Cauchy observations. I calculate finite sample averages but never assign them nonexistent population mean or variance targets.</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>The shared simulator repeats mean(generator(n)) B times and stores one number per sample. Diagnostics are calculated from that vector, not from the original observations. Both seeds save to different directories, and loading a plotted vector checks its mean, SD and Q-Q RMSE against the matching CSV row.</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>I generate B = 10,000 separate samples at each n using seed 7616. Seed 7617 checks sensitivity. The full tested grid is in the CSV; this table focuses on candidates for our practical-normality review.</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="fu">review_table</span>(id)</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 11</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Primary seed 7616. Orange curves use valid theoretical moments. Q-Q steps reflect discreteness; systematic curvature indicates shape differences."</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>decision <span class="ot">&lt;-</span> <span class="fu">selected_row</span>(id)</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">c</span>(decision<span class="sc">$</span>below_n, decision<span class="sc">$</span>selected_n, decision<span class="sc">$</span>above_n))</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_review_evidence</span>(id, ns)</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Special evidence</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(student_seed)</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_cauchy_running_mean</span>(<span class="dv">5000</span>L)</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## My selected n and justification</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(id)</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>This is a theoretical failure, not an uncertain boundary judgment. Empirical skewness, kurtosis and SD in the table are finite-vector descriptions with no population-moment targets. Standardizing by an outlier-dominated empirical SD can compress the central Q-Q points; it does not rescue Normality.</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Seed sensitivity</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(id)</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"results/sensitivity_diagnostics.csv"</span>)</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> b[b<span class="sc">$</span>population_id <span class="sc">==</span> id, ]</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>compare <span class="ot">&lt;-</span> <span class="fu">merge</span>(a[, <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"qq_rmse"</span>, <span class="st">"skewness"</span>)],</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>                 b[, <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"qq_rmse"</span>, <span class="st">"skewness"</span>)], <span class="at">by =</span> <span class="st">"n"</span>,</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>                 <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">"_7616"</span>, <span class="st">"_7617"</span>))</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(compare[compare<span class="sc">$</span>n <span class="sc">%in%</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">c</span>(ns, review_n_values[[id]]))), ], <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>The empirical diagnostics vary substantially between seeds, but the theoretical conclusion does not: no finite n. I do not choose a favorable seed to make a heavy-tailed vector look better.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

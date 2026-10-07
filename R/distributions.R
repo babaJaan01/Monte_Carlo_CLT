@@ -145,7 +145,9 @@ population_spec <- function(id) {
     dependent_failure = list(
       id = "dependent_failure", label = "Dependent Machine Failure",
       required = FALSE, generator = simulate_dependent_failure,
-      independent = FALSE, identically_distributed = FALSE, finite_variance = NA,
+      # Times are nonnegative, so rates >= exp(-1.25); conditional
+      # second moments are bounded by 2 * exp(2.5). This does not prove a CLT.
+      independent = FALSE, identically_distributed = FALSE, finite_variance = TRUE,
       theoretical_mean = NA_real_, theoretical_sd = NA_real_,
       theoretical_note = "Dependence changes Var(mean) through covariance"
     ),

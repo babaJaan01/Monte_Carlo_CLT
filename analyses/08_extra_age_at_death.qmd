@@ -1,49 +1,77 @@
 ---
-title: "08 · Extra Credit: Synthetic Age-at-Death"
-subtitle: "An irregular discrete mixture with early and late peaks"
+title: "Synthetic Age-at-Death"
+author: "Shayaan Tanveer"
 ---
 
 ```{r}
-root <- if (file.exists("R/config.R")) "." else ".."
-source(file.path(root, "R/config.R")); source(file.path(root, "R/distributions.R"))
-source(file.path(root, "R/diagnostics.R")); source(file.path(root, "R/simulate_means.R"))
-source(file.path(root, "R/plotting.R")); source(file.path(root, "R/report_helpers.R"))
-spec <- population_spec("age_at_death"); rows <- population_rows(spec$id)
+#| include: false
+source("R/config.R")
+source("R/distributions.R")
+source("R/diagnostics.R")
+source("R/simulate_means.R")
+source("R/plotting.R")
+source("R/report_helpers.R")
+id <- "age_at_death"
 ```
 
-## Research Question
+## Population and theory
 
-How does an irregular, bimodal-looking synthetic population behave after averaging?
+Instructor's synthetic ages 0:100 with normalized weights 0.045*exp(-age/5) + 0.030*exp(-0.5*((age-65)/10)^2). Mean about 49.98, SD about 27.63. This is not historical mortality data.
 
-## Population / Process and Theory
+## Expectation based on theory
 
-The instructor construction uses ages 0 through 100 with weights `0.045 * exp(-x/5) + 0.030 * exp(-0.5 * ((x - 65) / 10)^2)`, normalized to probabilities. The supplied `rdeath()` logic samples from those probabilities. The resulting distribution is synthetic, not historical mortality data; its mean and SD are computed from the normalized table.
+The irregular shape should smooth under averaging because observations are iid and bounded. This expectation was documented during revision; I am not claiming it was a personal prediction made before the original run.
 
-## CLT Assumptions and Prediction
+## Evidence for my decision
 
-The draws are iid with finite variance. The unusual shape may make small-n sampling distributions depart from normality even though ordinary CLT conditions hold. I expect sample means to smooth the irregular population as `n` increases.
+### Important code, in plain language
 
-## Original Population and Simulation Evidence
+The age probabilities normalize the sum of the two instructor components. sample(age, n, replace=TRUE, prob=probability) generates independent draws. Weighted sums calculate the exact population mean and variance.
+
+The shared simulator repeats mean(generator(n)) B times and stores one number per sample. Diagnostics are calculated from that vector, not from the original observations. Both seeds save to different directories, and loading a plotted vector checks its mean, SD and Q-Q RMSE against the matching CSV row.
+
+I generate B = 10,000 separate samples at each n using seed 7616. Seed 7617 checks sensitivity. The full tested grid is in the CSV; this table focuses on candidates for our practical-normality review.
 
 ```{r}
-distribution <- age_at_death_distribution()
-plot(distribution$age, distribution$percent, type = "l", lwd = 3,
-     col = "#C44E52", xlab = "Age at death", ylab = "Probability (%)",
-     main = "Synthetic age-at-death population")
+#| results: asis
+review_table(id)
 ```
 
 ```{r}
-if (is.null(rows) || nrow(rows) == 0L) {
-  cat("Run scripts/run_project.R after entering student_seed.\n")
-} else {
-  print(rows)
-}
+#| fig-width: 11
+#| fig-height: 6
+#| fig-cap: "Primary seed 7616. Orange curves use valid theoretical moments. Q-Q steps reflect discreteness; systematic curvature indicates shape differences."
+decision <- selected_row(id)
+ns <- na.omit(c(decision$below_n, decision$selected_n, decision$above_n))
+plot_review_evidence(id, ns)
 ```
 
-## Final Selected N and Interpretation
+## Special evidence
 
-```{r, results='asis'}
-report_selection(spec$id)
+```{r}
+d <- age_at_death_distribution()
+plot(d$age, d$probability, type = "l", xlab = "Age", ylab = "Probability")
 ```
 
-The selected value reflects the synthetic two-component discrete mixture supplied by the instructor. It is not historical mortality data; the irregular source shape is exactly what makes the fast stabilization of the sample mean worth checking.
+## My selected n and justification
+
+```{r}
+#| results: asis
+report_selection(id)
+```
+
+I use the practical standard approved during review: small remaining bends and steps are acceptable, not exact tail accuracy. Correct mean and SE alone cannot establish a Normal shape. Borderline neighbors mean that the exact minimum is uncertain.
+
+## Seed sensitivity
+
+```{r}
+a <- population_rows(id)
+b <- read.csv("results/sensitivity_diagnostics.csv")
+b <- b[b$population_id == id, ]
+compare <- merge(a[, c("n", "qq_rmse", "skewness")],
+                 b[, c("n", "qq_rmse", "skewness")], by = "n",
+                 suffixes = c("_7616", "_7617"))
+knitr::kable(compare[compare$n %in% sort(unique(c(ns, review_n_values[[id]]))), ], digits = 3)
+```
+
+The selected value is still a practical candidate under both seeds, although exact diagnostics change. Nearby candidates can be borderline: the scientific interpretation is more stable than an exact boundary integer. I do not choose the seed with the nicest plot.

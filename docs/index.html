@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Math 167R Project 1">
+<meta name="author" content="Shayaan Tanveer">
 
 <title>How Fast Does Normal Happen?</title>
 <style>
@@ -147,23 +147,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-required-distributions">    
         <li>
     <a class="dropdown-item" href="./analyses/01_standard_normal.html">
- <span class="dropdown-text">01 · Standard Normal</span></a>
+ <span class="dropdown-text">Standard Normal</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/02_six_sided_die.html">
- <span class="dropdown-text">02 · Six-Sided Die</span></a>
+ <span class="dropdown-text">Six-Sided Die</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/03_exponential.html">
- <span class="dropdown-text">03 · Exponential</span></a>
+ <span class="dropdown-text">Exponential</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/04_binomial_small.html">
- <span class="dropdown-text">04 · Binomial Small</span></a>
+ <span class="dropdown-text">Binomial Small</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/05_cauchy.html">
- <span class="dropdown-text">05 · Cauchy</span></a>
+ <span class="dropdown-text">Cauchy</span></a>
   </li>  
     </ul>
   </li>
@@ -174,15 +174,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-credit">    
         <li>
     <a class="dropdown-item" href="./analyses/06_extra_dependent_failure.html">
- <span class="dropdown-text">06 · Extra Credit: Dependent Failure Process</span></a>
+ <span class="dropdown-text">Dependent Machine Failure</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/07_extra_nonidentical_bernoulli.html">
- <span class="dropdown-text">07 · Extra Credit: Non-Identical Bernoulli Shots</span></a>
+ <span class="dropdown-text">Non-Identical Basketball Shots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./analyses/08_extra_age_at_death.html">
- <span class="dropdown-text">08 · Extra Credit: Synthetic Age-at-Death</span></a>
+ <span class="dropdown-text">Synthetic Age-at-Death</span></a>
   </li>  
     </ul>
   </li>
@@ -206,11 +206,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#research-question" id="toc-research-question" class="nav-link active" data-scroll-target="#research-question"><span class="header-section-number">1</span> Research question</a></li>
-  <li><a href="#is-n30-a-universal-rule" id="toc-is-n30-a-universal-rule" class="nav-link" data-scroll-target="#is-n30-a-universal-rule"><span class="header-section-number">2</span> Is (n=30) a universal rule?</a></li>
-  <li><a href="#executive-results-table" id="toc-executive-results-table" class="nav-link" data-scroll-target="#executive-results-table"><span class="header-section-number">3</span> Executive results table</a></li>
-  <li><a href="#what-the-results-say" id="toc-what-the-results-say" class="nav-link" data-scroll-target="#what-the-results-say"><span class="header-section-number">4</span> What the results say</a></li>
-  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility"><span class="header-section-number">5</span> Reproducibility</a></li>
+  <li><a href="#my-answer" id="toc-my-answer" class="nav-link active" data-scroll-target="#my-answer"><span class="header-section-number">1</span> My answer</a></li>
+  <li><a href="#assumptions-and-numerical-evidence" id="toc-assumptions-and-numerical-evidence" class="nav-link" data-scroll-target="#assumptions-and-numerical-evidence"><span class="header-section-number">2</span> Assumptions and numerical evidence</a></li>
+  <li><a href="#two-views-of-convergence" id="toc-two-views-of-convergence" class="nav-link" data-scroll-target="#two-views-of-convergence"><span class="header-section-number">3</span> Two views of convergence</a></li>
+  <li><a href="#what-i-take-from-this" id="toc-what-i-take-from-this" class="nav-link" data-scroll-target="#what-i-take-from-this"><span class="header-section-number">4</span> What I take from this</a></li>
+  <li><a href="#reproducibility-and-ai" id="toc-reproducibility-and-ai" class="nav-link" data-scroll-target="#reproducibility-and-ai"><span class="header-section-number">5</span> Reproducibility and AI</a></li>
   </ul>
 </nav>
     </div>
@@ -219,8 +219,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">How Fast Does Normal Happen?</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
-<p class="subtitle lead">Stress-testing the Central Limit Theorem with Monte Carlo simulation</p>
+<div class="quarto-title-block"><div><h1 class="title">How Fast Does Normal Happen?</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">Thirty is a suggestion, not a universal law.</p>
 </div>
 
 
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Math 167R Project 1 </p>
+             <p>Shayaan Tanveer </p>
           </div>
   </div>
     
@@ -243,218 +243,239 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="my-answer" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="my-answer"><span class="header-section-number">1</span> My answer</h2>
+<p>I investigated five required populations and all three extra-credit processes, with B = 10,000 separate samples at each n.&nbsp;Normal means are exact at n = 1. The die and synthetic mixture smooth quickly; skew, discrete gaps and dependence require more observations. Cauchy never converges to Normal in this experiment’s iid setting.</p>
+<p>My standard is a useful central-shape approximation, not exact Normality or extreme-tail accuracy. I combine histograms, Q-Q plots, numerical diagnostics, valid theory and nearby larger values. Borderline neighbors mean there is uncertainty about the exact smallest integer.</p>
+<p><a href="output/pdf/clt_summary.pdf">Download the four-page submission PDF</a></p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>diagnostics <span class="ot">&lt;-</span> <span class="fu">report_status</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Diagnostics and the evidence-linked final summary are loaded from results/.</code></pre>
-</div>
-</div>
-<section id="research-question" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="research-question"><span class="header-section-number">1</span> Research question</h2>
-<p>What is the smallest sample size (n) at which I would be comfortable calling the sampling distribution of the sample mean approximately normal? This project treats that as an evidence-based judgment, not a universal theorem with one answer.</p>
-</section>
-<section id="is-n30-a-universal-rule" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="is-n30-a-universal-rule"><span class="header-section-number">2</span> Is (n=30) a universal rule?</h2>
-<p>No.&nbsp;The generated evidence shows that <code>n = 30</code> is context-dependent: it is enough for the exactly Normal benchmark and already persuasive for the synthetic age mixture, but it leaves visible skewness or Q-Q deviations for the Exponential, small-probability Binomial, and non-identical Bernoulli cases. Cauchy and the dependent failure process do not receive a defensible finite selection under the tested criteria.</p>
-</section>
-<section id="executive-results-table" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="executive-results-table"><span class="header-section-number">3</span> Executive results table</h2>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>summary_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(root, <span class="st">"results"</span>, <span class="st">"final_summary.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(summary_path) <span class="sc">&amp;&amp;</span> <span class="fu">file.info</span>(summary_path)<span class="sc">$</span>size <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  summary_table <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(summary_path, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">"knitr"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(knitr<span class="sc">::</span><span class="fu">kable</span>(summary_table, <span class="at">digits =</span> <span class="dv">4</span>))</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(summary_table)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"The final summary will be populated after simulation and human evidence review.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<table class="caption-top table">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 4%">
-<col style="width: 6%">
+<col style="width: 7%">
 <col style="width: 2%">
-<col style="width: 5%">
-<col style="width: 3%">
-<col style="width: 2%">
-<col style="width: 39%">
-<col style="width: 4%">
-<col style="width: 6%">
-<col style="width: 4%">
-<col style="width: 5%">
-<col style="width: 6%">
-<col style="width: 4%">
-<col style="width: 2%">
+<col style="width: 32%">
+<col style="width: 34%">
+<col style="width: 23%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">population_id</th>
-<th style="text-align: left;">population</th>
-<th style="text-align: left;">independent</th>
-<th style="text-align: left;">identically_distributed</th>
-<th style="text-align: left;">finite_variance</th>
-<th style="text-align: right;">selected_n</th>
-<th style="text-align: left;">key_observation</th>
-<th style="text-align: right;">skewness_at_selected_n</th>
-<th style="text-align: right;">excess_kurtosis_at_selected_n</th>
-<th style="text-align: right;">qq_rmse_at_selected_n</th>
-<th style="text-align: right;">empirical_se_at_selected_n</th>
-<th style="text-align: right;">theoretical_se_or_reference</th>
-<th style="text-align: right;">sensitivity_qq_rmse</th>
-<th style="text-align: right;">tested_max_n</th>
+<th style="text-align: left;">Population</th>
+<th style="text-align: right;">Selected n</th>
+<th style="text-align: left;">Why I accept</th>
+<th style="text-align: left;">Why not smaller</th>
+<th style="text-align: left;">Issue / surprise</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">standard_normal</td>
+<td style="text-align: left;">Standard Normal</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Exactly Normal for every positive n; simulated shape and SE validate the implementation.</td>
+<td style="text-align: left;">No smaller positive sample size exists.</td>
+<td style="text-align: left;">Exact Normality is theoretical, not a Monte Carlo discovery.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Six-Sided Die</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Symmetric bell shape, modest short-tail discrepancy and correct SE; both seeds give Q-Q RMSE about 0.057.</td>
+<td style="text-align: left;">At n=5 the short-tail mismatch is clearer; 6-9 are borderline with coarser steps. I use 10 as the first convincing compromise, not proof that 9 fails.</td>
+<td style="text-align: left;">Discrete means can be approximately Normal without losing Q-Q steps.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Exponential(rate = 1)</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: left;">Bell-shaped central mass with modest right skew; both seeds give Q-Q RMSE about 0.053-0.054 and SE agrees with theory.</td>
+<td style="text-align: left;">At n=30-60 right-tail bending is clearer; 75-80 are borderline and less consistent across seeds. 90 is a compromise, not a sharp threshold.</td>
+<td style="text-align: left;">Good central approximation does not guarantee accurate extreme tails.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Binomial(size = 5, p = 0.10)</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: left;">Modest skew and broadly linear Q-Q plot apart from steps; Q-Q RMSE about 0.057-0.060 across seeds and correct SE.</td>
+<td style="text-align: left;">At n=20-50 skew and steps are clearer; 60 remains borderline with Q-Q RMSE about 0.067 in both seeds. I do not require steps to disappear.</td>
+<td style="text-align: left;">Binomial size=5 is a population parameter, not sample size n.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cauchy(location = 0, scale = 1)</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: left;">No finite selection: iid standard Cauchy averages remain standard Cauchy.</td>
+<td style="text-align: left;">Increasing n cannot repair the missing finite mean and variance; the ordinary CLT does not apply.</td>
+<td style="text-align: left;">Not merely slow: no Normal convergence. Tested through n=5000.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dependent Machine Failure</td>
+<td style="text-align: right;">350</td>
+<td style="text-align: left;">Bell-shaped empirical mean distribution with modest right skew; Q-Q RMSE about 0.049-0.051 across seeds and comparable larger neighbors.</td>
+<td style="text-align: left;">At n=100-200 curvature is clearer; 300 is borderline with more skew. 350 is an empirical compromise, not a proved dependent CLT.</td>
+<td style="text-align: left;">No iid theoretical SE; covariance matters. Exact boundary and asymptotic behavior remain uncertain.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Non-Identical Bernoulli Shots</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: left;">Small skew; the main departure is fine discrete steps. Q-Q RMSE about 0.057-0.061 across seeds; SE matches the varying-probability formula.</td>
+<td style="text-align: left;">At n=30-100 gaps are clearer; 110-125 are borderline with Q-Q RMSE about 0.064-0.067. 140 is my first convincing compromise.</td>
+<td style="text-align: left;">Independent is not identically distributed; sum the individual Bernoulli variances.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Synthetic Age-at-Death</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;">The irregular mixture has smoothed to a bell shape with modest left skew; Q-Q RMSE about 0.050-0.056 across seeds and correct SE.</td>
+<td style="text-align: left;">At n=5-10 asymmetry is clearer; 12 is borderline with a stronger left-tail bend. 15 is acceptable, although larger n look better.</td>
+<td style="text-align: left;">Synthetic, not historical mortality data; a complicated shape need not converge slowly.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="assumptions-and-numerical-evidence" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="assumptions-and-numerical-evidence"><span class="header-section-number">2</span> Assumptions and numerical evidence</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 12%">
+<col style="width: 6%">
+<col style="width: 12%">
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Population</th>
+<th style="text-align: left;">Independent</th>
+<th style="text-align: left;">Identical</th>
+<th style="text-align: left;">Finite variance</th>
+<th style="text-align: right;">Skewness</th>
+<th style="text-align: right;">Excess kurtosis</th>
+<th style="text-align: right;">Q-Q RMSE</th>
+<th style="text-align: right;">Empirical SE</th>
+<th style="text-align: right;">Theoretical SE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td style="text-align: left;">Standard Normal</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Exactly normal for every n; n = 1 is the smallest possible sample size.</td>
-<td style="text-align: right;">0.0031</td>
-<td style="text-align: right;">-0.0225</td>
-<td style="text-align: right;">0.0110</td>
-<td style="text-align: right;">1.0012</td>
-<td style="text-align: right;">1.0000</td>
-<td style="text-align: right;">0.0111</td>
-<td style="text-align: right;">760</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">-0.022</td>
+<td style="text-align: right;">0.011</td>
+<td style="text-align: right;">1.001</td>
+<td style="text-align: right;">1.000</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">six_sided_die</td>
 <td style="text-align: left;">Six-Sided Die</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: left;">At n = 100, skewness and excess kurtosis are near zero, SE agrees with theory, and the Q-Q diagnostic is close to the calibrated range; larger nearby values are stable.</td>
-<td style="text-align: right;">0.0207</td>
-<td style="text-align: right;">-0.0238</td>
-<td style="text-align: right;">0.0209</td>
-<td style="text-align: right;">0.1713</td>
-<td style="text-align: right;">0.1708</td>
-<td style="text-align: right;">0.0207</td>
-<td style="text-align: right;">760</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">-0.146</td>
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">0.539</td>
+<td style="text-align: right;">0.540</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">exponential</td>
 <td style="text-align: left;">Exponential(rate = 1)</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: left;">Strong right skew persists at n = 300; n = 1,000 is the first tested value with near-benchmark Q-Q error, near-zero residual shape diagnostics, and correct SE.</td>
-<td style="text-align: right;">0.0375</td>
-<td style="text-align: right;">-0.0151</td>
-<td style="text-align: right;">0.0142</td>
-<td style="text-align: right;">0.0316</td>
-<td style="text-align: right;">0.0316</td>
-<td style="text-align: right;">0.0217</td>
-<td style="text-align: right;">1000</td>
+<td style="text-align: right;">0.214</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">0.106</td>
+<td style="text-align: right;">0.105</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">binomial_small</td>
 <td style="text-align: left;">Binomial(size = 5, p = 0.10)</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: left;">The rare-event Binomial is slower than the die; n = 1,000 gives near-benchmark Q-Q error, small shape diagnostics, and agreement with sqrt(0.45 / n).</td>
-<td style="text-align: right;">0.0237</td>
-<td style="text-align: right;">0.0246</td>
-<td style="text-align: right;">0.0176</td>
-<td style="text-align: right;">0.0210</td>
-<td style="text-align: right;">0.0212</td>
-<td style="text-align: right;">0.0227</td>
-<td style="text-align: right;">1000</td>
+<td style="text-align: right;">0.109</td>
+<td style="text-align: right;">0.050</td>
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">0.077</td>
+<td style="text-align: right;">0.077</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">cauchy</td>
 <td style="text-align: left;">Cauchy(location = 0, scale = 1)</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">FALSE</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: left;">No finite defensible n was identified through n = 5,000; Cauchy has no population mean or variance and the running mean remains extreme-sensitive.</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">5000</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">dependent_failure</td>
 <td style="text-align: left;">Dependent Machine Failure</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: left;">No defensible n was identified through n = 1,000; dependence and persistent positive skew make the ordinary iid SE shortcut inappropriate.</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">1000</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">0.208</td>
+<td style="text-align: right;">0.097</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: right;">0.115</td>
+<td style="text-align: right;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">nonidentical_bernoulli</td>
 <td style="text-align: left;">Non-Identical Bernoulli Shots</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: left;">The correct p_i-specific variance is used; n = 1,000 is the first tested value with the strongest numerical and visual evidence, though convergence is slower than the iid benchmark.</td>
-<td style="text-align: right;">-0.0484</td>
-<td style="text-align: right;">0.0640</td>
-<td style="text-align: right;">0.0267</td>
-<td style="text-align: right;">0.0141</td>
-<td style="text-align: right;">0.0140</td>
-<td style="text-align: right;">0.0279</td>
-<td style="text-align: right;">1000</td>
+<td style="text-align: right;">-0.052</td>
+<td style="text-align: right;">-0.039</td>
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">0.037</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">age_at_death</td>
 <td style="text-align: left;">Synthetic Age-at-Death</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">TRUE</td>
-<td style="text-align: right;">300</td>
-<td style="text-align: left;">The synthetic irregular mixture becomes stable by about n = 300, with near-zero shape diagnostics and empirical/theoretical SE agreement.</td>
-<td style="text-align: right;">-0.0245</td>
-<td style="text-align: right;">-0.0378</td>
-<td style="text-align: right;">0.0174</td>
-<td style="text-align: right;">1.5963</td>
-<td style="text-align: right;">1.5955</td>
-<td style="text-align: right;">0.0146</td>
-<td style="text-align: right;">760</td>
+<td style="text-align: right;">-0.191</td>
+<td style="text-align: right;">-0.039</td>
+<td style="text-align: right;">0.050</td>
+<td style="text-align: right;">7.128</td>
+<td style="text-align: right;">7.135</td>
 </tr>
 </tbody>
 </table>
-<p>The finite values in this table are linked to rows in <code>results/all_diagnostics.csv</code>; the Cauchy and dependent-process <code>N/A</code> entries are deliberate evidence decisions, not missing theory values.</p>
+</div>
+</div>
+<p>N/A for Cauchy means no finite selection and no valid population moment targets. Dependence has finite individual second moments but no supplied theoretical mean or SE for this nonstationary-start process; a dependent CLT is not established here.</p>
 </section>
-<section id="what-the-results-say" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="what-the-results-say"><span class="header-section-number">4</span> What the results say</h2>
-<p>The fastest cases were Standard Normal (exactly normal for every <code>n</code>) and the synthetic age-at-death mixture. The die was also close to normal by <code>n = 100</code>. The slower finite-variance cases were the Exponential and Binomial(size = 5, p = 0.10), where strong right skew and rare-event discreteness required <code>n = 1,000</code> in this study. The non-identical Bernoulli process used the correct p_i-specific variance and reached its most persuasive tested evidence at <code>n = 1,000</code>.</p>
-<p>The most important exception was Cauchy: even at <code>n = 5,000</code>, Q-Q RMSE stayed around 1.3 with extreme skewness and kurtosis, and the running mean remained sensitive to outliers. The dependent failure process improved as <code>n</code> grew but still showed positive skewness and Q-Q error above the Normal calibration through <code>n = 1,000</code>; its covariance structure means the iid SE formula is not appropriate.</p>
+<section id="two-views-of-convergence" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="two-views-of-convergence"><span class="header-section-number">3</span> Two views of convergence</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/convergence_race.png" class="img-fluid figure-img"></p>
+<figcaption>Q-Q discrepancy across the tested sample sizes; both axes use log scales.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/normality_heatmap.png" class="img-fluid figure-img"></p>
+<figcaption>Coarse-grid and selected-n Q-Q error. Circles mark selections; white cells are untested.</figcaption>
+</figure>
+</div>
 </section>
-<section id="reproducibility" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="reproducibility"><span class="header-section-number">5</span> Reproducibility</h2>
-<p>The complete workflow is in <a href="README.md"><code>README.md</code></a>. The confirmed student seed is <code>7616</code> in <a href="R/config.R"><code>R/config.R</code></a>. The runner also repeats the boundary evidence with seed <code>7617</code>; exact diagnostics move modestly, but the scientific pattern is stable. The instructor source documents are preserved under <a href="references/"><code>references/</code></a>.</p>
+<section id="what-i-take-from-this" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="what-i-take-from-this"><span class="header-section-number">4</span> What I take from this</h2>
+<p>The surprising contrast is that a complicated synthetic population can smooth faster than a simple skewed distribution. Discrete steps are not automatically a failure. Matching a mean and SE does not establish a Normal shape. Dependence changes variance reasoning; non-identical independent shots need individual variances. Heavy tails can invalidate the ordinary CLT altogether.</p>
+<p>Each separate investigation includes population shape or process behavior, retrospective theory expectation, important code explanations, boundary plots and both-seed diagnostics. The expectation is not presented as a personal prediction made before the original simulations.</p>
+</section>
+<section id="reproducibility-and-ai" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="reproducibility-and-ai"><span class="header-section-number">5</span> Reproducibility and AI</h2>
+<p>The seed is 7616, with fixed sensitivity seed 7617. <a href="./methodology.html">Methodology</a>, <a href="./ai/ai_interactions.html">AI log</a>, <a href="README.md">README</a> and original instructor references document the workflow. Judgment inputs live in <code>results/decisions.csv</code>; <code>scripts/finalize_summary.R</code> validates boundary evidence and copies generated diagnostics into the summary. It does not infer normality from a single test or metric.</p>
 
 
 <!-- -->
@@ -913,54 +934,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "How Fast Does Normal Happen?"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Stress-testing the Central Limit Theorem with Monte Carlo simulation"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Math 167R Project 1"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>))</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>diagnostics <span class="ot">&lt;-</span> <span class="fu">report_status</span>()</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research question</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>What is the smallest sample size (n) at which I would be comfortable calling the sampling distribution of the sample mean approximately normal? This project treats that as an evidence-based judgment, not a universal theorem with one answer.</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Is (n=30) a universal rule?</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>No. The generated evidence shows that <span class="in">`n = 30`</span> is context-dependent: it is enough for the exactly Normal benchmark and already persuasive for the synthetic age mixture, but it leaves visible skewness or Q-Q deviations for the Exponential, small-probability Binomial, and non-identical Bernoulli cases. Cauchy and the dependent failure process do not receive a defensible finite selection under the tested criteria.</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Executive results table</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, results='asis'}</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>summary_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(root, <span class="st">"results"</span>, <span class="st">"final_summary.csv"</span>)</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(summary_path) <span class="sc">&amp;&amp;</span> <span class="fu">file.info</span>(summary_path)<span class="sc">$</span>size <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  summary_table <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(summary_path, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">"knitr"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(knitr<span class="sc">::</span><span class="fu">kable</span>(summary_table, <span class="at">digits =</span> <span class="dv">4</span>))</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(summary_table)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"The final summary will be populated after simulation and human evidence review.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>The finite values in this table are linked to rows in <span class="in">`results/all_diagnostics.csv`</span>; the Cauchy and dependent-process <span class="in">`N/A`</span> entries are deliberate evidence decisions, not missing theory values.</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## What the results say</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>The fastest cases were Standard Normal (exactly normal for every <span class="in">`n`</span>) and the synthetic age-at-death mixture. The die was also close to normal by <span class="in">`n = 100`</span>. The slower finite-variance cases were the Exponential and Binomial(size = 5, p = 0.10), where strong right skew and rare-event discreteness required <span class="in">`n = 1,000`</span> in this study. The non-identical Bernoulli process used the correct p_i-specific variance and reached its most persuasive tested evidence at <span class="in">`n = 1,000`</span>.</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>The most important exception was Cauchy: even at <span class="in">`n = 5,000`</span>, Q-Q RMSE stayed around 1.3 with extreme skewness and kurtosis, and the running mean remained sensitive to outliers. The dependent failure process improved as <span class="in">`n`</span> grew but still showed positive skewness and Q-Q error above the Normal calibration through <span class="in">`n = 1,000`</span>; its covariance structure means the iid SE formula is not appropriate.</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproducibility</span></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>The complete workflow is in <span class="co">[</span><span class="ot">`README.md`</span><span class="co">](README.md)</span>. The confirmed student seed is <span class="in">`7616`</span> in <span class="co">[</span><span class="ot">`R/config.R`</span><span class="co">](R/config.R)</span>. The runner also repeats the boundary evidence with seed <span class="in">`7617`</span>; exact diagnostics move modestly, but the scientific pattern is stable. The instructor source documents are preserved under <span class="co">[</span><span class="ot">`references/`</span><span class="co">](references/)</span>.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "How Fast Does Normal Happen?"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Thirty is a suggestion, not a universal law."</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Shayaan Tanveer"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## My answer</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>I investigated five required populations and all three extra-credit processes, with B = 10,000 separate samples at each n. Normal means are exact at n = 1. The die and synthetic mixture smooth quickly; skew, discrete gaps and dependence require more observations. Cauchy never converges to Normal in this experiment's iid setting.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>My standard is a useful central-shape approximation, not exact Normality or extreme-tail accuracy. I combine histograms, Q-Q plots, numerical diagnostics, valid theory and nearby larger values. Borderline neighbors mean there is uncertainty about the exact smallest integer.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Download the four-page submission PDF</span><span class="co">](output/pdf/clt_summary.pdf)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/config.R"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/distributions.R"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/diagnostics.R"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/report_helpers.R"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">load_final_summary</span>()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">nrow</span>(s) <span class="sc">==</span> <span class="dv">8</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.kable.NA =</span> <span class="st">"N/A"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(s[, <span class="fu">c</span>(<span class="st">"population"</span>, <span class="st">"selected_n"</span>, <span class="st">"acceptance_reason"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"smaller_n_reason"</span>, <span class="st">"key_observation"</span>)],</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Population"</span>, <span class="st">"Selected n"</span>, <span class="st">"Why I accept"</span>, <span class="st">"Why not smaller"</span>, <span class="st">"Issue / surprise"</span>))</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Assumptions and numerical evidence</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(s[, <span class="fu">c</span>(<span class="st">"population"</span>, <span class="st">"independent"</span>, <span class="st">"identically_distributed"</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a> <span class="st">"finite_variance"</span>, <span class="st">"skewness_at_selected_n"</span>, <span class="st">"excess_kurtosis_at_selected_n"</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a> <span class="st">"qq_rmse_at_selected_n"</span>, <span class="st">"empirical_se_at_selected_n"</span>, <span class="st">"theoretical_se_or_reference"</span>)],</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a> <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Population"</span>, <span class="st">"Independent"</span>, <span class="st">"Identical"</span>, <span class="st">"Finite variance"</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a> <span class="st">"Skewness"</span>, <span class="st">"Excess kurtosis"</span>, <span class="st">"Q-Q RMSE"</span>, <span class="st">"Empirical SE"</span>, <span class="st">"Theoretical SE"</span>))</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>N/A for Cauchy means no finite selection and no valid population moment targets. Dependence has finite individual second moments but no supplied theoretical mean or SE for this nonstationary-start process; a dependent CLT is not established here.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two views of convergence</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="al">![Q-Q discrepancy across the tested sample sizes; both axes use log scales.](figures/convergence_race.png)</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="al">![Coarse-grid and selected-n Q-Q error. Circles mark selections; white cells are untested.](figures/normality_heatmap.png)</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## What I take from this</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>The surprising contrast is that a complicated synthetic population can smooth faster than a simple skewed distribution. Discrete steps are not automatically a failure. Matching a mean and SE does not establish a Normal shape. Dependence changes variance reasoning; non-identical independent shots need individual variances. Heavy tails can invalidate the ordinary CLT altogether.</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Each separate investigation includes population shape or process behavior, retrospective theory expectation, important code explanations, boundary plots and both-seed diagnostics. The expectation is not presented as a personal prediction made before the original simulations.</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproducibility and AI</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>The seed is 7616, with fixed sensitivity seed 7617. <span class="co">[</span><span class="ot">Methodology</span><span class="co">](methodology.qmd)</span>, <span class="co">[</span><span class="ot">AI log</span><span class="co">](ai/ai_interactions.md)</span>, <span class="co">[</span><span class="ot">README</span><span class="co">](README.md)</span> and original instructor references document the workflow. Judgment inputs live in <span class="in">`results/decisions.csv`</span>; <span class="in">`scripts/finalize_summary.R`</span> validates boundary evidence and copies generated diagnostics into the summary. It does not infer normality from a single test or metric.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

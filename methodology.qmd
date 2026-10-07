@@ -7,7 +7,7 @@ subtitle: "A transparent, evidence-based definition of approximately normal"
 
 For a candidate sample size `n`, one repetition generates `n` observations and computes one sample mean. Repeating this `B = 10,000` times produces the simulated sampling distribution of the sample mean.
 
-The project uses a coarse-to-fine search. The initial grid is deliberately broad. After the coarse run is inspected, a human-selected transition center can be entered in `R/config.R`; the runner then adds nearby values for a refined search. No selected `n` is inferred solely from a p-value or hard-coded in the code.
+The project uses a coarse-to-fine search. The initial grid is deliberately broad; earlier exploratory centers are retained for reproducibility. Targeted population-specific grids in `R/config.R` investigate smaller candidates and nearby larger values. The explicit judgment inputs are in `results/decisions.csv`; these are evidence decisions, not simulation outputs or automatic p-value cutoffs.
 
 ## Evidence used together
 
@@ -23,7 +23,9 @@ The age-at-death population is synthetic and uses the instructor-provided discre
 
 ## Decision rule
 
-The final selected `n`, when one exists, is the smallest tested value at which the evidence is jointly persuasive: the histogram is reasonably bell-shaped, the Q-Q plot lacks substantial systematic curvature, diagnostics are reasonably close to the Normal benchmark, theory agrees with simulation where applicable, and the conclusion remains stable at nearby larger values. The final report must state uncertainty and limitations.
+The goal is the smallest tested `n` I can defend, not the largest or nicest-looking plot. I assess the histogram, systematic Q-Q curvature, skewness, kurtosis, mean and SE agreement where valid, and nearby larger values together. Small discrete steps or residual tail bends may be acceptable for a practical approximation, but not for precise extreme-tail calculations. The Normal benchmark shows simulation noise; matching that noise is not a requirement.
+
+There is no sharp biological or mathematical transition in these finite-variance cases. Adjacent candidates can be essentially indistinguishable. Where I cannot convincingly reject a smaller candidate, I report a borderline range rather than manufacture a failure reason. A selected value is a judgment under a stated tolerance, not proof that every smaller integer fails.
 
 ## Sensitivity to the random seed
 

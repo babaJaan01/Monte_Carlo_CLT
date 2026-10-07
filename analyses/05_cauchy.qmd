@@ -1,48 +1,86 @@
 ---
-title: "05 · Cauchy"
-subtitle: "A heavy-tail case where the ordinary finite-variance CLT does not apply"
+title: "Cauchy"
+author: "Shayaan Tanveer"
 ---
 
 ```{r}
-root <- if (file.exists("R/config.R")) "." else ".."
-source(file.path(root, "R/config.R")); source(file.path(root, "R/distributions.R"))
-source(file.path(root, "R/diagnostics.R")); source(file.path(root, "R/simulate_means.R"))
-source(file.path(root, "R/plotting.R")); source(file.path(root, "R/report_helpers.R"))
-spec <- population_spec("cauchy"); rows <- population_rows(spec$id)
+#| include: false
+source("R/config.R")
+source("R/distributions.R")
+source("R/diagnostics.R")
+source("R/simulate_means.R")
+source("R/plotting.R")
+source("R/report_helpers.R")
+id <- "cauchy"
 ```
 
-## Research Question
+## Population and theory
 
-What does increasing `n` do when the population is Cauchy and has no finite population mean or variance?
+iid standard Cauchy; population mean and variance do not exist. The average remains standard Cauchy for every n.
 
-## Population / Process and Theory
+One theoretical check uses the characteristic function: phi(t) = exp(-abs(t)). Independence gives phi(t/n)^n = exp(-abs(t)), the same characteristic function for the average. Thus no finite n produces convergence to Normal.
 
-`X_i ~ Cauchy(location = 0, scale = 1)`. The population mean and variance do not exist. This project therefore does not report a population mean, population SD, or `sigma / sqrt(n)` for this case.
-
-## CLT Assumptions and Prediction
-
-Independence and identical distribution hold, but finite variance fails. I expect extreme observations to remain influential and ordinary mean-based normal convergence to behave differently from the finite-variance cases.
-
-## Simulation Design and Evidence
-
-Use the ordinary grid plus larger values when computationally useful. Examine histograms and Q-Q plots cautiously, and use the running-mean visualization as a sensitivity diagnostic.
+## Expectation based on theory
 
 ```{r}
+#| fig-width: 7
+#| fig-height: 3
+#| fig-cap: "Original population shape; this is not the distribution of the sample mean."
+plot_population(id)
+```
+
+Larger n will not produce Normal sample means. This expectation was documented during revision; I am not claiming it was a personal prediction made before the original run.
+
+## Evidence for my decision
+
+### Important code, in plain language
+
+rcauchy(n) generates independent standard Cauchy observations. I calculate finite sample averages but never assign them nonexistent population mean or variance targets.
+
+The shared simulator repeats mean(generator(n)) B times and stores one number per sample. Diagnostics are calculated from that vector, not from the original observations. Both seeds save to different directories, and loading a plotted vector checks its mean, SD and Q-Q RMSE against the matching CSV row.
+
+I generate B = 10,000 separate samples at each n using seed 7616. Seed 7617 checks sensitivity. The full tested grid is in the CSV; this table focuses on candidates for our practical-normality review.
+
+```{r}
+#| results: asis
+review_table(id)
+```
+
+```{r}
+#| fig-width: 11
+#| fig-height: 6
+#| fig-cap: "Primary seed 7616. Orange curves use valid theoretical moments. Q-Q steps reflect discreteness; systematic curvature indicates shape differences."
+decision <- selected_row(id)
+ns <- na.omit(c(decision$below_n, decision$selected_n, decision$above_n))
+plot_review_evidence(id, ns)
+```
+
+## Special evidence
+
+```{r}
+set.seed(student_seed)
 plot_cauchy_running_mean(5000L)
 ```
 
+## My selected n and justification
+
 ```{r}
-if (is.null(rows) || nrow(rows) == 0L) {
-  cat("Run scripts/run_project.R after entering student_seed. No theoretical normal overlay or SE formula is available for Cauchy.\n")
-} else {
-  print(rows)
-}
+#| results: asis
+report_selection(id)
 ```
 
-## Final Selected N and Interpretation
+This is a theoretical failure, not an uncertain boundary judgment. Empirical skewness, kurtosis and SD in the table are finite-vector descriptions with no population-moment targets. Standardizing by an outlier-dominated empirical SD can compress the central Q-Q points; it does not rescue Normality.
 
-```{r, results='asis'}
-report_selection(spec$id)
+## Seed sensitivity
+
+```{r}
+a <- population_rows(id)
+b <- read.csv("results/sensitivity_diagnostics.csv")
+b <- b[b$population_id == id, ]
+compare <- merge(a[, c("n", "qq_rmse", "skewness")],
+                 b[, c("n", "qq_rmse", "skewness")], by = "n",
+                 suffixes = c("_7616", "_7617"))
+knitr::kable(compare[compare$n %in% sort(unique(c(ns, review_n_values[[id]]))), ], digits = 3)
 ```
 
-The `N/A` decision is limited to this ordinary sample-mean criterion and the tested range through `n = 5,000`; it is not a claim that every possible robust estimator fails. The project correctly leaves population mean, population SD, and `sigma / sqrt(n)` as `N/A`.
+The empirical diagnostics vary substantially between seeds, but the theoretical conclusion does not: no finite n. I do not choose a favorable seed to make a heavy-tailed vector look better.

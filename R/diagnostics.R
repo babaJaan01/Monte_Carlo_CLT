@@ -88,7 +88,7 @@ theoretical_mean_for <- function(spec, n) {
 normal_benchmark <- function(
     n_values,
     B = monte_carlo_reps,
-    calibration_reps = calibration_reps
+    calibration_reps = 30L
 ) {
   rows <- vector("list", length(n_values) * calibration_reps)
   row_number <- 0L
@@ -109,7 +109,6 @@ normal_benchmark <- function(
 }
 
 summarize_normal_benchmark <- function(benchmark_results) {
-  metrics <- c("skewness", "excess_kurtosis", "qq_rmse")
   rows <- lapply(split(benchmark_results, benchmark_results$n), function(chunk) {
     data.frame(
       n = chunk$n[1L],

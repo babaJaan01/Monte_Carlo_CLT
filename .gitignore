@@ -10,9 +10,9 @@ _book/
 *.Rproj
 
 # Generated simulation artifacts that can be recreated
+results/sample_means/**/*.rds
 results/sample_means/*.rds
 results/normal_benchmark_replicates.csv
-results/sensitivity_diagnostics.csv
 results/run_metadata.txt
 
 # renv local library and cache
@@ -25,3 +25,7 @@ renv/cache/
 
 /.quarto/
 **/*.quarto_ipynb
+
+# PDF rendering intermediates; retain output/pdf/clt_summary.pdf
+/clt_summary.pdf
+/tmp/

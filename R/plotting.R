@@ -37,29 +37,38 @@ plot_sampling_qq <- function(sample_means, n, population_label) {
 }
 
 plot_convergence_race <- function(diagnostics, log_x = TRUE) {
+  old <- par(mar = c(5, 5, 4, 13), xpd = NA)
+  on.exit(par(old))
   ids <- unique(diagnostics$population_id)
   colors <- grDevices::hcl.colors(length(ids), palette = "Dark 3")
   y_range <- range(diagnostics$qq_rmse, finite = TRUE)
   plot(NA, xlim = range(diagnostics$n), ylim = y_range,
-       log = if (log_x) "x" else "",
+       log = if (log_x) "xy" else "y",
        xlab = "Sample size n", ylab = "Q-Q RMSE",
-       main = "CLT convergence race")
+       main = "How fast does Normal happen? (log scales)")
   for (i in seq_along(ids)) {
     chunk <- diagnostics[diagnostics$population_id == ids[[i]], ]
     chunk <- chunk[order(chunk$n), ]
     lines(chunk$n, chunk$qq_rmse, type = "b", pch = 19,
           col = colors[[i]], lwd = 2)
   }
-  legend("topright", legend = ids, col = colors, lty = 1, pch = 19,
-         bty = "n", cex = 0.75)
+  labels <- c(standard_normal = "Normal", six_sided_die = "Die",
+    exponential = "Exponential", binomial_small = "Binomial (size 5)",
+    cauchy = "Cauchy", dependent_failure = "Dependent failure",
+    nonidentical_bernoulli = "Basketball shots", age_at_death = "Synthetic ages")
+  legend("topright", inset = c(-0.33, 0), legend = labels[ids],
+         col = colors, lty = 1, pch = 19, bty = "n", cex = 0.75)
 }
 
 plot_normality_heatmap <- function(diagnostics, selected_summary = NULL) {
   old_par <- par(no.readonly = TRUE)
   on.exit(par(old_par), add = TRUE)
-  par(mar = c(8, 12, 4, 2) + 0.1)
+  par(mar = c(8, 12, 4, 8) + 0.1)
   ids <- unique(diagnostics$population_id)
-  n_values <- sort(unique(diagnostics$n))
+  # Keep the heatmap readable: coarse grid plus the actual selected values.
+  n_values <- sort(unique(c(coarse_n_grid, selected_summary$selected_n)))
+  n_values <- n_values[!is.na(n_values)]
+  diagnostics <- diagnostics[diagnostics$n %in% n_values, ]
   matrix_values <- matrix(NA_real_, nrow = length(ids), ncol = length(n_values),
                           dimnames = list(ids, n_values))
   for (i in seq_len(nrow(diagnostics))) {
@@ -67,13 +76,15 @@ plot_normality_heatmap <- function(diagnostics, selected_summary = NULL) {
       diagnostics$qq_rmse[i]
   }
   image(
-    x = seq_along(n_values), y = seq_along(ids), z = t(matrix_values),
+    x = seq_along(n_values), y = seq_along(ids), z = t(log10(matrix_values)),
     axes = FALSE, col = grDevices::hcl.colors(20, "YlOrRd", rev = TRUE),
     xlab = "Sample size n", ylab = "",
-    main = "Normality heatmap: Q-Q RMSE"
+    main = "Q-Q RMSE heatmap (log10 color scale; white = untested)"
   )
   axis(1, at = seq_along(n_values), labels = n_values, las = 2, cex.axis = 0.75)
-  axis(2, at = seq_along(ids), labels = ids, las = 2, cex.axis = 0.7)
+  axis(2, at = seq_along(ids),
+       labels = vapply(ids, function(id) population_spec(id)$label, character(1)),
+       las = 2, cex.axis = 0.7)
   mtext("Population", side = 2, line = 10)
   if (!is.null(selected_summary) && "selected_n" %in% names(selected_summary)) {
     reviewed <- selected_summary[!is.na(selected_summary$selected_n), , drop = FALSE]
@@ -87,6 +98,14 @@ plot_normality_heatmap <- function(diagnostics, selected_summary = NULL) {
     }
   }
   box()
+  limits <- range(log10(matrix_values), finite = TRUE)
+  ticks <- c(0.01, 0.03, 0.1, 0.3, 1)
+  palette <- grDevices::hcl.colors(20, "YlOrRd", rev = TRUE)
+  positions <- pmax(1, pmin(20, 1 + floor(19 *
+    (log10(ticks) - limits[1]) / diff(limits))))
+  par(xpd = NA)
+  legend(length(n_values) + 1, length(ids), title = "Q-Q RMSE",
+         legend = ticks, fill = palette[positions], bty = "n", cex = 0.75)
 }
 
 plot_cauchy_running_mean <- function(n = 5000L) {

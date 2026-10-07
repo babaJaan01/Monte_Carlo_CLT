@@ -7,6 +7,7 @@ source("R/distributions.R")
 source("R/diagnostics.R")
 source("R/simulate_means.R")
 source("R/plotting.R")
+source("R/report_helpers.R")
 
 diagnostics_path <- "results/all_diagnostics.csv"
 if (!file.exists(diagnostics_path) || file.info(diagnostics_path)$size == 0) {

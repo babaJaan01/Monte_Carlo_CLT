@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Shayaan Tanveer">
 
-<title>01 · Standard Normal – How Fast Does Normal Happen?</title>
+<title>Standard Normal – How Fast Does Normal Happen?</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -146,23 +147,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-required-distributions">    
         <li>
     <a class="dropdown-item" href="../analyses/01_standard_normal.html">
- <span class="dropdown-text">01 · Standard Normal</span></a>
+ <span class="dropdown-text">Standard Normal</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/02_six_sided_die.html">
- <span class="dropdown-text">02 · Six-Sided Die</span></a>
+ <span class="dropdown-text">Six-Sided Die</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/03_exponential.html">
- <span class="dropdown-text">03 · Exponential</span></a>
+ <span class="dropdown-text">Exponential</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/04_binomial_small.html">
- <span class="dropdown-text">04 · Binomial Small</span></a>
+ <span class="dropdown-text">Binomial Small</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/05_cauchy.html">
- <span class="dropdown-text">05 · Cauchy</span></a>
+ <span class="dropdown-text">Cauchy</span></a>
   </li>  
     </ul>
   </li>
@@ -173,15 +174,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-credit">    
         <li>
     <a class="dropdown-item" href="../analyses/06_extra_dependent_failure.html">
- <span class="dropdown-text">06 · Extra Credit: Dependent Failure Process</span></a>
+ <span class="dropdown-text">Dependent Machine Failure</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/07_extra_nonidentical_bernoulli.html">
- <span class="dropdown-text">07 · Extra Credit: Non-Identical Bernoulli Shots</span></a>
+ <span class="dropdown-text">Non-Identical Basketball Shots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../analyses/08_extra_age_at_death.html">
- <span class="dropdown-text">08 · Extra Credit: Synthetic Age-at-Death</span></a>
+ <span class="dropdown-text">Synthetic Age-at-Death</span></a>
   </li>  
     </ul>
   </li>
@@ -205,11 +206,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#research-question" id="toc-research-question" class="nav-link active" data-scroll-target="#research-question"><span class="header-section-number">1</span> Research Question</a></li>
-  <li><a href="#population-process-and-theory" id="toc-population-process-and-theory" class="nav-link" data-scroll-target="#population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</a></li>
-  <li><a href="#clt-assumptions-and-prediction" id="toc-clt-assumptions-and-prediction" class="nav-link" data-scroll-target="#clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</a></li>
-  <li><a href="#simulation-design-search-and-evidence" id="toc-simulation-design-search-and-evidence" class="nav-link" data-scroll-target="#simulation-design-search-and-evidence"><span class="header-section-number">4</span> Simulation Design, Search, and Evidence</a></li>
-  <li><a href="#final-selected-n-and-interpretation" id="toc-final-selected-n-and-interpretation" class="nav-link" data-scroll-target="#final-selected-n-and-interpretation"><span class="header-section-number">5</span> Final Selected N and Interpretation</a></li>
+  <li><a href="#population-and-theory" id="toc-population-and-theory" class="nav-link active" data-scroll-target="#population-and-theory"><span class="header-section-number">1</span> Population and theory</a></li>
+  <li><a href="#expectation-based-on-theory" id="toc-expectation-based-on-theory" class="nav-link" data-scroll-target="#expectation-based-on-theory"><span class="header-section-number">2</span> Expectation based on theory</a></li>
+  <li><a href="#evidence-for-my-decision" id="toc-evidence-for-my-decision" class="nav-link" data-scroll-target="#evidence-for-my-decision"><span class="header-section-number">3</span> Evidence for my decision</a>
+  <ul class="collapse">
+  <li><a href="#important-code-in-plain-language" id="toc-important-code-in-plain-language" class="nav-link" data-scroll-target="#important-code-in-plain-language"><span class="header-section-number">3.1</span> Important code, in plain language</a></li>
+  </ul></li>
+  <li><a href="#my-selected-n-and-justification" id="toc-my-selected-n-and-justification" class="nav-link" data-scroll-target="#my-selected-n-and-justification"><span class="header-section-number">4</span> My selected n and justification</a>
+  <ul class="collapse">
+  <li><a href="#normal-calibration" id="toc-normal-calibration" class="nav-link" data-scroll-target="#normal-calibration"><span class="header-section-number">4.1</span> Normal calibration</a></li>
+  </ul></li>
+  <li><a href="#seed-sensitivity" id="toc-seed-sensitivity" class="nav-link" data-scroll-target="#seed-sensitivity"><span class="header-section-number">5</span> Seed sensitivity</a></li>
   </ul>
 </nav>
     </div>
@@ -218,14 +225,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">01 · Standard Normal</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
-<p class="subtitle lead">The calibration case: exact normality for every n</p>
+<div class="quarto-title-block"><div><h1 class="title">Standard Normal</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Shayaan Tanveer </p>
+          </div>
+  </div>
     
   
     
@@ -236,220 +248,266 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="population-and-theory" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="population-and-theory"><span class="header-section-number">1</span> Population and theory</h2>
+<p>iid N(0,1); the sample mean is exactly N(0,1/n) for every n.</p>
+</section>
+<section id="expectation-based-on-theory" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="expectation-based-on-theory"><span class="header-section-number">2</span> Expectation based on theory</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"standard_normal"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<section id="research-question" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="research-question"><span class="header-section-number">1</span> Research Question</h2>
-<p>How well do simulation diagnostics behave when the population is already Normal?</p>
-</section>
-<section id="population-process-and-theory" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="population-process-and-theory"><span class="header-section-number">2</span> Population / Process and Theory</h2>
-<p><code>X_i ~ N(0, 1)</code>. Because Normal distributions are closed under averaging, the sample mean is exactly <code>N(0, 1/n)</code> for every positive integer <code>n</code>, including <code>n = 1</code>.</p>
-</section>
-<section id="clt-assumptions-and-prediction" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="clt-assumptions-and-prediction"><span class="header-section-number">3</span> CLT Assumptions and Prediction</h2>
-<p>The observations are independent, identically distributed, and have finite variance. I expect all diagnostics to fluctuate around their theoretical targets at every tested <code>n</code>; those fluctuations quantify Monte Carlo noise.</p>
-</section>
-<section id="simulation-design-search-and-evidence" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="simulation-design-search-and-evidence"><span class="header-section-number">4</span> Simulation Design, Search, and Evidence</h2>
-<p>The standard runner uses <code>B = 10,000</code>, the shared coarse grid, and any reviewed refinement values entered in <code>R/config.R</code>.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot.new</span>(); <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="st">"Run scripts/run_project.R after entering student_seed."</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  display_n <span class="ot">&lt;-</span> <span class="fu">max</span>(rows<span class="sc">$</span>n)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  means_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(root, <span class="st">"results"</span>, <span class="st">"sample_means"</span>, <span class="fu">paste0</span>(spec<span class="sc">$</span>id, <span class="st">"_n_"</span>, display_n, <span class="st">".rds"</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(means_path)) {</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    means <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(means_path); old_par <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_histogram</span>(means, display_n, spec<span class="sc">$</span>label, <span class="dv">0</span>, <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(display_n))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_qq</span>(means, display_n, spec<span class="sc">$</span>label); <span class="fu">par</span>(old_par)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_population</span>(id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="01_standard_normal_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Original population shape; this is not the distribution of the sample mean.</figcaption>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     population_id   n     B empirical_mean theoretical_mean    mean_error
-1  standard_normal   1 10000  -1.333552e-03                0 -1.333552e-03
-2  standard_normal   2 10000  -9.394289e-05                0 -9.394289e-05
-3  standard_normal   3 10000  -1.015751e-03                0 -1.015751e-03
-4  standard_normal   5 10000   1.806118e-03                0  1.806118e-03
-5  standard_normal  10 10000   2.856765e-04                0  2.856765e-04
-6  standard_normal  15 10000  -1.557815e-03                0 -1.557815e-03
-7  standard_normal  20 10000  -3.258717e-03                0 -3.258717e-03
-8  standard_normal  30 10000  -2.579571e-03                0 -2.579571e-03
-9  standard_normal  50 10000   5.169039e-04                0  5.169039e-04
-10 standard_normal  75 10000  -6.309004e-05                0 -6.309004e-05
-11 standard_normal  90 10000   4.617509e-04                0  4.617509e-04
-12 standard_normal  95 10000  -9.274441e-04                0 -9.274441e-04
-13 standard_normal  98 10000  -1.600246e-03                0 -1.600246e-03
-14 standard_normal  99 10000   5.769656e-04                0  5.769656e-04
-15 standard_normal 100 10000  -6.574609e-04                0 -6.574609e-04
-16 standard_normal 101 10000  -5.520874e-04                0 -5.520874e-04
-17 standard_normal 102 10000  -2.703234e-04                0 -2.703234e-04
-18 standard_normal 105 10000  -1.175686e-03                0 -1.175686e-03
-19 standard_normal 110 10000   5.134011e-04                0  5.134011e-04
-20 standard_normal 150 10000  -2.464282e-04                0 -2.464282e-04
-21 standard_normal 200 10000   4.178730e-04                0  4.178730e-04
-22 standard_normal 290 10000   1.027688e-03                0  1.027688e-03
-23 standard_normal 295 10000  -7.214156e-04                0 -7.214156e-04
-24 standard_normal 298 10000  -7.622705e-04                0 -7.622705e-04
-25 standard_normal 299 10000  -7.595948e-05                0 -7.595948e-05
-26 standard_normal 300 10000  -3.467871e-04                0 -3.467871e-04
-27 standard_normal 301 10000  -3.286369e-04                0 -3.286369e-04
-28 standard_normal 302 10000  -9.669890e-04                0 -9.669890e-04
-29 standard_normal 305 10000   8.074111e-04                0  8.074111e-04
-30 standard_normal 310 10000   8.831929e-05                0  8.831929e-05
-31 standard_normal 490 10000  -2.660921e-04                0 -2.660921e-04
-32 standard_normal 495 10000   1.043568e-04                0  1.043568e-04
-33 standard_normal 498 10000  -3.629521e-04                0 -3.629521e-04
-34 standard_normal 499 10000   7.758460e-05                0  7.758460e-05
-35 standard_normal 500 10000  -7.654907e-04                0 -7.654907e-04
-36 standard_normal 501 10000   3.834536e-04                0  3.834536e-04
-37 standard_normal 502 10000   2.621163e-04                0  2.621163e-04
-38 standard_normal 505 10000  -9.879391e-05                0 -9.879391e-05
-39 standard_normal 510 10000  -6.910380e-04                0 -6.910380e-04
-40 standard_normal 740 10000  -1.332811e-05                0 -1.332811e-05
-41 standard_normal 745 10000   6.663615e-05                0  6.663615e-05
-42 standard_normal 748 10000  -2.626172e-04                0 -2.626172e-04
-43 standard_normal 749 10000   4.720172e-04                0  4.720172e-04
-44 standard_normal 750 10000   5.921832e-05                0  5.921832e-05
-45 standard_normal 751 10000  -1.437274e-05                0 -1.437274e-05
-46 standard_normal 752 10000  -2.517414e-04                0 -2.517414e-04
-47 standard_normal 755 10000   8.547642e-05                0  8.547642e-05
-48 standard_normal 760 10000  -2.441049e-04                0 -2.441049e-04
-   empirical_se theoretical_se relative_se_error      skewness excess_kurtosis
-1    1.00122999     1.00000000      0.0012299889  0.0030534577    -0.022488360
-2    0.70418822     0.70710678      0.0041274678 -0.0133711786     0.004625216
-3    0.57455437     0.57735027      0.0048426342 -0.0330734228    -0.041164126
-4    0.44942375     0.44721360      0.0049420539 -0.0017762889    -0.065289721
-5    0.31836561     0.31622777      0.0067604644  0.0044283512    -0.011152640
-6    0.26047404     0.25819889      0.0088116153 -0.0343169180    -0.055387174
-7    0.22367854     0.22360680      0.0003208385  0.0166320258     0.086529805
-8    0.18323366     0.18257419      0.0036120716 -0.0269682551     0.116628781
-9    0.14093885     0.14142136      0.0034118636  0.0584273314    -0.059238043
-10   0.11630021     0.11547005      0.0071893815  0.0292524901     0.043472971
-11   0.10549038     0.10540926      0.0007696123  0.0167801740     0.040637281
-12   0.10287324     0.10259784      0.0026843572 -0.0009334321    -0.057366991
-13   0.10023223     0.10101525      0.0077515363  0.0154917412    -0.006465237
-14   0.10016323     0.10050378      0.0033884356  0.0624041237    -0.049527990
-15   0.10050895     0.10000000      0.0050894501 -0.0410008034     0.044328191
-16   0.09874224     0.09950372      0.0076528105 -0.0025812038     0.043728051
-17   0.09846565     0.09901475      0.0055456377 -0.0197631319    -0.008215949
-18   0.09767577     0.09759001      0.0008787559 -0.0013400347    -0.048103606
-19   0.09601214     0.09534626      0.0069838203 -0.0219603016    -0.044789833
-20   0.08160584     0.08164966      0.0005366111  0.0044373692     0.029197111
-21   0.07013687     0.07071068      0.0081148999 -0.0052133522    -0.003000606
-22   0.05863340     0.05872202      0.0015091243  0.0081405424    -0.050532708
-23   0.05818340     0.05822225      0.0006673278 -0.0175199270     0.075234247
-24   0.05821628     0.05792844      0.0049687424 -0.0057688240    -0.053420928
-25   0.05735521     0.05783149      0.0082357435 -0.0193634149     0.124438373
-26   0.05797298     0.05773503      0.0041214559  0.0343532094    -0.038246761
-27   0.05774706     0.05763904      0.0018740259 -0.0174262965    -0.003756267
-28   0.05691699     0.05754353      0.0108880967  0.0210455512    -0.012350512
-29   0.05697805     0.05725983      0.0049211997  0.0117006440    -0.045616674
-30   0.05683586     0.05679618      0.0006985376 -0.0334308850    -0.030850154
-31   0.04514365     0.04517540      0.0007026489 -0.0136614048    -0.027673111
-32   0.04498319     0.04494666      0.0008128826  0.0209078678     0.025021216
-33   0.04485145     0.04481107      0.0009011880  0.0769471626     0.003817018
-34   0.04491930     0.04476615      0.0034212234 -0.0327951382     0.020644592
-35   0.04499228     0.04472136      0.0060580538  0.0019219276    -0.038776734
-36   0.04422345     0.04467671      0.0101452481 -0.0581884434     0.028896360
-37   0.04487897     0.04463218      0.0055292327  0.0042071169     0.060168393
-38   0.04462034     0.04449942      0.0027173409 -0.0149857783     0.042283334
-39   0.04381630     0.04428074      0.0104885686  0.0056419723    -0.043380462
-40   0.03713482     0.03676073      0.0101763959 -0.0056987932    -0.070846685
-41   0.03645984     0.03663717      0.0048401129 -0.0261185459    -0.022396123
-42   0.03645789     0.03656362      0.0028916482  0.0241115068    -0.062758194
-43   0.03623506     0.03653920      0.0083236830 -0.0071137379    -0.040818220
-44   0.03630135     0.03651484      0.0058466454 -0.0008924052     0.035415577
-45   0.03713452     0.03649052      0.0176484487 -0.0155389345    -0.083595598
-46   0.03632556     0.03646625      0.0038581157 -0.0165243445     0.004448588
-47   0.03622887     0.03639373      0.0045298671 -0.0216108342     0.075920416
-48   0.03663305     0.03627381      0.0099034781 -0.0342450095     0.101007237
-       qq_rmse   seed_label
-1  0.011027944 student_seed
-2  0.012399508 student_seed
-3  0.015874676 student_seed
-4  0.011823860 student_seed
-5  0.014974432 student_seed
-6  0.013378399 student_seed
-7  0.013692072 student_seed
-8  0.017504556 student_seed
-9  0.018424413 student_seed
-10 0.012631654 student_seed
-11 0.013569470 student_seed
-12 0.010714171 student_seed
-13 0.012403334 student_seed
-14 0.018580663 student_seed
-15 0.015056918 student_seed
-16 0.010970347 student_seed
-17 0.009945722 student_seed
-18 0.010680934 student_seed
-19 0.013506965 student_seed
-20 0.013416444 student_seed
-21 0.010571000 student_seed
-22 0.016317117 student_seed
-23 0.015683765 student_seed
-24 0.013509032 student_seed
-25 0.016128496 student_seed
-26 0.014750719 student_seed
-27 0.011748269 student_seed
-28 0.014419266 student_seed
-29 0.011177724 student_seed
-30 0.012122246 student_seed
-31 0.012520204 student_seed
-32 0.013776143 student_seed
-33 0.021933165 student_seed
-34 0.014935764 student_seed
-35 0.015779548 student_seed
-36 0.019251874 student_seed
-37 0.010803411 student_seed
-38 0.011798797 student_seed
-39 0.011543747 student_seed
-40 0.011041943 student_seed
-41 0.013854210 student_seed
-42 0.015893316 student_seed
-43 0.013452005 student_seed
-44 0.011259833 student_seed
-45 0.015152169 student_seed
-46 0.015688436 student_seed
-47 0.014342428 student_seed
-48 0.016579372 student_seed</code></pre>
+</div>
+<p>Exact Normal behavior is expected even at n = 1. This expectation was documented during revision; I am not claiming it was a personal prediction made before the original run.</p>
+</section>
+<section id="evidence-for-my-decision" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="evidence-for-my-decision"><span class="header-section-number">3</span> Evidence for my decision</h2>
+<section id="important-code-in-plain-language" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="important-code-in-plain-language"><span class="header-section-number">3.1</span> Important code, in plain language</h3>
+<p>The generator calls rnorm(n). Independence and Normality imply that each mean is exactly Normal with mean 0 and SE 1/sqrt(n).</p>
+<p>The shared simulator repeats mean(generator(n)) B times and stores one number per sample. Diagnostics are calculated from that vector, not from the original observations. Both seeds save to different directories, and loading a plotted vector checks its mean, SD and Q-Q RMSE against the matching CSV row.</p>
+<p>I generate B = 10,000 separate samples at each n using seed 7616. Seed 7617 checks sensitivity. The full tested grid is in the CSV; this table focuses on candidates for our practical-normality review.</p>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">review_table</span>(id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">empirical_mean</th>
+<th style="text-align: right;">theoretical_mean</th>
+<th style="text-align: right;">empirical_se</th>
+<th style="text-align: right;">theoretical_se</th>
+<th style="text-align: right;">relative_se_error</th>
+<th style="text-align: right;">skewness</th>
+<th style="text-align: right;">excess_kurtosis</th>
+<th style="text-align: right;">qq_rmse</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.001</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.001</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">-0.022</td>
+<td style="text-align: right;">0.011</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.704</td>
+<td style="text-align: right;">0.707</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">-0.013</td>
+<td style="text-align: right;">0.005</td>
+<td style="text-align: right;">0.012</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.449</td>
+<td style="text-align: right;">0.447</td>
+<td style="text-align: right;">0.005</td>
+<td style="text-align: right;">-0.002</td>
+<td style="text-align: right;">-0.065</td>
+<td style="text-align: right;">0.012</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>decision <span class="ot">&lt;-</span> <span class="fu">selected_row</span>(id)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">c</span>(decision<span class="sc">$</span>below_n, decision<span class="sc">$</span>selected_n, decision<span class="sc">$</span>above_n))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_review_evidence</span>(id, ns)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="01_standard_normal_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1056"></p>
+<figcaption>Primary seed 7616. Orange curves use valid theoretical moments. Q-Q steps reflect discreteness; systematic curvature indicates shape differences.</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </section>
-<section id="final-selected-n-and-interpretation" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="final-selected-n-and-interpretation"><span class="header-section-number">5</span> Final Selected N and Interpretation</h2>
+</section>
+<section id="my-selected-n-and-justification" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="my-selected-n-and-justification"><span class="header-section-number">4</span> My selected n and justification</h2>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(id)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<p><strong>Decision status:</strong> Exact by theory</p>
 <p><strong>Selected N:</strong> <code>n = 1</code></p>
 <ul>
 <li>skewness: 0.0031</li>
 <li>excess kurtosis: -0.0225</li>
 <li>Q-Q RMSE: 0.011</li>
 <li>empirical SE: 1.0012</li>
-<li>theoretical/reference SE: 1 <strong>Evidence decision:</strong> Exactly normal for every n; n = 1 is the smallest possible sample size.</li>
+<li>theoretical/reference SE: 1 <strong>I chose this n because:</strong> Exactly Normal for every positive n; simulated shape and SE validate the implementation.</li>
 </ul>
-<p>The choice <code>n = 1</code> is theoretical, not a claim that simulation detected a transition: a Normal population has an exactly Normal sample mean for every positive <code>n</code>.</p>
+<p><strong>Why I did not choose smaller tested values:</strong> No smaller positive sample size exists.</p>
+<p><strong>Issue / limitation:</strong> Exact Normality is theoretical, not a Monte Carlo discovery.</p>
+<p>Here the smallest possible n = 1 is exact by theory, not borderline. Small nonzero simulated diagnostics are sampling noise, not evidence against the theorem.</p>
+<section id="normal-calibration" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="normal-calibration"><span class="header-section-number">4.1</span> Normal calibration</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>calibration <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"results/normal_benchmark_summary.csv"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(calibration[calibration<span class="sc">$</span>n <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">30</span>), ], <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">skewness_q025</th>
+<th style="text-align: right;">skewness_q975</th>
+<th style="text-align: right;">excess_kurtosis_q025</th>
+<th style="text-align: right;">excess_kurtosis_q975</th>
+<th style="text-align: right;">qq_rmse_q025</th>
+<th style="text-align: right;">qq_rmse_q975</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.033</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">-0.070</td>
+<td style="text-align: right;">0.106</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.018</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">-0.052</td>
+<td style="text-align: right;">0.049</td>
+<td style="text-align: right;">-0.063</td>
+<td style="text-align: right;">0.105</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.021</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">-0.053</td>
+<td style="text-align: right;">0.030</td>
+<td style="text-align: right;">-0.114</td>
+<td style="text-align: right;">0.089</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.020</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>These empirical 2.5th-97.5th percentile ranges summarize 30 calibration experiments per n for skewness, excess kurtosis and Q-Q RMSE. They contextualize noise; with only 30 experiments they are approximate ranges, not exact tolerance limits.</p>
+</section>
+</section>
+<section id="seed-sensitivity" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="seed-sensitivity"><span class="header-section-number">5</span> Seed sensitivity</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(id)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"results/sensitivity_diagnostics.csv"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> b[b<span class="sc">$</span>population_id <span class="sc">==</span> id, ]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>compare <span class="ot">&lt;-</span> <span class="fu">merge</span>(a[, <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"qq_rmse"</span>, <span class="st">"skewness"</span>)],</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                 b[, <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"qq_rmse"</span>, <span class="st">"skewness"</span>)], <span class="at">by =</span> <span class="st">"n"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">"_7616"</span>, <span class="st">"_7617"</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(compare[compare<span class="sc">$</span>n <span class="sc">%in%</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">c</span>(ns, review_n_values[[id]]))), ], <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">qq_rmse_7616</th>
+<th style="text-align: right;">skewness_7616</th>
+<th style="text-align: right;">qq_rmse_7617</th>
+<th style="text-align: right;">skewness_7617</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.011</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">0.011</td>
+<td style="text-align: right;">-0.007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.012</td>
+<td style="text-align: right;">-0.013</td>
+<td style="text-align: right;">0.016</td>
+<td style="text-align: right;">-0.030</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.012</td>
+<td style="text-align: right;">-0.002</td>
+<td style="text-align: right;">0.014</td>
+<td style="text-align: right;">0.017</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Both seeds validate the implementation, while exact diagnostics change. The selected n = 1 remains exact by theory; no seed choice is needed to justify it.</p>
 
 
 <!-- -->
@@ -908,57 +966,92 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "01 · Standard Normal"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "The calibration case: exact normality for every n"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"R/config.R"</span>)) <span class="st">"."</span> <span class="cf">else</span> <span class="st">".."</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/config.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/distributions.R"</span>))</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/diagnostics.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/simulate_means.R"</span>))</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/plotting.R"</span>)); <span class="fu">source</span>(<span class="fu">file.path</span>(root, <span class="st">"R/report_helpers.R"</span>))</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">population_spec</span>(<span class="st">"standard_normal"</span>); rows <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(spec<span class="sc">$</span>id)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>How well do simulation diagnostics behave when the population is already Normal?</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Population / Process and Theory</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="in">`X_i ~ N(0, 1)`</span>. Because Normal distributions are closed under averaging, the sample mean is exactly <span class="in">`N(0, 1/n)`</span> for every positive integer <span class="in">`n`</span>, including <span class="in">`n = 1`</span>.</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## CLT Assumptions and Prediction</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>The observations are independent, identically distributed, and have finite variance. I expect all diagnostics to fluctuate around their theoretical targets at every tested <span class="in">`n`</span>; those fluctuations quantify Monte Carlo noise.</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation Design, Search, and Evidence</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>The standard runner uses <span class="in">`B = 10,000`</span>, the shared coarse grid, and any reviewed refinement values entered in <span class="in">`R/config.R`</span>.</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.null</span>(rows) <span class="sc">||</span> <span class="fu">nrow</span>(rows) <span class="sc">==</span> <span class="dv">0</span>L) {</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot.new</span>(); <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="st">"Run scripts/run_project.R after entering student_seed."</span>)</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  display_n <span class="ot">&lt;-</span> <span class="fu">max</span>(rows<span class="sc">$</span>n)</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  means_path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(root, <span class="st">"results"</span>, <span class="st">"sample_means"</span>, <span class="fu">paste0</span>(spec<span class="sc">$</span>id, <span class="st">"_n_"</span>, display_n, <span class="st">".rds"</span>))</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(means_path)) {</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    means <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(means_path); old_par <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_histogram</span>(means, display_n, spec<span class="sc">$</span>label, <span class="dv">0</span>, <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(display_n))</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_sampling_qq</span>(means, display_n, spec<span class="sc">$</span>label); <span class="fu">par</span>(old_par)</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(rows)</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## Final Selected N and Interpretation</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, results='asis'}</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(spec<span class="sc">$</span>id)</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>The choice <span class="in">`n = 1`</span> is theoretical, not a claim that simulation detected a transition: a Normal population has an exactly Normal sample mean for every positive <span class="in">`n`</span>.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Standard Normal"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Shayaan Tanveer"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/config.R"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/distributions.R"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/diagnostics.R"</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/simulate_means.R"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/plotting.R"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/report_helpers.R"</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="st">"standard_normal"</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Population and theory</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>iid N(0,1); the sample mean is exactly N(0,1/n) for every n.</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Expectation based on theory</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 7</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Original population shape; this is not the distribution of the sample mean."</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_population</span>(id)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>Exact Normal behavior is expected even at n = 1. This expectation was documented during revision; I am not claiming it was a personal prediction made before the original run.</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evidence for my decision</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### Important code, in plain language</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>The generator calls rnorm(n). Independence and Normality imply that each mean is exactly Normal with mean 0 and SE 1/sqrt(n).</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>The shared simulator repeats mean(generator(n)) B times and stores one number per sample. Diagnostics are calculated from that vector, not from the original observations. Both seeds save to different directories, and loading a plotted vector checks its mean, SD and Q-Q RMSE against the matching CSV row.</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>I generate B = 10,000 separate samples at each n using seed 7616. Seed 7617 checks sensitivity. The full tested grid is in the CSV; this table focuses on candidates for our practical-normality review.</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="fu">review_table</span>(id)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 11</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Primary seed 7616. Orange curves use valid theoretical moments. Q-Q steps reflect discreteness; systematic curvature indicates shape differences."</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>decision <span class="ot">&lt;-</span> <span class="fu">selected_row</span>(id)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">c</span>(decision<span class="sc">$</span>below_n, decision<span class="sc">$</span>selected_n, decision<span class="sc">$</span>above_n))</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_review_evidence</span>(id, ns)</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## My selected n and justification</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: asis</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="fu">report_selection</span>(id)</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>Here the smallest possible n = 1 is exact by theory, not borderline. Small nonzero simulated diagnostics are sampling noise, not evidence against the theorem.</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="fu">### Normal calibration</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>calibration <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"results/normal_benchmark_summary.csv"</span>)</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(calibration[calibration<span class="sc">$</span>n <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">30</span>), ], <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>These empirical 2.5th-97.5th percentile ranges summarize 30 calibration experiments per n for skewness, excess kurtosis and Q-Q RMSE. They contextualize noise; with only 30 experiments they are approximate ranges, not exact tolerance limits.</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Seed sensitivity</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">population_rows</span>(id)</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"results/sensitivity_diagnostics.csv"</span>)</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> b[b<span class="sc">$</span>population_id <span class="sc">==</span> id, ]</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>compare <span class="ot">&lt;-</span> <span class="fu">merge</span>(a[, <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"qq_rmse"</span>, <span class="st">"skewness"</span>)],</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>                 b[, <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"qq_rmse"</span>, <span class="st">"skewness"</span>)], <span class="at">by =</span> <span class="st">"n"</span>,</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>                 <span class="at">suffixes =</span> <span class="fu">c</span>(<span class="st">"_7616"</span>, <span class="st">"_7617"</span>))</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(compare[compare<span class="sc">$</span>n <span class="sc">%in%</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">c</span>(ns, review_n_values[[id]]))), ], <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>Both seeds validate the implementation, while exact diagnostics change. The selected n = 1 remains exact by theory; no seed choice is needed to justify it.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
