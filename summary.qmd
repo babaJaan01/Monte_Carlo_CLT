@@ -189,7 +189,7 @@ One generator call creates n observations; one mean produces one number; B repet
 
 **Decision ownership:** AI proposed the working integers under the practical standard I approved. My contribution was specifying the task, questioning the smallest-n argument and requesting corrections and validation. The log separates those roles; it does not invent personal predictions, reactions or independent code audits.
 
-The real prompts and corrections remain in `ai/ai_interactions.md`; important-code explanations are in the separate investigations, not full listings here.
+The AI log records four selected real exchanges and validation, not a complete transcript. Reconstructed response summaries are labeled; important-code explanations remain in the separate investigations.
 
 {{< pagebreak >}}
 

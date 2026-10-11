@@ -2,6 +2,8 @@ project:
   type: website
   output-dir: docs
   execute-dir: project
+  resources:
+    - "!README.md"
   render:
     - index.qmd
     - methodology.qmd

@@ -1,39 +1,45 @@
 # How Fast Does Normal Happen?
 
-### Stress-testing the Central Limit Theorem with Monte Carlo simulation
+## [Read the final report — 13-page PDF](output/pdf/clt_summary.pdf)
 
-**Shayaan Tanveer · Math 167R · R + Quarto**
+[Download the PDF directly](https://github.com/babaJaan01/Monte_Carlo_CLT/raw/refs/heads/main/output/pdf/clt_summary.pdf)
 
-I asked when a sample average becomes approximately Normal, and whether **n = 30** is a universal rule. It is not: the population shape, discreteness, tails and assumptions all matter.
+**Stress-testing the Central Limit Theorem with Monte Carlo simulation**
 
-**[Read my 13-page final report](output/pdf/clt_summary.pdf)** · [Quarto overview](index.qmd) · [Rendered overview](docs/index.html) · [Full numerical summary](results/final_summary.csv)
+Shayaan Tanveer · Math 167R · R + Quarto
 
-The PDF is the submission summary: page 2 directly answers the three questions, and page 3 records actual AI collaboration and corrections. It includes an eight-row decision table, histogram/Q-Q evidence for every case, smaller-n reservations and seed sensitivity. Page 1 provides a report index and identifies all three extra-credit investigations: dependent failure, non-identical basketball shots and synthetic ages. Full tested-grid diagnostics and code walkthroughs stay in the separate investigations below.
+The PDF is my complete summary argument: what I investigated, what I mean by “normal enough,” which n I chose, and why the evidence supports each choice. The repository holds the detailed, reproducible supporting analysis.
 
-## My practical decisions
+| In the report | Pages |
+|---|---:|
+| Three direct answers: sample size, approximate Normality, assumptions | 2 |
+| Actual AI iteration and corrections | 3 |
+| Decision standard and simulation method | 4 |
+| Master results and histogram/Q-Q evidence | 5–9 |
+| Smaller-n reservations and complicated cases | 10–11 |
+| Mean/SE validation and alternate-seed experiment | 12 |
+| Conclusions and detailed file map | 13 |
 
-These are the smallest tested values I am comfortable defending under a practical central-shape approximation. Borderline neighbors may also be defensible; these are not unique mathematical cutoffs or guarantees for extreme-tail probabilities.
+## My decisions and the reasons behind them
 
-| Population | Selected n | Main reason / issue |
-|---|---:|---|
-| [Standard Normal](analyses/01_standard_normal.qmd) | 1 | Exactly Normal for every positive n. |
-| [Six-sided die](analyses/02_six_sided_die.qmd) | 10 | Symmetric bell shape; small short-tail error and discrete steps. |
-| [Exponential](analyses/03_exponential.qmd) | 90 | Modest right skew remains; central approximation is useful. |
-| [Binomial small](analyses/04_binomial_small.qmd) | 75 | Modest skew and fine steps; size=5 is not sample size n. |
-| [Cauchy](analyses/05_cauchy.qmd) | None | Averages remain Cauchy; no population mean or variance. |
-| [Dependent failure](analyses/06_extra_dependent_failure.qmd) | 350 | Qualified empirical approximation; no iid SE or proved dependent CLT. |
-| [Basketball shots](analyses/07_extra_nonidentical_bernoulli.qmd) | 140 | Small skew; use each shot's probability in the variance. |
-| [Synthetic ages](analyses/08_extra_age_at_death.qmd) | 15 | Irregular mixture smooths quickly; not historical mortality data. |
+I asked when a sample average becomes approximately Normal, and whether **n = 30** is a universal rule. My results say **no**. These are practical central-shape judgments, not exact thresholds or guarantees for extreme-tail probabilities. Borderline neighbors may also be defensible.
 
-![Convergence of sample-mean shape across all eight cases](figures/convergence_race.png)
+| Population / detailed investigation | Selected n | Why I accept this choice | Smaller-n reservation / special issue |
+|---|---:|---|---|
+| [Standard Normal](analyses/01_standard_normal.qmd) | 1 | Exact Normality; simulated shape and SE agree. | No smaller positive n exists. |
+| [Six-sided die](analyses/02_six_sided_die.qmd) | 10 | Symmetric bell; broadly linear Q-Q plot with fine steps. | 6–9 are borderline; I do not claim 9 fails. |
+| [Exponential](analyses/03_exponential.qmd) | 90 | Useful central bell, modest right skew, correct SE under both seeds. | 75–80 are borderline; stronger curvature at 30–60. |
+| [Binomial small](analyses/04_binomial_small.qmd) | 75 | Modest skew, useful Q-Q line apart from steps, correct SE. | 60 has coarser steps; Binomial size=5 is not n. |
+| [Cauchy](analyses/05_cauchy.qmd) | No finite n | No Normal convergence: averages remain Cauchy by theory. | No population mean/variance; tested through 5000. |
+| [Dependent failure — extra credit](analyses/06_extra_dependent_failure.qmd) | 350 | Qualified empirical bell and Q-Q agreement across seeds. | 300 is borderline; no iid SE or proved dependent CLT. |
+| [Basketball shots — extra credit](analyses/07_extra_nonidentical_bernoulli.qmd) | 140 | Small skew and fine steps; SE uses individual probabilities. | 110–125 have clearer gaps; independent, not identical. |
+| [Synthetic ages — extra credit](analyses/08_extra_age_at_death.qmd) | 15 | Mixture smooths to a bell with modest left skew and correct SE. | 12 is borderline; synthetic, not historical mortality data. |
 
-## How I decide
+For each n, I generate **B = 10,000 fresh samples**, then assess their means using histograms, Q-Q plots, skewness, excess kurtosis, Q-Q RMSE, valid theoretical moments and nearby larger values. Normal calibration provides context, not an automatic cutoff. All three designated extra-credit investigations are included.
 
-For each n, I simulate **B = 10,000 fresh samples**, then compare their means using histograms, Normal Q-Q plots, skewness, excess kurtosis, Q-Q RMSE and valid theoretical mean/SE. I start broad and refine separately for each population. Normal calibration provides context, not an automatic cutoff. Each investigation explains acceptance, smaller-n reservations, limitations and seed sensitivity.
+## Reproduce the project
 
-## Reproduce
-
-Install R and Quarto. From this folder:
+Install R and Quarto. Run these commands from the repository root:
 
 ```sh
 Rscript -e 'renv::restore(prompt = FALSE)'
@@ -44,10 +50,10 @@ Rscript scripts/render_summary.R
 quarto render
 ```
 
-The confirmed student seed is **7616**; **7617** is the fixed sensitivity seed. The full run regenerates both simulations, calibration, the evidence-linked summary and figures. Quarto's bundled Typst makes the PDF without a separate TeX installation. The calculations use base R; `knitr` and `rmarkdown` support report rendering, with dependencies recorded by `renv`.
+Seed **7616** is the confirmed student seed; **7617** is the fixed sensitivity seed. The full run regenerates both experiments, calibration, figures and the evidence-linked summary. Statistics use base R; `renv` records the rendering dependencies. Quarto's bundled Typst creates the PDF without a separate TeX installation.
 
-`R/` holds reusable functions; `analyses/` the eight investigations; `results/` diagnostics and explicit judgment inputs; `figures/` summary visuals; `output/pdf/` the submission; `docs/` rendered HTML. Original instructor files are preserved in `references/`.
+`R/`: reusable functions · `analyses/`: eight investigations · `results/`: diagnostics and explicit decisions · `figures/`: summary visuals · `output/pdf/`: submission · `docs/`: rendered reports · `references/`: unchanged instructor sources.
 
-## AI use
+## AI assistance and validation
 
-I prompted AI to build and revise the project, questioned the smallest-n reasoning, and approved a practical approximation standard. AI selected the working boundaries under that standard; I did not independently confirm every integer. My responsibility is reviewing the evidence and understanding the important code. The [actual interaction log](ai/ai_interactions.md) distinguishes my input, AI-discovered errors, corrections and checks. See [validation](VALIDATION.md) for the reproducibility record.
+I prompted AI to build the project, questioned its smallest-n reasoning and requested corrections. AI proposed the working integers under the practical standard I approved; I did not independently confirm every boundary or claim complete code mastery. The [four real exchanges and validation record](ai/ai_interactions.md) distinguish my input, AI responses, resulting changes and computational checks.

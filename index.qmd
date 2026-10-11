@@ -55,4 +55,4 @@ Each separate investigation includes population shape or process behavior, retro
 
 ## Reproducibility and AI
 
-The seed is 7616, with fixed sensitivity seed 7617. [Methodology](methodology.qmd), [AI log](ai/ai_interactions.md), [README](README.md) and original instructor references document the workflow. Judgment inputs live in `results/decisions.csv`; `scripts/finalize_summary.R` validates boundary evidence and copies generated diagnostics into the summary. It does not infer normality from a single test or metric.
+The seed is 7616, with fixed sensitivity seed 7617. [Methodology](methodology.qmd), [AI exchanges and validation](ai/ai_interactions.md), the [repository README](https://github.com/babaJaan01/Monte_Carlo_CLT#readme) and original instructor references document the workflow. Judgment inputs live in `results/decisions.csv`; `scripts/finalize_summary.R` validates boundary evidence and copies generated diagnostics into the summary. It does not infer normality from a single test or metric.
