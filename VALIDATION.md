@@ -48,3 +48,14 @@ The fresh-directory full simulation check above was completed on October 6; it i
 - The AI page and log use actual prompts, questions, technical corrections and validation. Retrospective expectations are labeled; unrecorded pre-run predictions, personal reactions, independent code audits or complete mastery are not attributed to the student.
 
 This was a presentation/evidence-validation revision, not a new full simulation. The October 6 fresh-directory reproduction remains the full-run record. Boundaries remain practical judgments rather than unique thresholds; the dependent-process choice remains qualified. The reviewed layout uses Helvetica Neue on macOS; a platform/font change that alters page count must be reviewed rather than silently accepted.
+
+## Submission reorganization: October 10, 2026
+
+- Reorganized the final report into **13 pages**, without reducing the 10.5-point body font or changing any statistical results. The source now asserts exactly 13 pages. The cover uses “Report at a Glance”; the requested grading-oriented wording is absent from the PDF.
+- The three assignment answers appear on page 2, each with first-person attribution to the relevant evidence sections. Actual AI interaction, corrections and ownership limits appear on page 3. All three extra-credit investigations are named on the cover, marked in the master table and labeled on their individual cards.
+- Combined all eight mean/SE rows and the six exact Exponential boundary rows for seeds 7616/7617 on page 12. The detailed investigations retain the all-population seed comparisons. No simulation generators, result CSVs, selected sample sizes or instructor references changed.
+- Re-ran the R smoke/model tests and saved-vector validation successfully for both seeds (215 diagnostic rows each). Rendered the revised PDF and all eleven website pages successfully.
+- Visually inspected all 13 pages, then rechecked the two pages affected by the final spacing edits. PDF-only QA verified page count, cover navigation, section locations, page footers, all selected-row/card metrics, all eight moment rows, the six seed rows, paired histogram/Q-Q figures and text/image bounds. Page references are correct and no clipping or overflow remains.
+- Both downloadable PDF copies are byte-identical. Preserved instructor files still match their supplied Downloads copies. README, overview and the actual AI log reflect the new order.
+
+This revision reuses the validated simulations; it is not a new full simulation or fresh dependency restore. Practical boundary uncertainty and the dependent-process caveat remain. All three designated extra-credit investigations are included, but awarded points remain the instructor's decision.

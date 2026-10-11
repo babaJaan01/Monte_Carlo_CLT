@@ -90,3 +90,11 @@ Use this file to document actual AI-assisted iterations. Do not add invented pro
 **Weakness / improvement:** Dumping all diagnostic rows and code made the grading argument difficult to find. AI rebuilt the same Quarto source around a 14-page summary and used the existing saved results, not new or estimated conclusions. During visual inspection, raw Markdown tables and a clipped Q-Q label were discovered and corrected before delivery.
 
 **Validation:** R smoke/model checks and both seeds' saved-vector checks were rerun. Summary generation asserts agreement with the executed diagnostic rows. The rendered PDF is inspected page by page; a Typst assertion prevents accepting a layout other than the reviewed 14 pages. The full simulation was not rerun for a presentation-only revision. See `VALIDATION.md` for final checks.
+
+### Submission reorganization: October 10, 2026
+
+**Actual follow-up:** I requested the three answers on page 2, with "I came to this conclusion because" references to their supporting sections, and AI iteration on page 3. I chose a 13-page layout that combines moment and seed checks. I asked for all three extra-credit investigations to be easy to identify, then specified submission-ready wording without "professor's rubric," "professor's guide" or "what the professor may want."
+
+**Revision:** The report opens with "Report at a Glance," then the answers and actual AI collaboration. All three extra-credit cards are explicitly labeled. The combined validation page keeps all eight moment rows and the exact Exponential comparison for seeds 7616/7617; the detailed investigations retain the other seed comparisons. No statistical result, selected n or simulation model was changed.
+
+**Checks:** The source validates result-to-table agreement and requires 13 pages. Model/saved-vector tests, rendered-page inspection and navigation/metric checks are recorded in `VALIDATION.md`. The earlier entries remain a history of actual revisions rather than being rewritten to match the latest layout.

@@ -89,28 +89,107 @@ table_print <- function(x, digits = 3, widths = rep("1fr", ncol(x))) {
 
 **The answer is population-specific.** I investigated how large one sample must be for its average to have a useful Normal approximation. The practical choices range from exact Normality at n = 1 to a qualified dependent-process choice at 350. Cauchy has no finite answer.
 
-## Where to Find What
+## Report at a Glance
 
 ```{=typst}
 #table(columns: (1fr, auto),
-  [What the professor may want], [Page],
-  [Research question, method and "normal enough"], [#context counter(page).at(<method>).first()],
-  [Overall results and chosen sample sizes], [#context counter(page).at(<results>).first()],
-  [Individual decisions and supporting evidence], [#context counter(page).at(<cards>).first() - #context counter(page).at(<moments>).first()],
+  [Section / evidence], [Page],
+  [Three questions: sample size, normality and assumptions], [#context counter(page).at(<comparison>).first()],
+  [AI collaboration, corrections and validation], [#context counter(page).at(<ai-review>).first()],
+  [Method and the "normal enough" standard], [#context counter(page).at(<method>).first()],
+  [Master results and cross-population comparison], [#context counter(page).at(<results>).first()],
+  [Eight individual decisions and histogram/Q-Q evidence], [#context counter(page).at(<cards>).first() - #context counter(page).at(<stress-tests>).first()],
   [Smaller-n reservations and boundary uncertainty], [#context counter(page).at(<boundary>).first()],
-  [Surprising / problematic behavior], [#context counter(page).at(<complicated>).first()],
-  [Is n = 30 universal? Assumptions and comparison], [#context counter(page).at(<comparison>).first()],
-  [Reproducibility and alternate-seed check], [#context counter(page).at(<seeds>).first()],
-  [AI use, corrections and validation], [#context counter(page).at(<ai-review>).first()],
-  [Final conclusions and analysis-file map], [#context counter(page).at(<files>).first()],
+  [Complicated cases and assumption limitations], [#context counter(page).at(<complicated>).first()],
+  [Mean/SE checks and alternate-seed experiment], [#context counter(page).at(<moments>).first()],
+  [Conclusions and detailed analysis-file map], [#context counter(page).at(<files>).first()],
+  [Extra credit: age mixture + basketball / dependent failure], [#context counter(page).at(<extra-mixture-shots>).first() / #context counter(page).at(<stress-tests>).first()],
 )
 ```
 
-**Scope:** five required populations plus all three extra-credit cases in the updated guidance. The repository contains eight investigations; Uniform, Poisson and Binomial Large are not simulated assignments in this project.
+**All three extra-credit investigations are included:** dependent machine failure, non-identical basketball/Bernoulli shots, and the synthetic age-at-death mixture. Their cards are labeled **Extra credit**; the assumption discussion and validation provide additional evidence.
 
-**Reading convention:** n is observations in **one** sample; B = 10,000 is fresh Monte Carlo samples. "Selected n" is a practical smallest-tested judgment, not a mathematically unique cutoff. Kurtosis means excess kurtosis throughout.
+**Scope:** five required populations and three extra-credit processes, with B = 10,000 fresh Monte Carlo samples per tested n. Results are practical approximation judgments, not universal thresholds.
 
 [GitHub: babaJaan01/Monte_Carlo_CLT](https://github.com/babaJaan01/Monte_Carlo_CLT)
+
+{{< pagebreak >}}
+
+```{=typst}
+#metadata(none) <comparison>
+```
+
+# 02 / Three questions, three answers
+
+**Research question:** What is the smallest tested n at which I am comfortable calling the sampling distribution of the sample mean approximately Normal?
+
+## Question 1 / How large must n be?
+
+**There is no universal n=30.** Thirty exceeds the Normal, die and age choices, but clearer departures remain for Exponential, small Binomial, basketball and dependent failure. It cannot repair Cauchy.
+
+**Fastest:** Normal is exact at 1. The symmetric bounded die (10) and bounded synthetic mixture (15) are fast non-Normal iid cases. An irregular population is not necessarily slow.
+
+**Slower:** Exponential (90) retains right skew; Binomial (75) and basketball (140) retain discrete gaps. Basketball has small skew at its choice, yet steps matter. Dependent failure (350) is the slowest finite empirical choice, with extra uncertainty about asymptotic behavior.
+
+```{=typst}
+#context [*I base this conclusion on* the master results (page #counter(page).at(<results>).first()), the eight evidence cards (pages #counter(page).at(<cards>).first()-#counter(page).at(<stress-tests>).first()), and smaller-n comparisons (page #counter(page).at(<boundary>).first()).]
+#parbreak()
+```
+
+## Question 2 / What counts as approximately Normal?
+
+A bell-shaped histogram alone was not enough. Q-Q curvature/steps, skewness, excess kurtosis and nearby stability supported my practical choices, not a single p-value. No numerical pass/fail cutoff was used. These choices do not certify extreme-tail accuracy.
+
+```{=typst}
+#context [*I base this conclusion on* the explicit decision standard and Normal calibration (page #counter(page).at(<method>).first()), plus the graphical and numerical boundary evidence (pages #counter(page).at(<cards>).first()-#counter(page).at(<boundary>).first()).]
+#parbreak()
+```
+
+## Question 3 / What if CLT assumptions fail?
+
+Cauchy's tails invalidate the ordinary finite-variance theorem. Dependence retains covariance terms in Var(Xbar). Independent non-identical shots can still have a useful approximation with their individual variances. Symmetry, skew, discreteness, boundedness and dependence mattered here; no one property explained every result.
+
+```{=typst}
+#context [*I base this conclusion on* the extra-credit and Cauchy cards (pages #counter(page).at(<extra-mixture-shots>).first()-#counter(page).at(<stress-tests>).first()), the special-case interpretation (page #counter(page).at(<complicated>).first()), and appropriate mean/SE checks (page #counter(page).at(<moments>).first()).]
+#parbreak()
+```
+
+**Limit:** the ranking depends on this tolerance and tested grid. Stricter tail accuracy could require larger n. More B improves simulation precision; it does not repair a violated assumption. Borderline neighboring choices may also be defensible.
+
+{{< pagebreak >}}
+
+```{=typst}
+#metadata(none) <ai-review>
+```
+
+# 03 / AI helped; iteration improved the argument
+
+The initial prompt asked AI for a professional reusable R/Quarto project with eight cases, B = 10,000, calibration and no invented conclusions. I requested clear decisions and evidence-backed reasons rather than complicated output.
+
+```{r}
+table_print(data.frame(Stage = c("Build","Technical audit","Boundary reasoning","Final report"),
+  `AI contribution / check` = c("Generators, simulation, diagnostics, Quarto","Found overwrite/shared-grid defects; fixed and tested them","Smaller candidates, plots and two-seed comparisons","Compressed 35 pages; checked results and layout"),
+  `My actual input` = c("Specified scope, R, reproducibility and understandable code","Requested careful correction; did not personally find the code bugs","Questioned prettier plots; approved practical tolerance","Required a concise submission with clear answers and evidence"),check.names = FALSE),
+  widths = c("0.8fr", "1.8fr", "1.8fr"))
+```
+
+### A real exchange, not an invented iteration
+
+**My follow-up:** "They looked better. But I didn't know ... we need the smallest defensible n. Maybe then going off visually isn't right?"
+
+**Weakness:** nicer larger-n plots did not explain why smaller values were unacceptable. Demanding exact-Normal simulation noise was too strict for a practical approximation.
+
+**Revision:** targeted smaller-n checks, below/at/above comparisons, fixed alternate seed and explicit borderline reservations. Die 9 versus 10 now acknowledges ambiguity rather than a manufactured sharp boundary.
+
+**Validation:** both seeds' saved vectors reproduce their rows; seeded replay preserves the machine recurrence; tests verify varying basketball probabilities, their SE and age moments. These are computational/theoretical checks, not a claim that AI is an independent reviewer.
+
+### Understanding the important methods
+
+One generator call creates n observations; one mean produces one number; B repetitions create the sampling distribution. Histograms show central shape, Q-Q bends show distributional mismatch, and correct mean/SE does not establish shape. Cauchy's population moments are undefined even when a finite sample average is calculable. These distinctions were clarified during the recorded review; complete line-by-line mastery is not claimed.
+
+**Decision ownership:** AI proposed the working integers under the practical standard I approved. My contribution was specifying the task, questioning the smallest-n argument and requesting corrections and validation. The log separates those roles; it does not invent personal predictions, reactions or independent code audits.
+
+The real prompts and corrections remain in `ai/ai_interactions.md`; important-code explanations are in the separate investigations, not full listings here.
 
 {{< pagebreak >}}
 
@@ -118,9 +197,7 @@ table_print <- function(x, digits = 3, widths = rep("1fr", ncol(x))) {
 #metadata(none) <method>
 ```
 
-# 02 / What counts as normal enough?
-
-**Research question:** What is the smallest tested n at which I am comfortable calling the sampling distribution of the sample mean approximately Normal?
+# 04 / What counts as normal enough?
 
 My standard is a **useful central-shape approximation**, not exact Normality or certified accuracy for rare tail probabilities. Small residual bends and discrete steps may be acceptable. No single diagnostic, hypothesis test or p-value decides the result. The project used **no numerical pass/fail cutoffs**.
 
@@ -136,11 +213,11 @@ table_print(data.frame(
 
 At each n I generate **B = 10,000 fresh samples**, average the n observations in each, then diagnose the B means. This is not bootstrapping an observed dataset. The original population does not become Normal; its averages may.
 
-The coarse grid was 1, 2, 3, 5, 10, 15, 20, 30, 50, 75, 100, 150, 200, 300, 500. Population-specific refinements and large-n checks produced **`r nrow(a)` tested case/n combinations per seed**. Smaller candidates and nearby larger values informed the choices; the detailed files retain the progression.
+The 15-value coarse grid spans n=1-500. Population-specific refinements and large-n checks produced **`r nrow(a)` tested case/n combinations per seed**. Smaller candidates and nearby larger values informed the choices; the detailed files retain the progression.
 
 Seed **7616** starts the fixed-order primary experiment; **7617** starts the identical alternate design. Targeted boundary experiments reset their assigned seed before each experiment. Seed and experiment order both matter.
 
-### Calibration: context, not a fake threshold
+### Calibration: a reference, not a cutoff
 
 Thirty genuinely Normal experiments at each coarse n (each B = 10,000) quantify simulation noise. At n = 1 their empirical 2.5th-97.5th percentile ranges were:
 
@@ -153,7 +230,11 @@ table_print(data.frame(Diagnostic = c("Skewness", "Excess kurtosis", "Q-Q RMSE")
     sprintf("%.3f to %.3f", c1$qq_rmse_q025, c1$qq_rmse_q975)), check.names = FALSE))
 ```
 
-These are approximate empirical ranges, not exact tolerance limits. Accepted cases can remain outside this noise under the practical standard. **No pre-run predictions were recorded:** card expectations are retrospective theory, not invented memories.
+These are empirical ranges, not exact tolerance limits; accepted cases can remain outside this noise under the practical standard.
+
+**Reading the plots:** histograms show sample means; orange Normal overlays use valid theoretical mean/SE only. Q-Q lines are fitted quartile references. Discrete bins respect the 1/n lattice. QQ RMSE compares sorted, empirically standardized means with standard-Normal rank quantiles; it is descriptive, not proof.
+
+**Expectations:** no pre-run personal predictions were recorded. The card expectations are retrospective theory.
 
 {{< pagebreak >}}
 
@@ -161,7 +242,7 @@ These are approximate empirical ranges, not exact tolerance limits. Accepted cas
 #metadata(none) <results>
 ```
 
-# 03 / The decisions at a glance
+# 05 / The decisions at a glance
 
 Numerical entries come from the executed row at the selected n, seed 7616, B = 10,000. Kurt. means **excess** kurtosis; QQ means standardized Q-Q RMSE. N/A is not zero.
 
@@ -173,7 +254,7 @@ ranges <- vapply(s$population_id, function(id) {
   z <- a$n[a$population_id == id]; paste0(min(z), "-", max(z), " (", length(z), ")")
 }, character(1))
 cat("```{=typst}\n#set text(size: 9.5pt)\n```\n\n")
-table_print(data.frame(Population = unname(labels), Shape = traits,
+table_print(data.frame(Population = paste0(unname(labels), ifelse(s$population_id %in% required_population_ids[6:8], "*", "")), Shape = traits,
   `Tested n (count)` = ranges, n = ifelse(is.na(s$selected_n), "None", s$selected_n),
   Skew = s$skewness_at_selected_n, Kurt. = s$excess_kurtosis_at_selected_n,
   QQ = s$qq_rmse_at_selected_n, `Key observation` = observations, check.names = FALSE),
@@ -181,21 +262,25 @@ table_print(data.frame(Population = unname(labels), Shape = traits,
 cat("\n\n```{=typst}\n#set text(size: 10.5pt)\n```\n\n")
 ```
 
-### Three different kinds of answer
+**\* Extra credit:** all three marked cases are included. Normal is exact; the other finite choices are practical, with dependent failure qualified. Cauchy has no finite choice by theory.
 
-**Exact:** Normal at 1 is a theorem and a simulation check. There is no smaller positive sample size.
-
-**Practical:** die 10, Exponential 90, Binomial small 75, basketball 140 and synthetic ages 15 combine shape, moments, valid SE and nearby evidence. Smaller borderline candidates are not proved failures.
-
-**Special:** dependent failure 350 is qualified empirical evidence, not a proved dependent CLT. Cauchy has **no finite n by theory**, not merely "none found before 5,000."
-
-### How to read the evidence cards
-
-Each card shows a histogram and standardized Normal Q-Q plot at its chosen or critical n. Teal depicts simulated means. Orange histogram overlays use valid theoretical mean/SE; orange Q-Q lines are fitted quartile references. No theoretical Normal overlay is assigned to Cauchy or the dependent process.
-
-Discrete histograms use bins aligned to the 1/n lattice so arbitrary bins do not manufacture spikes. QQ RMSE sorts empirically standardized means, compares ranks with standard-Normal quantiles, and takes root-mean-square distance. It is descriptive, not proof.
-
-**Boundary uncertainty:** the smallest tested convincing value is not necessarily the smallest untested integer. Page 8 shows lower-candidate reservations; page 12 checks sensitivity. A looser or stricter practical purpose could change the choice.
+```{r}
+#| fig-width: 8
+#| fig-height: 2.25
+#| fig-cap: "Selected n on a log scale. Teal: required; orange: extra credit; open diamond: qualified dependent-process choice. Dashed n=30 is not an acceptance threshold. No finite Cauchy point exists."
+f <- s[!is.na(s$selected_n), ]
+f <- f[order(f$selected_n), ]
+pos <- rev(seq_len(nrow(f)))
+colors <- ifelse(f$population_id %in% required_population_ids[1:5],"#007D83","#D66B32")
+par(mar = c(3,10,.5,2),mgp = c(2,.5,0))
+plot(f$selected_n,pos,log = "x",axes = FALSE,xlim = c(.8,500),ylim = c(.5,nrow(f)+.5),
+     xlab = "Selected n (log scale)",ylab = "",pch = ifelse(f$population_id == "dependent_failure",5,16),col = colors,cex = 1.3)
+axis(1,at = c(1,10,30,100,350),labels = c(1,10,30,100,350))
+axis(2,at = pos,labels = labels[f$population_id],las = 1,tick = FALSE)
+abline(v = 30,lty = 2,col = "#667085")
+text(f$selected_n,pos,labels = f$selected_n,pos = 4,cex = .9,col = colors)
+box(col = "#D0D5DD")
+```
 
 {{< pagebreak >}}
 
@@ -209,8 +294,8 @@ Discrete histograms use bins aligned to the 1/n lattice so arbitrary bins do not
 #| fig-height: 1.85
 card_order <- c("standard_normal", "six_sided_die", "exponential", "binomial_small",
                 "age_at_death", "nonidentical_bernoulli", "cauchy", "dependent_failure")
-page_titles <- c("04 / Exact and fast", "05 / Skew and rare counts",
-                 "06 / Mixtures and varying probabilities", "07 / Assumption stress tests")
+page_titles <- c("06 / Exact and fast", "07 / Skew and rare counts",
+                 "08 / Mixtures and varying probabilities", "09 / Assumption stress tests")
 description <- c(
   standard_normal = "iid N(0,1); mean 0, SD 1. Theory expectation: exact Normality at n=1.",
   six_sided_die = "iid outcomes 1-6; mean 3.5, SD sqrt(35/12). Theory expectation: fast smoothing with steps.",
@@ -243,12 +328,15 @@ note <- c(
 )
 for (i in seq_along(card_order)) {
   id <- card_order[i]
+  if (i == 5L) cat("\n\n```{=typst}\n#metadata(none) <extra-mixture-shots>\n```\n\n")
+  if (i == 7L) cat("\n\n```{=typst}\n#metadata(none) <stress-tests>\n```\n\n")
   if (i %% 2L == 1L) cat("# ", page_titles[(i+1L)/2L], "\n\n", sep = "")
   selection <- s[s$population_id == id, ]
   chosen <- if (is.na(selection$selected_n)) selection$tested_max_n else selection$selected_n
   row <- row_for(id, chosen)
   text_n <- if (id == "cauchy") "No finite n" else paste0("n = ", chosen)
-  cat("```{=typst}\n#result-card([", labels[id], "], [", text_n, "])\n```\n\n", sep = "")
+  card_title <- paste0(labels[id], if (id %in% required_population_ids[6:8]) " / Extra credit" else "")
+  cat("```{=typst}\n#result-card([", card_title, "], [", text_n, "])\n```\n\n", sep = "")
   cat(description[id], "\n\n", sep = "")
   candidates <- a$n[a$population_id == id]
   cat("**Tested:** ", min(candidates), "-", max(candidates), " (", length(candidates),
@@ -268,7 +356,7 @@ for (i in seq_along(card_order)) {
 #metadata(none) <boundary>
 ```
 
-# 08 / Why not a smaller n?
+# 10 / Why not a smaller n?
 
 Actual tested neighbors are compared below, not hypothetical failures between them. QQ is primary-seed Q-Q RMSE. Full graphical progression stays in the separate investigations.
 
@@ -310,53 +398,10 @@ legend("topright",c("Seed 7616","Seed 7617"),col = c("#007D83","#D66B32"),pch = 
 {{< pagebreak >}}
 
 ```{=typst}
-#metadata(none) <moments>
-```
-
-# 09 / Center and spread checks
-
-SE is the SD of the B simulated means, **not** the SD of individual observations. These selected-n results check agreement with appropriate theory. Agreement is important but does not establish a Normal shape.
-
-```{r}
-#| results: asis
-cat("```{=typst}\n#set text(size: 9.5pt)\n```\n\n")
-table_print(data.frame(Case = labels[s$population_id],
-  n = ifelse(is.na(s$selected_n),"None",s$selected_n),
-  `Mean sim.` = s$empirical_mean_at_selected_n, `Mean theory` = s$theoretical_mean,
-  `SE sim.` = s$empirical_se_at_selected_n, `SE theory` = s$theoretical_se_or_reference,
-  `SE error %` = 100*s$relative_se_error,check.names = FALSE),digits = 4,
-  widths = c("1.6fr", "0.5fr", "1fr", "1fr", "1fr", "1fr", "1fr"))
-cat("\n\n```{=typst}\n#set text(size: 10.5pt)\n```\n\n")
-```
-
-### Valid references are population-specific
-
-**iid finite-variance cases:** Normal (mu=0, sigma=1), die (mu=3.5, sigma=sqrt(35/12)), Exponential (mu=sigma=1), small Binomial (mu=.5, sigma=sqrt(.45)), and ages (mu=`r format_metric(age_at_death_theory()$mean)`, sigma=`r format_metric(age_at_death_theory()$sd)`) use SE = sigma/sqrt(n).
-
-**Basketball:** each n constructs probabilities evenly spanning .90 to .50. Mean = average(p_i): .70 for n>=2, .90 for n=1. Mean variance is sum[p_i(1-p_i)]/n². Treating every p_i as .70 loses heterogeneity.
-
-```{r}
-p <- nonidentical_probabilities(s$selected_n[s$population_id == "nonidentical_bernoulli"])
-table_print(data.frame(Reference = c("Correct varying-p formula","Incorrect identical-p shortcut"),
-  SE = c(sqrt(sum(p*(1-p))/length(p)^2),sqrt(mean(p)*(1-mean(p))/length(p)))),digits = 5,
-  widths = c("3fr", "1fr"))
-```
-
-**Dependent failure:** recurrence uses the previous operating time within every sample, restarting at rate 1. No analytic mean/SE is supplied for the full transient process; baseline mean 1 is not a valid target for these averages. No hidden burn-in or iid SE is used.
-
-**Cauchy:** no population mean/variance exists, so no moment target or selected-n row is assigned. Page 7's finite-vector diagnostics do not estimate nonexistent population quantities.
-
-### Correct moments can coexist with the wrong shape
-
-At Exponential n=30, empirical SE is `r format_metric(row_for("exponential",30)$empirical_se,4)` versus theoretical `r format_metric(row_for("exponential",30)$theoretical_se,4)`, yet skew is `r format_metric(row_for("exponential",30)$skewness)` and QQ is `r format_metric(row_for("exponential",30)$qq_rmse)`. This is why I did not choose n from SE alone.
-
-{{< pagebreak >}}
-
-```{=typst}
 #metadata(none) <complicated>
 ```
 
-# 10 / Where the CLT became complicated
+# 11 / Where the CLT became complicated
 
 ```{r}
 table_print(data.frame(Case = c("Cauchy","Dependent failure","Basketball shots","Synthetic age mixture"),
@@ -390,52 +435,38 @@ The synthetic age model stays iid and bounded: weights .045 exp(-age/5) + .030 e
 {{< pagebreak >}}
 
 ```{=typst}
-#metadata(none) <comparison>
-```
-
-# 11 / Thirty is not a universal rule
-
-```{r}
-#| fig-width: 8
-#| fig-height: 3.1
-#| fig-cap: "Selected n on a log scale. Teal: required; orange: extra credit; open diamond: qualified dependent-process choice. Dashed n=30 is not an acceptance threshold. No finite Cauchy point exists."
-f <- s[!is.na(s$selected_n), ]
-f <- f[order(f$selected_n), ]
-pos <- rev(seq_len(nrow(f)))
-colors <- ifelse(f$population_id %in% required_population_ids[1:5],"#007D83","#D66B32")
-par(mar = c(3.5,10,1,2),mgp = c(2,.5,0))
-plot(f$selected_n,pos,log = "x",axes = FALSE,xlim = c(.8,500),ylim = c(.5,nrow(f)+.5),
-     xlab = "Selected n (log scale)",ylab = "",pch = ifelse(f$population_id == "dependent_failure",5,16),col = colors,cex = 1.3)
-axis(1,at = c(1,10,30,100,350),labels = c(1,10,30,100,350))
-axis(2,at = pos,labels = labels[f$population_id],las = 1,tick = FALSE)
-abline(v = 30,lty = 2,col = "#667085")
-text(f$selected_n,pos,labels = f$selected_n,pos = 4,cex = .9,col = colors)
-box(col = "#D0D5DD")
-```
-
-**Question 1 / Sample size: no universal n=30.** Thirty exceeds the Normal, die and age choices, but clearer departures remain for Exponential, small Binomial, basketball and dependent failure. It cannot repair Cauchy.
-
-**Fastest:** Normal is exact at 1. The symmetric bounded die (10) and bounded synthetic mixture (15) are fast non-Normal iid cases. An irregular population is not necessarily slow.
-
-**Slower:** Exponential (90) retains right skew; Binomial (75) and basketball (140) retain discrete gaps. Basketball has small skew at its choice, yet steps matter. Dependent failure (350) is the slowest finite empirical choice, with extra uncertainty about asymptotic behavior.
-
-**Question 2 / Normality:** bell shape alone was not enough. Q-Q curvature/steps, skewness, excess kurtosis and nearby stability supported the practical choices (pages 2–9), not a p-value. These choices do not certify extreme-tail accuracy.
-
-**Question 3 / Assumptions:** Cauchy's tails invalidate the ordinary finite-variance theorem. Dependence retains covariance terms in Var(Xbar). Independent non-identical shots can still have a useful approximation with their individual variances. Symmetry, skew, discreteness, boundedness and dependence mattered here; no one property explained every result.
-
-**Limit:** the ranking depends on this tolerance and tested grid. Stricter tail accuracy could require larger n. More B improves simulation precision; it does not repair a violated assumption.
-
-{{< pagebreak >}}
-
-```{=typst}
+#metadata(none) <moments>
 #metadata(none) <seeds>
 ```
 
-# 12 / Does a different seed change the answer?
+# 12 / Validation: moments and a second seed
 
-The executed alternate run repeats all `r nrow(a)` case/n combinations with **7617**, versus primary **7616**, at B = 10,000. This fixed check is not a search for the prettiest plots.
+SE is the SD of the B simulated means, not individual observations. Agreement with theory checks center/spread; it does not establish a Normal shape.
 
-### Exponential boundary: actual rerun results
+```{r}
+#| results: asis
+cat("```{=typst}\n#set text(size: 9.5pt)\n```\n\n")
+table_print(data.frame(Case = labels[s$population_id],
+  n = ifelse(is.na(s$selected_n),"None",s$selected_n),
+  `Mean sim.` = s$empirical_mean_at_selected_n, `Mean theory` = s$theoretical_mean,
+  `SE sim.` = s$empirical_se_at_selected_n, `SE theory` = s$theoretical_se_or_reference,
+  `SE error %` = 100*s$relative_se_error,check.names = FALSE),digits = 4,
+  widths = c("1.6fr", "0.5fr", "1fr", "1fr", "1fr", "1fr", "1fr"))
+cat("\n\n```{=typst}\n#set text(size: 10.5pt)\n```\n\n")
+```
+
+**Appropriate references:** iid finite-variance cases use SE = sigma/sqrt(n). Basketball uses mean(p_i) and Var(Xbar) = sum[p_i(1-p_i)]/n²; its mean is .70 for n>=2, .90 for n=1.
+
+```{r}
+#| include: false
+p <- nonidentical_probabilities(s$selected_n[s$population_id == "nonidentical_bernoulli"])
+```
+
+At basketball n=140, correct SE is `r format_metric(sqrt(sum(p*(1-p))/length(p)^2),5)`, versus `r format_metric(sqrt(mean(p)*(1-mean(p))/length(p)),5)` from the incorrect identical-p shortcut. Cauchy has no population moment targets. The dependent process has no supplied analytic mean/SE; baseline mean 1 is not the full-process target.
+
+### Exponential boundary: seeds 7616 and 7617
+
+The alternate run repeats all `r nrow(a)` case/n combinations at B = 10,000. These are actual boundary rows, not a search for favorable seeds.
 
 ```{r}
 seed_rows <- do.call(rbind,lapply(c(80,90,100),function(n) {
@@ -446,55 +477,9 @@ seed_rows <- do.call(rbind,lapply(c(80,90,100),function(n) {
 table_print(seed_rows,digits = 4,widths = c("0.65fr", "0.8fr", rep("1fr", 5)))
 ```
 
-Mean, SE, skew, kurtosis and QQ all change numerically. At selected n=90, QQ is `r format_metric(row_for("exponential",90)$qq_rmse,4)` versus `r format_metric(row_for("exponential",90,b)$qq_rmse,4)`; both support the practical central approximation. The stronger difference at 80 supports its borderline reservation.
+**Seed conclusion:** exact diagnostics change, but n=90 remains a defensible central approximation under both seeds. The greater discrepancy at 80 supports its borderline reservation. The same working choices remain practical candidates; an automatic algorithm did not independently rediscover every integer.
 
-### Current choices remain practical candidates
-
-```{r}
-table_print(data.frame(Case = labels[finite$population_id],n = as.character(finite$selected_n),
-  `QQ 7616` = finite$qq_rmse_at_selected_n,`QQ 7617` = finite$sensitivity_qq_rmse,
-  Interpretation = c("Exact by theory","Fine steps remain","Modest right curvature","Fine steps remain","Qualified empirical choice","Small skew; fine steps","Modest left curvature"),check.names = FALSE),digits = 4,
-  widths = c("1.4fr", "0.5fr", "0.8fr", "0.8fr", "2fr"))
-```
-
-**Scientific conclusion:** the ranking and interpretations are stable under these two seeds. The same choices remain defensible; no automatic algorithm independently rediscovered each integer. Exact minima stay subjective and neighbors can be borderline. Cauchy's no-finite-n result is theoretical and unchanged.
-
-**Checks:** separate seed directories prevent overwriting; plotted vectors match CSV B, mean, SD and QQ. The October 6 fresh-directory full rerun reproduced diagnostics, calibration and final summary byte-for-byte on the same R version using the package cache. This revision rechecks saved evidence; it is not a new full simulation experiment.
-
-{{< pagebreak >}}
-
-```{=typst}
-#metadata(none) <ai-review>
-```
-
-# 13 / AI helped; iteration improved the argument
-
-The initial prompt asked AI for a professional reusable R/Quarto project with eight cases, B = 10,000, calibration and no invented conclusions. I supplied the professor's rubric and requested clear decisions and reasons rather than complicated output.
-
-```{r}
-table_print(data.frame(Stage = c("Build","Technical audit","Boundary reasoning","Final report"),
-  `AI contribution / check` = c("Generators, simulation, diagnostics, Quarto","Found overwrite/shared-grid defects; fixed and tested them","Smaller candidates, plots and two-seed comparisons","Compressed 35 pages; checked results and layout"),
-  `My actual input` = c("Specified scope, R, reproducibility and understandable code","Requested careful correction; did not personally find the code bugs","Questioned prettier plots; approved practical tolerance","Required 12-15 pages and an evidence-led professor's guide"),check.names = FALSE),
-  widths = c("0.8fr", "1.8fr", "1.8fr"))
-```
-
-### A real exchange, not an invented iteration
-
-**My follow-up:** "They looked better. But I didn't know ... we need the smallest defensible n. Maybe then going off visually isn't right?"
-
-**Weakness:** nicer larger-n plots did not explain why smaller values were unacceptable. Demanding exact-Normal simulation noise was too strict for a practical approximation.
-
-**Revision:** targeted smaller-n checks, below/at/above comparisons, fixed alternate seed and explicit borderline reservations. Die 9 versus 10 now acknowledges ambiguity rather than a manufactured sharp boundary.
-
-**Validation:** both seeds' saved vectors reproduce their rows; seeded replay preserves the machine recurrence; tests verify varying basketball probabilities, their SE and age moments. These are computational/theoretical checks, not a claim that AI is an independent reviewer.
-
-### Understanding the important methods
-
-One generator call creates n observations; one mean produces one number; B repetitions create the sampling distribution. Histograms show central shape, Q-Q bends show distributional mismatch, and correct mean/SE does not establish shape. Cauchy's population moments are undefined even when a finite sample average is calculable. These distinctions were clarified during the recorded review; complete line-by-line mastery is not claimed.
-
-**Decision ownership:** AI proposed the working integers under the practical standard I approved. My contribution was specifying the task, questioning the smallest-n argument and requesting corrections and validation. The log separates those roles; it does not invent personal predictions, reactions or independent code audits.
-
-The real prompts and corrections remain in `ai/ai_interactions.md`; important-code explanations are in the separate investigations, not full listings here.
+**Reproducibility:** seed directories are separate, and saved vectors reproduce CSV B, mean, SD and QQ. The October 6 fresh-directory full rerun matched generated tables byte-for-byte on the same R version. This revision rechecks saved evidence, not a new full simulation. Detailed investigations retain the all-population seed comparisons.
 
 {{< pagebreak >}}
 
@@ -502,7 +487,7 @@ The real prompts and corrections remain in `ai/ai_interactions.md`; important-co
 #metadata(none) <files>
 ```
 
-# 14 / Conclusions and the evidence archive
+# 13 / Conclusions and the evidence archive
 
 1. **No universal n=30:** practical choices span 1-350; Cauchy has no finite choice.
 2. **Shape matters, complexity alone does not:** the bounded age mixture smooths faster than the right-skewed Exponential.
@@ -531,6 +516,6 @@ table_print(data.frame(Population = unname(labels),`Detailed analysis file` = pa
 **Sources:** original guidance, Class 05 CLT and Class 06 distributions/project lessons, plus all three instructor models, remain unchanged in `references/`. Updated guidance defines five required and three extra cases. Expectations are retrospective; no undocumented personal prediction or surprise is manufactured.
 
 ```{=typst}
-#context assert(counter(page).final().first() == 14,
-  message: "Expected the reviewed 14-page report. Revise the layout before submission.")
+#context assert(counter(page).final().first() == 13,
+  message: "Expected the reviewed 13-page report. Revise the layout before submission.")
 ```
