@@ -26,6 +26,5 @@ renv/cache/
 /.quarto/
 **/*.quarto_ipynb
 
-# PDF rendering intermediates; retain output/pdf/clt_summary.pdf
-/clt_summary.pdf
+# Temporary PDF review files; retain the final PDF at the repository root
 /tmp/

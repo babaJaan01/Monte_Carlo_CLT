@@ -1,8 +1,8 @@
 # How Fast Does Normal Happen?
 
-## [Read the final report — 13-page PDF](output/pdf/clt_summary.pdf)
+## [Read the final report — 13-page PDF](clt_summary.pdf)
 
-[Download the PDF directly](https://github.com/babaJaan01/Monte_Carlo_CLT/raw/refs/heads/main/output/pdf/clt_summary.pdf)
+[Download the PDF directly](https://github.com/babaJaan01/Monte_Carlo_CLT/raw/refs/heads/main/clt_summary.pdf)
 
 **Stress-testing the Central Limit Theorem with Monte Carlo simulation**
 
@@ -52,7 +52,7 @@ quarto render
 
 Seed **7616** is the confirmed student seed; **7617** is the fixed sensitivity seed. The full run regenerates both experiments, calibration, figures and the evidence-linked summary. Statistics use base R; `renv` records the rendering dependencies. Quarto's bundled Typst creates the PDF without a separate TeX installation.
 
-`R/`: reusable functions · `analyses/`: eight investigations · `results/`: diagnostics and explicit decisions · `figures/`: summary visuals · `output/pdf/`: submission · `docs/`: rendered reports · `references/`: unchanged instructor sources.
+`clt_summary.pdf`: submission at the repository root · `R/`: reusable functions · `analyses/`: eight investigations · `results/`: diagnostics and explicit decisions · `figures/`: summary visuals · `docs/`: rendered reports · `references/`: unchanged instructor sources.
 
 ## AI assistance and validation
 
