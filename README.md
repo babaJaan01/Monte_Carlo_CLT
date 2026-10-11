@@ -1,6 +1,6 @@
 # How Fast Does Normal Happen?
 
-## [Read the final report — 13-page PDF](clt_summary.pdf)
+## [Read the final report — 13-page PDF](clt_summary.pdf) (you will have to press "More Pages" at the bottom to continue seeing all of the pages.
 
 [Download the PDF directly](https://github.com/babaJaan01/Monte_Carlo_CLT/raw/refs/heads/main/clt_summary.pdf)
 
