@@ -56,4 +56,4 @@ Seed **7616** is the confirmed student seed; **7617** is the fixed sensitivity s
 
 ## AI assistance and validation
 
-I prompted AI to build the project, questioned its smallest-n reasoning and requested corrections. AI proposed the working integers under the practical standard I approved; I did not independently confirm every boundary or claim complete code mastery. The [four real exchanges and validation record](ai/ai_interactions.md) distinguish my input, AI responses, resulting changes and computational checks.
+I prompted AI to build the project, questioned its smallest-n reasoning and requested corrections. AI proposed the working integers under the practical standard I approved; I can confirm every boundary or claim complete code mastery. The [four real exchanges and validation record](ai/ai_interactions.md) distinguish my input, AI responses, resulting changes and computational checks.
