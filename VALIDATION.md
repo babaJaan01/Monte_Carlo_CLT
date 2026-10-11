@@ -36,3 +36,15 @@ Reproduction commands are in the README. The PDF uses Quarto's bundled Typst, wi
 - The PDF includes actual AI prompt/correction examples, both seeds' boundary diagnostics, model construction checks, important R code and reproduction commands. It explicitly labels retrospective expectations; no undocumented pre-run prediction or personal surprise is manufactured.
 
 The fresh-directory full simulation check above was completed on October 6; it is not represented as a newly repeated full run on October 7. This revision reuses the validated generated results and rechecks their correspondence to the expanded report.
+
+## Final-summary validation: October 10, 2026
+
+- Replaced the 35-page submission with a **14-page** Quarto/Typst final report. Page 1 uses actual rendered page-counter labels for its guide; page 11 explicitly answers all three assignment questions. The source asserts a total of 14 pages, so unexpected overflow fails the render rather than being accepted.
+- Re-ran `scripts/smoke_test.R` and `scripts/validate_results.R`; both passed. All 215 rows per seed still match their saved vectors. Added a small test of both the compact single-n and multi-n boundary plotting layouts, including restoration of graphics settings.
+- Summary generation checks the final-summary/decision IDs and selected n, all selected-row moments/QQ, theoretical references and alternate-seed QQ against the executed CSVs. No result CSV, selection, simulation generator or instructor reference changed.
+- Rendered the PDF and all eleven website pages successfully. Corrected raw-Markdown table output, constrained table widths, and shortened a clipped Q-Q axis label. There are no full code listings or complete-grid dumps in the final PDF; the eight investigations retain that detailed evidence.
+- Inspected **all 14 final PDF pages** as PNGs. A PDF-only Python QA check also verified physical page count, every guide entry and footer, expected section locations, displayed selected-n/card/seed metrics, two histogram/Q-Q figures on each paired case page, and text/image bounds. No clipping, raw tables or overflow pages remained.
+- The downloadable PDF in `docs/output/pdf/` matches `output/pdf/clt_summary.pdf` byte-for-byte. All seven preserved instructor files still match their supplied Downloads copies.
+- The AI page and log use actual prompts, questions, technical corrections and validation. Retrospective expectations are labeled; unrecorded pre-run predictions, personal reactions, independent code audits or complete mastery are not attributed to the student.
+
+This was a presentation/evidence-validation revision, not a new full simulation. The October 6 fresh-directory reproduction remains the full-run record. Boundaries remain practical judgments rather than unique thresholds; the dependent-process choice remains qualified. The reviewed layout uses Helvetica Neue on macOS; a platform/font change that alters page count must be reviewed rather than silently accepted.

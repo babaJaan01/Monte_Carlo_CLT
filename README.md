@@ -6,9 +6,9 @@
 
 I asked when a sample average becomes approximately Normal, and whether **n = 30** is a universal rule. It is not: the population shape, discreteness, tails and assumptions all matter.
 
-**[Read my complete submission PDF](output/pdf/clt_summary.pdf)** · [Quarto overview](index.qmd) · [Rendered overview](docs/index.html) · [Full numerical summary](results/final_summary.csv)
+**[Read my 14-page final report](output/pdf/clt_summary.pdf)** · [Quarto overview](index.qmd) · [Rendered overview](docs/index.html) · [Full numerical summary](results/final_summary.csv)
 
-The PDF is self-contained: all three assignment questions, eight investigations, complete tested-grid diagnostics, boundary plots, seed sensitivity, actual AI iterations and important R code explanations. The professor does not need to browse the repository to follow the argument.
+The PDF is the grading summary: all three assignment questions, an eight-row decision table, histogram/Q-Q evidence for every case, smaller-n reservations, seed sensitivity and real AI corrections. Page 1 guides the professor to each answer. Full tested-grid diagnostics and code walkthroughs stay in the separate investigations below.
 
 ## My practical decisions
 

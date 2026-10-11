@@ -20,4 +20,15 @@ for (id in required_population_ids) {
   b <- load_sample_means(id, 1, "student_seed_plus_one")
   stopifnot(!identical(a, b))
 }
-message("Both seeds' saved vectors match their diagnostic tables.")
+# Check the compact and boundary layouts without leaving generated test files.
+plot_file <- tempfile(fileext = ".pdf")
+pdf(plot_file, width = 8, height = 4)
+original_layout <- par("mfrow")
+plot_review_evidence("standard_normal", 1L)
+stopifnot(identical(par("mfrow"), original_layout))
+plot_review_evidence("six_sided_die", c(9L, 10L, 12L))
+stopifnot(identical(par("mfrow"), original_layout))
+invisible(dev.off())
+stopifnot(file.info(plot_file)$size > 0)
+unlink(plot_file)
+message("Both seeds' saved vectors match their diagnostic tables; both plot layouts passed.")

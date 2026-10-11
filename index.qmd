@@ -10,7 +10,9 @@ I investigated five required populations and all three extra-credit processes, w
 
 My standard is a useful central-shape approximation, not exact Normality or extreme-tail accuracy. I combine histograms, Q-Q plots, numerical diagnostics, valid theory and nearby larger values. Borderline neighbors mean there is uncertainty about the exact smallest integer.
 
-[Download the complete, self-contained submission PDF](output/pdf/clt_summary.pdf)
+[Download the 14-page final report](output/pdf/clt_summary.pdf)
+
+The report is self-contained for the conclusions and evidence: a professor's guide, eight decisions, histogram/Q-Q cards, boundary reservations, appropriate moment checks, seed sensitivity and real AI iteration. These pages retain the detailed progression and important-code explanations.
 
 ```{r}
 #| echo: false

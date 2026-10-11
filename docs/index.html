@@ -247,7 +247,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="1" class="anchored" data-anchor-id="my-answer"><span class="header-section-number">1</span> My answer</h2>
 <p>I investigated five required populations and all three extra-credit processes, with B = 10,000 separate samples at each n.&nbsp;Normal means are exact at n = 1. The die and synthetic mixture smooth quickly; skew, discrete gaps and dependence require more observations. Cauchy never converges to Normal in this experiment’s iid setting.</p>
 <p>My standard is a useful central-shape approximation, not exact Normality or extreme-tail accuracy. I combine histograms, Q-Q plots, numerical diagnostics, valid theory and nearby larger values. Borderline neighbors mean there is uncertainty about the exact smallest integer.</p>
-<p><a href="output/pdf/clt_summary.pdf">Download the complete, self-contained submission PDF</a></p>
+<p><a href="output/pdf/clt_summary.pdf">Download the 14-page final report</a></p>
+<p>The report is self-contained for the conclusions and evidence: a professor’s guide, eight decisions, histogram/Q-Q cards, boundary reservations, appropriate moment checks, seed sensitivity and real AI iteration. These pages retain the detailed progression and important-code explanations.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -946,50 +947,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>My standard is a useful central-shape approximation, not exact Normality or extreme-tail accuracy. I combine histograms, Q-Q plots, numerical diagnostics, valid theory and nearby larger values. Borderline neighbors mean there is uncertainty about the exact smallest integer.</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Download the complete, self-contained submission PDF</span><span class="co">](output/pdf/clt_summary.pdf)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Download the 14-page final report</span><span class="co">](output/pdf/clt_summary.pdf)</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/config.R"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/distributions.R"</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/diagnostics.R"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/report_helpers.R"</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">load_final_summary</span>()</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">nrow</span>(s) <span class="sc">==</span> <span class="dv">8</span>)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.kable.NA =</span> <span class="st">"N/A"</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(s[, <span class="fu">c</span>(<span class="st">"population"</span>, <span class="st">"selected_n"</span>, <span class="st">"acceptance_reason"</span>,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"smaller_n_reason"</span>, <span class="st">"key_observation"</span>)],</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Population"</span>, <span class="st">"Selected n"</span>, <span class="st">"Why I accept"</span>, <span class="st">"Why not smaller"</span>, <span class="st">"Issue / surprise"</span>))</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Assumptions and numerical evidence</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>The report is self-contained for the conclusions and evidence: a professor's guide, eight decisions, histogram/Q-Q cards, boundary reservations, appropriate moment checks, seed sensitivity and real AI iteration. These pages retain the detailed progression and important-code explanations.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/config.R"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/distributions.R"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/diagnostics.R"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/report_helpers.R"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">load_final_summary</span>()</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">nrow</span>(s) <span class="sc">==</span> <span class="dv">8</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.kable.NA =</span> <span class="st">"N/A"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(s[, <span class="fu">c</span>(<span class="st">"population"</span>, <span class="st">"selected_n"</span>, <span class="st">"acceptance_reason"</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"smaller_n_reason"</span>, <span class="st">"key_observation"</span>)],</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Population"</span>, <span class="st">"Selected n"</span>, <span class="st">"Why I accept"</span>, <span class="st">"Why not smaller"</span>, <span class="st">"Issue / surprise"</span>))</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(s[, <span class="fu">c</span>(<span class="st">"population"</span>, <span class="st">"independent"</span>, <span class="st">"identically_distributed"</span>,</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a> <span class="st">"finite_variance"</span>, <span class="st">"skewness_at_selected_n"</span>, <span class="st">"excess_kurtosis_at_selected_n"</span>,</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a> <span class="st">"qq_rmse_at_selected_n"</span>, <span class="st">"empirical_se_at_selected_n"</span>, <span class="st">"theoretical_se_or_reference"</span>)],</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a> <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Population"</span>, <span class="st">"Independent"</span>, <span class="st">"Identical"</span>, <span class="st">"Finite variance"</span>,</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a> <span class="st">"Skewness"</span>, <span class="st">"Excess kurtosis"</span>, <span class="st">"Q-Q RMSE"</span>, <span class="st">"Empirical SE"</span>, <span class="st">"Theoretical SE"</span>))</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>N/A for Cauchy means no finite selection and no valid population moment targets. Dependence has finite individual second moments but no supplied theoretical mean or SE for this nonstationary-start process; a dependent CLT is not established here.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Assumptions and numerical evidence</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(s[, <span class="fu">c</span>(<span class="st">"population"</span>, <span class="st">"independent"</span>, <span class="st">"identically_distributed"</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a> <span class="st">"finite_variance"</span>, <span class="st">"skewness_at_selected_n"</span>, <span class="st">"excess_kurtosis_at_selected_n"</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a> <span class="st">"qq_rmse_at_selected_n"</span>, <span class="st">"empirical_se_at_selected_n"</span>, <span class="st">"theoretical_se_or_reference"</span>)],</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a> <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Population"</span>, <span class="st">"Independent"</span>, <span class="st">"Identical"</span>, <span class="st">"Finite variance"</span>,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a> <span class="st">"Skewness"</span>, <span class="st">"Excess kurtosis"</span>, <span class="st">"Q-Q RMSE"</span>, <span class="st">"Empirical SE"</span>, <span class="st">"Theoretical SE"</span>))</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two views of convergence</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>N/A for Cauchy means no finite selection and no valid population moment targets. Dependence has finite individual second moments but no supplied theoretical mean or SE for this nonstationary-start process; a dependent CLT is not established here.</span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="al">![Q-Q discrepancy across the tested sample sizes; both axes use log scales.](figures/convergence_race.png)</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two views of convergence</span></span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="al">![Coarse-grid and selected-n Q-Q error. Circles mark selections; white cells are untested.](figures/normality_heatmap.png)</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="al">![Q-Q discrepancy across the tested sample sizes; both axes use log scales.](figures/convergence_race.png)</span></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## What I take from this</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="al">![Coarse-grid and selected-n Q-Q error. Circles mark selections; white cells are untested.](figures/normality_heatmap.png)</span></span>
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>The surprising contrast is that a complicated synthetic population can smooth faster than a simple skewed distribution. Discrete steps are not automatically a failure. Matching a mean and SE does not establish a Normal shape. Dependence changes variance reasoning; non-identical independent shots need individual variances. Heavy tails can invalidate the ordinary CLT altogether.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## What I take from this</span></span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Each separate investigation includes population shape or process behavior, retrospective theory expectation, important code explanations, boundary plots and both-seed diagnostics. The expectation is not presented as a personal prediction made before the original simulations.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>The surprising contrast is that a complicated synthetic population can smooth faster than a simple skewed distribution. Discrete steps are not automatically a failure. Matching a mean and SE does not establish a Normal shape. Dependence changes variance reasoning; non-identical independent shots need individual variances. Heavy tails can invalidate the ordinary CLT altogether.</span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproducibility and AI</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>Each separate investigation includes population shape or process behavior, retrospective theory expectation, important code explanations, boundary plots and both-seed diagnostics. The expectation is not presented as a personal prediction made before the original simulations.</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>The seed is 7616, with fixed sensitivity seed 7617. <span class="co">[</span><span class="ot">Methodology</span><span class="co">](methodology.qmd)</span>, <span class="co">[</span><span class="ot">AI log</span><span class="co">](ai/ai_interactions.md)</span>, <span class="co">[</span><span class="ot">README</span><span class="co">](README.md)</span> and original instructor references document the workflow. Judgment inputs live in <span class="in">`results/decisions.csv`</span>; <span class="in">`scripts/finalize_summary.R`</span> validates boundary evidence and copies generated diagnostics into the summary. It does not infer normality from a single test or metric.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproducibility and AI</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>The seed is 7616, with fixed sensitivity seed 7617. <span class="co">[</span><span class="ot">Methodology</span><span class="co">](methodology.qmd)</span>, <span class="co">[</span><span class="ot">AI log</span><span class="co">](ai/ai_interactions.md)</span>, <span class="co">[</span><span class="ot">README</span><span class="co">](README.md)</span> and original instructor references document the workflow. Judgment inputs live in <span class="in">`results/decisions.csv`</span>; <span class="in">`scripts/finalize_summary.R`</span> validates boundary evidence and copies generated diagnostics into the summary. It does not infer normality from a single test or metric.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

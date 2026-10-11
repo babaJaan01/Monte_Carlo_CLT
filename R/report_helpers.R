@@ -94,8 +94,10 @@ load_sample_means <- function(id, n, seed_label = "student_seed") {
 
 plot_review_evidence <- function(id, n_values) {
   spec <- population_spec(id)
-  old <- par(mfrow = c(2, length(n_values)), mar = c(4, 4, 3, 1),
-             col.main = "#17212B", cex.main = 0.85)
+  single <- length(n_values) == 1L
+  old <- par(mfrow = if (single) c(1, 2) else c(2, length(n_values)),
+             mar = if (single) c(3, 3.5, 2, 1) else c(4, 4, 3, 1),
+             mgp = c(1.8, 0.55, 0), col.main = "#17212B", cex.main = 0.85)
   on.exit(par(old))
   for (n in n_values) {
     x <- load_sample_means(id, n)
@@ -129,7 +131,7 @@ plot_review_evidence <- function(id, n_values) {
     z <- (x - mean(x)) / sd(x)
     qqnorm(z, pch = 16, cex = 0.2, col = "#247F83",
            main = paste("Q-Q RMSE", round(qq_rmse(x), 3)),
-           ylab = "Standardized sample mean")
+           ylab = "Standardized mean")
     qqline(z, col = "#D66B32", lwd = 2)
   }
 }

@@ -80,3 +80,13 @@ Use this file to document actual AI-assisted iterations. Do not add invented pro
 **Honesty limit:** Theory-based expectations are retrospective; no personal prediction made before the original run or unrecorded reaction is fabricated. AI selected the working boundary integers under my approved practical standard.
 
 **Validation:** The same saved-vector guard links PDF plots to diagnostic rows. Cauchy plots now label a conditional central histogram window while Q-Q plots and numerical diagnostics retain all means; finite-value checks reject failed vectors rather than silently dropping them. Final rendering and page inspection are recorded in `VALIDATION.md`.
+
+## Concise final-report revision: October 10, 2026
+
+**Actual prompt:** I said the previous approximately 35-page report was unacceptable and required a polished 13–14-page summary, at most 15 pages. I specified a professor-friendly page guide, actual result tables, compact distribution cards, explanations of smaller-n choices, special cases, seed checks, AI iteration and the file map. I prohibited invented results, predictions and AI interactions.
+
+**Follow-up:** When asked about attribution for the working integers, I emphasized that I really interacted with AI and repeated the professor's questions: did AI help with a complicated project, did I correct/modify it, and do I understand it? The report uses our real exchanges and separates my input from AI-generated code and boundary proposals; this is not a fabricated independent audit or a claim of complete mastery.
+
+**Weakness / improvement:** Dumping all diagnostic rows and code made the grading argument difficult to find. AI rebuilt the same Quarto source around a 14-page summary and used the existing saved results, not new or estimated conclusions. During visual inspection, raw Markdown tables and a clipped Q-Q label were discovered and corrected before delivery.
+
+**Validation:** R smoke/model checks and both seeds' saved-vector checks were rerun. Summary generation asserts agreement with the executed diagnostic rows. The rendered PDF is inspected page by page; a Typst assertion prevents accepting a layout other than the reviewed 14 pages. The full simulation was not rerun for a presentation-only revision. See `VALIDATION.md` for final checks.
