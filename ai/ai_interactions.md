@@ -18,55 +18,41 @@ I used AI to help build and revise an R + Quarto Monte Carlo project. These are 
 
 **How it was checked:** AI ran the saved-vector validation against each seed's CSV. The refined evidence stays in the eight investigations and the PDF's boundary section. I questioned the reasoning; I did not personally discover the underlying code defects or independently audit every integer.
 
-## 2. The PDF needed to contain the actual answers
+## 2. Implement a reusable Q-Q RMSE function
 
-**I asked (excerpt):**
+**I asked (excerpt from my original implementation request):**
 
-> Where in the pdf do we directly answer them all?
+> Implement a reusable Q-Q RMSE metric.
 
-I also asked whether the AI iteration evidence was elsewhere in the repository, then followed up:
+**AI said (response summary):** Use one R function to standardize the simulated sample means by their empirical mean and SD, sort them, compare them with standard-Normal rank quantiles, and calculate the root-mean-square difference. Use the metric alongside plots and other diagnostics, not as proof of Normality.
 
-> EVERYTHING should be in the pdf pertaining to the instructions.
+**What changed:** AI implemented `qq_rmse()` in `R/diagnostics.R`. It uses `sort((x - mean(x)) / sd(x))`, `qnorm(ppoints(length(x)))`, and the square root of the mean squared differences. The shared diagnostic function and reports reuse it instead of duplicating the calculation.
 
-**AI said (response summary):** The short report was not self-contained: some decisions, evidence and AI iteration required browsing other files. The report needed direct answers to the three questions and evidence for every assigned case.
+**How it was checked:** The existing saved-vector checks recompute Q-Q RMSE from each plotted vector and require agreement with its matching CSV row. Both seeds passed those checks in the recorded validation. I requested the feature; AI wrote and checked the implementation.
 
-**What changed:** AI re-read the seven supplied instructor documents and expanded the PDF with the eight investigations, explicit answers, seed comparisons, special-case checks and actual AI examples. That version became approximately 35 pages; the next exchange corrected its length.
+## 3. Implement a Normal calibration benchmark
 
-**How it was checked:** The project scope was checked against the updated guidance: five required cases and three extra-credit cases. Plotted vectors were linked to saved diagnostic rows. Cauchy histograms label their conditional central window; Q-Q plots and metrics retain all B means. These were AI-run source/code checks, not a separate human audit.
+**I asked (excerpt from my original implementation request):**
 
-## 3. Too much output hid the statistical argument
+> Use the Standard Normal population as a calibration benchmark for what simulation noise looks like even when the sampling distribution is truly normal.
 
-**I asked (excerpt):**
+**AI said (response summary):** Repeat genuinely Normal Monte Carlo experiments to see how skewness, excess kurtosis and Q-Q RMSE fluctuate even when Normality is exact. Save empirical diagnostic ranges for comparison, without turning them into mathematically exact acceptance thresholds.
 
-> The previous version of this report became approximately 35 pages long. That is unacceptable.
+**What changed:** AI implemented `normal_benchmark()` and `summarize_normal_benchmark()`. The configured design uses 30 experiments at each coarse n, with B = 10,000 sample means per experiment. It saves replicate diagnostics and their empirical 2.5th–97.5th percentile ranges.
 
-I requested a polished 13–14-page summary with a 15-page maximum, actual result tables, compact histogram/Q-Q cards, explanations of the selected n values, seed sensitivity and real AI iteration. I prohibited invented results, predictions and interactions.
+**How it was checked:** The recorded final validation recomputed the calibration summary from the saved replicate diagnostics and matched it against the summary CSV. The reports explain that these ranges provide context; accepted practical approximations need not match Normal-only simulation noise. I requested the benchmark, rather than choosing an arbitrary diagnostic cutoff.
 
-**AI said (response summary):** Reorganize the same evidence around conclusions and compact result cards. Keep full code and tested-grid diagnostics in the separate investigations; do not invent new values or conclusions to compress the report.
+## 4. Clarify why correct mean and SE are not enough
 
-**What changed:** AI produced a 14-page Quarto/Typst summary using the existing results. Visual review found raw table output and a clipped Q-Q label; AI repaired them before delivery. This was a presentation revision, not a new simulation.
+**I asked (excerpt from my clarification during review):**
 
-**How it was checked:** AI reran the R model and saved-vector tests, checked displayed metrics against the CSVs and inspected every rendered page. The source included a page-count assertion. The subsequent layout revision changed that assertion to 13 pages.
+> maybe Because the mean and standard error depend on different aspects of the distribution than its overall shape?
 
-## 4. Make the answers and AI iteration easy to find
+**AI said (response summary):** Yes: the mean describes the center, and SE describes the spread of the sample means. Different shapes can have the same center and spread. Agreement with those theoretical quantities checks the simulation, but does not remove skewness, tail curvature or discrete Q-Q steps.
 
-**I asked (excerpt):**
+**What changed:** The interpretation separates center/spread validation from shape assessment. The decision argument combines mean/SE checks with histograms, Q-Q plots, skewness, excess kurtosis and nearby-n stability, rather than accepting a case solely because its SE is correct.
 
-> just move them higher up in the doc, like 2nd page so they are answered definitely. Then like say "i came to this conclusion because of these sections"
-
-I also requested AI iteration on page 3, a 13-page target and clearly identified extra-credit cases. I later specified:
-
-> It needs to be like a submission ready pdf.
-
-**AI said (verbatim excerpt):**
-
-> Three answers on page 2; actual AI iteration on page 3.
-
-The same delivery response confirmed that all three extra-credit cases were labeled, every page was inspected, and results were unchanged.
-
-**What changed:** The report now has a cover index, evidence references after each direct answer, AI collaboration on page 3, eight result cards and a combined moment/seed-check page. The README now leads with the PDF. In this final cleanup, I requested this simpler “I asked / AI said” log instead of an empty template and dense revision notes.
-
-**How it was checked:** AI rerendered the report and website, checked the actual page numbers and displayed values, and compared both downloadable PDF copies. The final source requires exactly 13 pages rather than silently accepting overflow.
+**How it was checked:** The saved Exponential evidence illustrates the distinction: at n=90, empirical and theoretical SE are close, while residual right skew and Q-Q tail bending remain. The reports present both forms of evidence. My message was a tentative clarification, not a claim that I independently verified the entire analysis.
 
 ## My role and the important distinctions
 
